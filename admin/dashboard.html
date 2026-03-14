@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - All Things Automated</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="admin-container">
+    <!-- SIDEBAR -->
+    <div class="admin-sidebar">
+      <div class="sidebar-logo">
+        <img src="../assets/logo-color.svg" alt="All Things Automated">
+      </div>
+
+      <div class="sidebar-nav">
+        <div class="sidebar-nav-item active" data-view="dashboard">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>
+          <span>Dashboard</span>
+        </div>
+        <div class="sidebar-nav-item" data-view="inquiries">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <span>Quote Inquiries</span>
+        </div>
+        <div class="sidebar-nav-item" data-view="blog">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          <span>Blog Posts</span>
+        </div>
+        <div class="sidebar-nav-item" data-view="settings">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+          <span>Settings</span>
+        </div>
+      </div>
+
+      <div class="sidebar-logout">
+        <button class="btn-logout" id="logoutBtn">Log Out</button>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="admin-main">
+      <!-- DASHBOARD VIEW -->
+      <div id="dashboard-view" class="admin-view active">
+        <div class="admin-header">
+          <div>
+            <h1>Dashboard</h1>
+            <p class="admin-subtitle">Welcome back — here's what's happening.</p>
+          </div>
+        </div>
+
+        <div class="stat-cards">
+          <div class="stat-card">
+            <div class="stat-label">Total Quote Requests</div>
+            <div class="stat-value" id="totalQuotes">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Unread Inquiries</div>
+            <div class="stat-value" id="unreadQuotes">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Blog Posts Published</div>
+            <div class="stat-value" id="publishedPosts">0</div>
+          </div>
+        </div>
+
+        <h2 style="margin-bottom: 24px;">Recent Activity</h2>
+        <div id="activityList" style="max-height: 400px; overflow-y: auto;"></div>
+      </div>
+
+      <!-- INQUIRIES VIEW -->
+      <div id="inquiries-view" class="admin-view" style="display: none;">
+        <div class="admin-header">
+          <h1>Quote Inquiries</h1>
+          <div class="admin-header-right">
+            <button class="btn btn-gray" id="exportBtn">Export CSV</button>
+          </div>
+        </div>
+
+        <div class="filter-row">
+          <button class="pill-btn active" data-filter="all">All</button>
+          <button class="pill-btn" data-filter="unread">Unread</button>
+          <button class="pill-btn" data-filter="read">Read</button>
+        </div>
+
+        <div class="table-container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>City</th>
+                <th>Service</th>
+                <th>Message</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="inquiriesTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- BLOG VIEW -->
+      <div id="blog-view" class="admin-view" style="display: none;">
+        <div class="admin-header">
+          <h1>Blog Posts</h1>
+          <div class="admin-header-right">
+            <button class="btn btn-primary" id="newPostBtn">New Post</button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="blogTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SETTINGS VIEW -->
+      <div id="settings-view" class="admin-view" style="display: none;">
+        <div class="admin-header">
+          <h1>Settings</h1>
+        </div>
+
+        <div style="background-color: white; border-radius: 14px; padding: 32px; max-width: 600px;">
+          <h3 style="margin-bottom: 24px;">Business Information</h3>
+
+          <form id="settingsForm">
+            <div class="form-group">
+              <label for="businessName">Business Name</label>
+              <input type="text" id="businessName" name="businessName" value="All Things Automated">
+            </div>
+
+            <div class="form-group">
+              <label for="tagline">Tagline</label>
+              <input type="text" id="tagline" name="tagline" value="Step Into The World Of Smart Homes With Ease">
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" value="(941) 555-0123">
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" value="hello@allthingsautomated.com">
+            </div>
+
+            <div class="form-group">
+              <label for="serviceArea">Service Area</label>
+              <input type="text" id="serviceArea" name="serviceArea" value="Sarasota, Manatee & Charlotte Counties, Florida">
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 12px;">Save Changes</button>
+          </form>
+
+          <h3 style="margin-top: 48px; margin-bottom: 24px;">Change Password</h3>
+
+          <form id="passwordForm">
+            <div class="form-group">
+              <label for="currentPassword">Current Password</label>
+              <input type="password" id="currentPassword" name="currentPassword" placeholder="••••••••">
+            </div>
+
+            <div class="form-group">
+              <label for="newPassword">New Password</label>
+              <input type="password" id="newPassword" name="newPassword" placeholder="••••••••">
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password</label>
+              <input type="password" id="confirmPassword" name="confirmPassword" placeholder="••••••••">
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 12px;">Update Password</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDITOR PANEL -->
+  <div class="editor-panel" id="editorPanel">
+    <div class="panel-header">
+      <h2 id="editorTitle">New Post</h2>
+      <button class="panel-close" id="panelClose">×</button>
+    </div>
+
+    <form id="editorForm">
+      <div class="form-group">
+        <label for="editorTitle">Title</label>
+        <input type="text" id="postTitle" name="title" placeholder="Post title">
+      </div>
+
+      <div class="form-group">
+        <label for="editorCategory">Category</label>
+        <select id="postCategory" name="category">
+          <option value="Smart Lighting">Smart Lighting</option>
+          <option value="Security">Security</option>
+          <option value="Climate">Climate</option>
+          <option value="Automation">Automation</option>
+          <option value="Tips">Tips</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Status</label>
+        <div class="toggle-switch">
+          <div class="toggle-option active" data-status="Published">Published</div>
+          <div class="toggle-option" data-status="Draft">Draft</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="postContent">Content</label>
+        <textarea id="postContent" name="content" placeholder="Write your post content here..." style="height: 240px;"></textarea>
+      </div>
+
+      <div class="panel-footer">
+        <button type="button" class="btn btn-gray" id="panelCancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Post</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
