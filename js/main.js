@@ -288,6 +288,20 @@ function initContactForm() {
     inquiries.push(inquiry);
     localStorage.setItem('ata_inquiries', JSON.stringify(inquiries));
 
+    // Send to API for cloud storage
+    fetch('/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, phone, address: city, service, message, date: new Date().toISOString(), source: 'contact-form', score: 0, tier: '', status: 'new' })
+    }).catch(function() {});
+
+    // Email notification
+    fetch('https://formsubmit.co/ajax/jorge@allthingsautomated.org', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ _subject: '[CONTACT FORM] ' + name + ' - ' + service, Name: name, Email: email, Phone: phone, City: city, Service: service, Message: message, _template: 'table' })
+    }).catch(function() {});
+
     const successMsg = document.querySelector('.success-message');
     if (successMsg) {
       successMsg.classList.add('show');
@@ -416,6 +430,20 @@ function initLeadCapture() {
       localStorage.setItem('ata_leads', JSON.stringify(leads));
       localStorage.setItem('ata_lead_subscribed', 'true');
 
+      // Send to API
+      fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, date: new Date().toISOString(), source: 'popup', status: 'new' })
+      }).catch(function() {});
+
+      // Email notification
+      fetch('https://formsubmit.co/ajax/jorge@allthingsautomated.org', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ _subject: '[POPUP LEAD] ' + name, Name: name, Email: email, _template: 'table' })
+      }).catch(function() {});
+
       // Show success
       overlay.querySelector('.lead-popup-content').innerHTML = `
         <div class="lead-icon">
@@ -463,6 +491,20 @@ function initFooterNewsletter() {
     leads.push({ name: '', email, date: new Date().toISOString(), source: 'footer' });
     localStorage.setItem('ata_leads', JSON.stringify(leads));
     localStorage.setItem('ata_lead_subscribed', 'true');
+
+    // Send to API
+    fetch('/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: '', email, date: new Date().toISOString(), source: 'footer', status: 'new' })
+    }).catch(function() {});
+
+    // Email notification
+    fetch('https://formsubmit.co/ajax/jorge@allthingsautomated.org', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ _subject: '[NEWSLETTER] New subscriber', Email: email, _template: 'table' })
+    }).catch(function() {});
 
     form.innerHTML = '<p style="color: var(--color-primary); font-weight: 500;">Subscribed! Welcome aboard.</p>';
   });

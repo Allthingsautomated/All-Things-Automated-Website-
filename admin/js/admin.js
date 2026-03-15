@@ -692,7 +692,22 @@ function sourceBadge(source) {
 }
 
 function refreshLeads() {
-  const leads = DB.get('leads');
+  // Try to load from API first, fall back to localStorage
+  fetch('/api/leads')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.leads && data.leads.length > 0) {
+        renderLeads(data.leads);
+      } else {
+        renderLeads(DB.get('leads'));
+      }
+    })
+    .catch(function() {
+      renderLeads(DB.get('leads'));
+    });
+}
+
+function renderLeads(leads) {
 
   // Stats
   document.getElementById('leads-total').textContent = leads.length;

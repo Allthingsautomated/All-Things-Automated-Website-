@@ -877,10 +877,33 @@
         status: 'new'
       };
 
-      var leads = [];
-      try { leads = JSON.parse(localStorage.getItem('ata_leads')) || []; } catch(ex) { leads = []; }
-      leads.push(lead);
-      localStorage.setItem('ata_leads', JSON.stringify(leads));
+      // Send lead to API (Cloudflare KV storage)
+      fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(lead)
+      }).catch(function() {});
+
+      // Send email notification via FormSubmit
+      fetch('https://formsubmit.co/ajax/jorge@allthingsautomated.org', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          _subject: '[' + tier.toUpperCase() + ' LEAD] ' + firstName + ' ' + lastName + ' - ' + selections.service,
+          Name: firstName + ' ' + lastName,
+          Email: email,
+          Phone: phone,
+          Address: address || 'Not provided',
+          Service: selections.service,
+          Budget: selections.budget,
+          Timeline: selections.timeline,
+          'Lead Score': score + '/100 (' + tier.toUpperCase() + ')',
+          Message: message || 'None',
+          'UTM Source': utm.utm_source || 'Direct',
+          'UTM Campaign': utm.utm_campaign || 'None',
+          _template: 'table'
+        })
+      }).catch(function() {});
 
       // GA4 conversion event with value
       if (typeof gtag === 'function') {
