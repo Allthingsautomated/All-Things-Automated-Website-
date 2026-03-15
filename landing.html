@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Smart Home Consultation | All Things Automated - Sarasota, FL</title>
-  <meta name="description" content="Get a free smart home consultation from Sarasota's top-rated automation experts. Smart lighting, security cameras, climate control & whole-home automation.">
+  <title>Smart Home Automation | All Things Automated - Sarasota, FL</title>
+  <meta name="description" content="Premium smart home automation for Sarasota luxury homes. Custom lighting, security, climate, and whole-home Control4 & Lutron systems. Request a quote today.">
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -35,6 +34,7 @@
       --color-border: rgba(255,255,255,0.06);
       --color-border-light: rgba(255,255,255,0.1);
       --color-success: #10B981;
+      --color-gold: #F59E0B;
       --font-heading: 'Syne', sans-serif;
       --font-body: 'Inter', sans-serif;
     }
@@ -42,6 +42,34 @@
     body { font-family: var(--font-body); color: var(--color-text); background: var(--color-dark); line-height: 1.6; overflow-x: hidden; }
     h1,h2,h3,h4 { font-family: var(--font-heading); font-weight: 800; color: var(--color-white); }
     img { max-width: 100%; display: block; }
+
+    /* ---- TOPBAR ---- */
+    .topbar {
+      background: var(--color-dark-2);
+      border-bottom: 1px solid var(--color-border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .topbar-logo {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--color-white);
+      letter-spacing: -0.02em;
+    }
+    .topbar-logo span { color: var(--color-primary); }
+    .topbar-phone {
+      color: var(--color-text-light);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .topbar-phone:hover { color: var(--color-primary); }
 
     /* ---- HERO ---- */
     .hero {
@@ -63,10 +91,10 @@
     .hero-inner {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 60px 24px;
+      padding: 48px 24px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 60px;
+      gap: 56px;
       align-items: center;
       position: relative;
       z-index: 1;
@@ -75,26 +103,25 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(58,127,193,0.1);
-      border: 1px solid rgba(58,127,193,0.2);
+      background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.25);
       border-radius: 100px;
       padding: 6px 16px;
       font-size: 13px;
       font-weight: 600;
-      color: var(--color-primary);
+      color: var(--color-gold);
       letter-spacing: 0.5px;
       margin-bottom: 20px;
     }
-    .hero-badge svg { flex-shrink: 0; }
     .hero h1 {
-      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-size: clamp(2rem, 4.5vw, 3rem);
       line-height: 1.1;
       margin-bottom: 16px;
       letter-spacing: -0.02em;
     }
     .hero h1 .accent { color: var(--color-primary); }
     .hero .subtitle {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: var(--color-text-light);
       margin-bottom: 28px;
       max-width: 480px;
@@ -123,26 +150,15 @@
       opacity: 0.5;
       flex-wrap: wrap;
     }
-    .brands span {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--color-text);
-      font-weight: 600;
-    }
-    .brand-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--color-text-light);
-      letter-spacing: 0.5px;
-    }
+    .brands span { font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--color-text); font-weight: 600; }
+    .brand-name { font-size: 14px; font-weight: 700; color: var(--color-text-light); letter-spacing: 0.5px; }
 
-    /* ---- FORM CARD ---- */
+    /* ---- MULTI-STEP FORM ---- */
     .form-card {
       background: var(--color-dark-card);
       border: 1px solid var(--color-border-light);
       border-radius: 20px;
-      padding: 40px 32px;
+      padding: 36px 28px;
       position: relative;
       box-shadow: 0 25px 60px rgba(0,0,0,0.4);
     }
@@ -154,85 +170,153 @@
       background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
       border-radius: 20px 20px 0 0;
     }
-    .form-card h2 {
-      font-size: 1.5rem;
-      margin-bottom: 4px;
-    }
-    .form-card .form-sub {
-      color: var(--color-text);
-      font-size: 14px;
+    .form-header { margin-bottom: 24px; }
+    .form-header h2 { font-size: 1.4rem; margin-bottom: 4px; }
+    .form-header p { color: var(--color-text); font-size: 14px; }
+
+    /* Progress bar */
+    .progress-bar {
+      display: flex;
+      gap: 6px;
       margin-bottom: 24px;
     }
-    .form-group {
+    .progress-step {
+      flex: 1;
+      height: 4px;
+      background: var(--color-dark-4);
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+    .progress-step.active { background: var(--color-primary); }
+    .progress-step.done { background: var(--color-success); }
+
+    /* Steps */
+    .form-step { display: none; }
+    .form-step.active { display: block; }
+    .step-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--color-primary);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Option cards for qualifying questions */
+    .option-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
       margin-bottom: 16px;
     }
+    .option-card {
+      background: var(--color-dark-2);
+      border: 2px solid var(--color-border-light);
+      border-radius: 12px;
+      padding: 16px 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .option-card:hover { border-color: rgba(58,127,193,0.4); background: rgba(58,127,193,0.05); }
+    .option-card.selected { border-color: var(--color-primary); background: rgba(58,127,193,0.1); }
+    .option-card .opt-icon { font-size: 24px; margin-bottom: 6px; display: block; }
+    .option-card .opt-label {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--color-white);
+      display: block;
+    }
+    .option-card .opt-sub {
+      font-size: 12px;
+      color: var(--color-text);
+      margin-top: 2px;
+      display: block;
+    }
+    .option-single { grid-template-columns: 1fr; }
+    .option-single .option-card { text-align: left; display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
+    .option-single .option-card .opt-icon { margin-bottom: 0; font-size: 20px; }
+    .option-single .option-card .opt-text { flex: 1; }
+
+    /* Form fields */
+    .form-group { margin-bottom: 14px; }
     .form-group label {
       display: block;
       font-size: 13px;
       font-weight: 600;
       color: var(--color-text-light);
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
     .form-group input,
-    .form-group select,
     .form-group textarea {
       width: 100%;
-      padding: 12px 16px;
+      padding: 12px 14px;
       background: var(--color-dark-2);
       border: 1px solid var(--color-border-light);
       border-radius: 10px;
       color: var(--color-white);
       font-family: var(--font-body);
       font-size: 15px;
-      transition: border 0.2s ease;
+      transition: border 0.2s;
       outline: none;
     }
     .form-group input:focus,
-    .form-group select:focus,
     .form-group textarea:focus {
       border-color: var(--color-primary);
       box-shadow: 0 0 0 3px rgba(58,127,193,0.15);
     }
-    .form-group select { cursor: pointer; -webkit-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
-    .form-group select option { background: var(--color-dark-2); color: var(--color-white); }
-    .form-group textarea { resize: vertical; min-height: 80px; }
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .btn-submit {
-      width: 100%;
-      padding: 16px;
+    .form-group textarea { resize: vertical; min-height: 70px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    /* Buttons */
+    .btn-row { display: flex; gap: 10px; margin-top: 20px; }
+    .btn-next, .btn-submit {
+      flex: 1;
+      padding: 14px;
       background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
       color: #fff;
       border: none;
       border-radius: 12px;
       font-family: var(--font-heading);
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
       cursor: pointer;
-      letter-spacing: 0.5px;
       transition: transform 0.2s, box-shadow 0.2s;
-      margin-top: 8px;
     }
-    .btn-submit:hover {
+    .btn-next:hover, .btn-submit:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 30px rgba(58,127,193,0.35);
     }
-    .btn-submit:active { transform: translateY(0); }
-    .form-footer {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 14px;
-      font-size: 12px;
+    .btn-back {
+      padding: 14px 20px;
+      background: transparent;
       color: var(--color-text);
+      border: 1px solid var(--color-border-light);
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.2s;
     }
-    .form-footer svg { flex-shrink: 0; }
+    .btn-back:hover { border-color: var(--color-text); }
+    .btn-next:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
 
-    /* ---- SOCIAL PROOF STRIP ---- */
+    /* Disqualify screen */
+    .dq-screen { text-align: center; padding: 32px 16px; }
+    .dq-screen h3 { font-size: 1.3rem; margin-bottom: 10px; }
+    .dq-screen p { color: var(--color-text-light); font-size: 14px; margin-bottom: 20px; }
+    .dq-screen a {
+      display: inline-block;
+      color: var(--color-primary);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+    .dq-screen a:hover { border-bottom-color: var(--color-primary); }
+
+    /* ---- SOCIAL PROOF ---- */
     .proof-strip {
       background: var(--color-dark-2);
       border-top: 1px solid var(--color-border);
@@ -252,108 +336,79 @@
       font-size: 2rem;
       font-weight: 800;
       color: var(--color-primary);
-      display: block;
     }
-    .proof-stat .label {
-      font-size: 13px;
-      color: var(--color-text);
-      margin-top: 4px;
-    }
+    .proof-stat .label { font-size: 13px; color: var(--color-text); margin-top: 4px; }
 
-    /* ---- SERVICES GRID ---- */
-    .services {
+    /* ---- WHAT YOU GET ---- */
+    .value-section {
       padding: 80px 24px;
-      max-width: 1100px;
+      max-width: 1000px;
       margin: 0 auto;
     }
-    .services h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 12px;
-    }
-    .services .section-sub {
+    .value-section h2 { text-align: center; font-size: 2rem; margin-bottom: 12px; }
+    .value-section .section-sub {
       text-align: center;
       color: var(--color-text);
       max-width: 520px;
       margin: 0 auto 48px;
       font-size: 15px;
     }
-    .services-grid {
+    .value-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 24px;
     }
-    .service-card {
+    .value-card {
       background: var(--color-dark-card);
       border: 1px solid var(--color-border);
       border-radius: 16px;
-      padding: 32px 24px;
-      text-align: center;
-      transition: border-color 0.3s, transform 0.3s;
-    }
-    .service-card:hover {
-      border-color: rgba(58,127,193,0.3);
-      transform: translateY(-4px);
-    }
-    .service-icon {
-      width: 56px; height: 56px;
-      background: rgba(58,127,193,0.1);
-      border-radius: 14px;
+      padding: 28px 24px;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 16px;
+      gap: 16px;
+      transition: border-color 0.3s;
     }
-    .service-icon svg { color: var(--color-primary); }
-    .service-card h3 {
-      font-size: 1.05rem;
-      margin-bottom: 8px;
-    }
-    .service-card p {
-      font-size: 14px;
-      color: var(--color-text);
-      line-height: 1.5;
-    }
-
-    /* ---- HOW IT WORKS ---- */
-    .how-it-works {
-      background: var(--color-dark-2);
-      padding: 80px 24px;
-    }
-    .how-inner {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .how-it-works h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 48px;
-    }
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
-      position: relative;
-    }
-    .step {
-      text-align: center;
-      position: relative;
-    }
-    .step-num {
-      width: 48px; height: 48px;
-      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
-      border-radius: 50%;
+    .value-card:hover { border-color: rgba(58,127,193,0.3); }
+    .value-num {
+      width: 40px; height: 40px;
+      background: rgba(58,127,193,0.1);
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: var(--font-heading);
       font-weight: 800;
-      font-size: 1.2rem;
-      color: #fff;
-      margin: 0 auto 16px;
+      font-size: 1.1rem;
+      color: var(--color-primary);
+      flex-shrink: 0;
     }
-    .step h3 { font-size: 1.1rem; margin-bottom: 8px; }
-    .step p { font-size: 14px; color: var(--color-text); }
+    .value-card h3 { font-size: 1rem; margin-bottom: 6px; }
+    .value-card p { font-size: 14px; color: var(--color-text); line-height: 1.5; }
+
+    /* ---- TESTIMONIAL ---- */
+    .testimonial {
+      background: var(--color-dark-2);
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .testimonial-inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .stars { color: var(--color-gold); font-size: 24px; margin-bottom: 16px; letter-spacing: 4px; }
+    .testimonial blockquote {
+      font-size: 1.15rem;
+      color: var(--color-text-light);
+      font-style: italic;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .testimonial cite {
+      font-style: normal;
+      font-weight: 600;
+      color: var(--color-white);
+      font-size: 14px;
+    }
+    .testimonial cite span { color: var(--color-text); font-weight: 400; }
 
     /* ---- CTA BOTTOM ---- */
     .cta-bottom {
@@ -361,19 +416,16 @@
       text-align: center;
     }
     .cta-bottom h2 {
-      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
       margin-bottom: 16px;
     }
-    .cta-bottom p {
-      max-width: 500px;
-      margin: 0 auto 32px;
-      color: var(--color-text-light);
-    }
-    .cta-bottom .btn-submit {
+    .cta-bottom p { max-width: 480px; margin: 0 auto 32px; color: var(--color-text-light); }
+    .cta-bottom .btn-next {
       width: auto;
       padding: 16px 48px;
       display: inline-block;
       font-size: 17px;
+      text-decoration: none;
     }
 
     /* ---- FOOTER ---- */
@@ -386,11 +438,8 @@
     }
     .lp-footer a { color: var(--color-primary); text-decoration: none; }
 
-    /* ---- SUCCESS STATE ---- */
-    .form-success {
-      text-align: center;
-      padding: 40px 20px;
-    }
+    /* ---- SUCCESS ---- */
+    .form-success { text-align: center; padding: 32px 16px; }
     .form-success .check-circle {
       width: 72px; height: 72px;
       background: rgba(16,185,129,0.1);
@@ -400,30 +449,65 @@
       justify-content: center;
       margin: 0 auto 20px;
     }
-    .form-success h2 { font-size: 1.6rem; margin-bottom: 8px; }
-    .form-success p { color: var(--color-text-light); }
+    .form-success h2 { font-size: 1.5rem; margin-bottom: 8px; }
+    .form-success p { color: var(--color-text-light); font-size: 14px; }
+    .form-success .next-steps {
+      margin-top: 20px;
+      text-align: left;
+      background: var(--color-dark-2);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .form-success .next-steps h4 {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: var(--color-primary);
+    }
+    .form-success .next-steps li {
+      color: var(--color-text-light);
+      font-size: 13px;
+      margin-bottom: 6px;
+      list-style: none;
+      padding-left: 20px;
+      position: relative;
+    }
+    .form-success .next-steps li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--color-primary);
+    }
 
     /* ---- RESPONSIVE ---- */
     @media (max-width: 900px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 40px; padding-top: 40px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 36px; padding-top: 32px; }
       .hero-content { text-align: center; }
       .hero .subtitle { margin-left: auto; margin-right: auto; }
       .trust-row { justify-content: center; }
       .brands { justify-content: center; }
       .proof-inner { grid-template-columns: repeat(2, 1fr); }
-      .services-grid { grid-template-columns: 1fr 1fr; }
+      .value-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 600px) {
-      .hero-inner { padding: 30px 16px; }
-      .form-card { padding: 28px 20px; }
+      .hero-inner { padding: 24px 16px; }
+      .form-card { padding: 24px 18px; }
+      .option-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
       .proof-inner { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-      .services-grid { grid-template-columns: 1fr; }
-      .steps { grid-template-columns: 1fr; gap: 32px; }
+      .topbar { flex-direction: column; gap: 8px; text-align: center; }
     }
   </style>
 </head>
 <body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-logo">ALL THINGS <span>AUTOMATED</span></div>
+    <a href="tel:+19415550123" class="topbar-phone">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      (941) 555-0123
+    </a>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -431,10 +515,10 @@
       <div class="hero-content">
         <div class="hero-badge">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          Sarasota's #1 Smart Home Experts
+          Serving Sarasota's Finest Homes
         </div>
-        <h1>Transform Your Home with <span class="accent">Intelligent Automation</span></h1>
-        <p class="subtitle">Custom smart home solutions for lighting, security, climate, and whole-home control — designed and installed by certified professionals.</p>
+        <h1>Premium Smart Home Automation for <span class="accent">Luxury Living</span></h1>
+        <p class="subtitle">Custom-designed Control4, Lutron, and smart security systems — installed by certified professionals who understand high-end homes.</p>
         <div class="trust-row">
           <div class="trust-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><path d="M20 6L9 17l-5-5"/></svg>
@@ -446,62 +530,169 @@
           </div>
           <div class="trust-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><path d="M20 6L9 17l-5-5"/></svg>
-            Free Consultation
+            Certified Installers
           </div>
         </div>
         <div class="brands">
-          <span>Trusted Brands:</span>
+          <span>We Install:</span>
           <span class="brand-name">Lutron</span>
           <span class="brand-name">Control4</span>
-          <span class="brand-name">Nest</span>
+          <span class="brand-name">Luma</span>
           <span class="brand-name">Ring</span>
         </div>
       </div>
 
-      <!-- LEAD CAPTURE FORM -->
-      <div class="form-card">
-        <h2>Book Your Free Consultation</h2>
-        <p class="form-sub">Tell us about your project and we'll reach out within 24 hours.</p>
-        <form id="landingForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="firstName">First Name *</label>
-              <input type="text" id="firstName" name="firstName" placeholder="Jorge" required>
+      <!-- MULTI-STEP QUALIFYING FORM -->
+      <div class="form-card" id="formCard">
+        <div class="form-header">
+          <h2>Get Your Custom Quote</h2>
+          <p>Answer a few quick questions so we can tailor a solution for your home.</p>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-step active" id="prog1"></div>
+          <div class="progress-step" id="prog2"></div>
+          <div class="progress-step" id="prog3"></div>
+          <div class="progress-step" id="prog4"></div>
+        </div>
+
+        <!-- STEP 1: What service? -->
+        <div class="form-step active" id="step1">
+          <div class="step-title">Step 1 — What do you need?</div>
+          <div class="option-grid" id="serviceOptions">
+            <div class="option-card" data-value="Smart Lighting">
+              <span class="opt-icon">💡</span>
+              <span class="opt-label">Smart Lighting</span>
+              <span class="opt-sub">Scenes, dimmers, schedules</span>
+            </div>
+            <div class="option-card" data-value="Security & Cameras">
+              <span class="opt-icon">📷</span>
+              <span class="opt-label">Security & Cameras</span>
+              <span class="opt-sub">HD cameras, smart locks</span>
+            </div>
+            <div class="option-card" data-value="Climate Control">
+              <span class="opt-icon">🌡️</span>
+              <span class="opt-label">Climate Control</span>
+              <span class="opt-sub">Smart thermostats, zones</span>
+            </div>
+            <div class="option-card" data-value="Full Home Automation">
+              <span class="opt-icon">🏠</span>
+              <span class="opt-label">Full Automation</span>
+              <span class="opt-sub">Control4, Lutron whole-home</span>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn-next" id="btn1" disabled>Continue</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Budget & Timeline (qualifying) -->
+        <div class="form-step" id="step2">
+          <div class="step-title">Step 2 — Project Details</div>
+          <p style="color:var(--color-text);font-size:14px;margin-bottom:14px;">This helps us prepare an accurate quote.</p>
+          <div class="option-grid option-single" id="budgetOptions">
+            <div class="option-card" data-value="Under $1,000">
+              <span class="opt-icon">💲</span>
+              <div class="opt-text">
+                <span class="opt-label">Under $1,000</span>
+                <span class="opt-sub">Single device or room</span>
+              </div>
+            </div>
+            <div class="option-card" data-value="$1,000 - $5,000">
+              <span class="opt-icon">💲💲</span>
+              <div class="opt-text">
+                <span class="opt-label">$1,000 – $5,000</span>
+                <span class="opt-sub">Multi-room upgrade</span>
+              </div>
+            </div>
+            <div class="option-card" data-value="$5,000 - $15,000">
+              <span class="opt-icon">💲💲💲</span>
+              <div class="opt-text">
+                <span class="opt-label">$5,000 – $15,000</span>
+                <span class="opt-sub">Major system install</span>
+              </div>
+            </div>
+            <div class="option-card" data-value="$15,000+">
+              <span class="opt-icon">⭐</span>
+              <div class="opt-text">
+                <span class="opt-label">$15,000+</span>
+                <span class="opt-sub">Whole-home or new build</span>
+              </div>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn-back" onclick="goStep(1)">Back</button>
+            <button class="btn-next" id="btn2" disabled>Continue</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Timeline -->
+        <div class="form-step" id="step3">
+          <div class="step-title">Step 3 — Timeline</div>
+          <div class="option-grid" id="timelineOptions">
+            <div class="option-card" data-value="ASAP">
+              <span class="opt-icon">⚡</span>
+              <span class="opt-label">ASAP</span>
+              <span class="opt-sub">Within 2 weeks</span>
+            </div>
+            <div class="option-card" data-value="1-3 Months">
+              <span class="opt-icon">📅</span>
+              <span class="opt-label">1–3 Months</span>
+              <span class="opt-sub">Planning a project</span>
+            </div>
+            <div class="option-card" data-value="3-6 Months">
+              <span class="opt-icon">🏗️</span>
+              <span class="opt-label">3–6 Months</span>
+              <span class="opt-sub">New build or remodel</span>
+            </div>
+            <div class="option-card" data-value="Just Exploring">
+              <span class="opt-icon">🔍</span>
+              <span class="opt-label">Just Exploring</span>
+              <span class="opt-sub">Getting ideas & pricing</span>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn-back" onclick="goStep(2)">Back</button>
+            <button class="btn-next" id="btn3" disabled>Continue</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: Contact info -->
+        <div class="form-step" id="step4">
+          <div class="step-title">Step 4 — Your Information</div>
+          <p style="color:var(--color-text);font-size:14px;margin-bottom:14px;">We'll use this to send your personalized quote.</p>
+          <form id="landingForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name *</label>
+                <input type="text" id="firstName" placeholder="First name" required>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name *</label>
+                <input type="text" id="lastName" placeholder="Last name" required>
+              </div>
             </div>
             <div class="form-group">
-              <label for="lastName">Last Name *</label>
-              <input type="text" id="lastName" name="lastName" placeholder="Romero" required>
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" placeholder="you@email.com" required>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="email">Email Address *</label>
-            <input type="email" id="email" name="email" placeholder="you@email.com" required>
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone Number *</label>
-            <input type="tel" id="phone" name="phone" placeholder="(941) 555-0123" required>
-          </div>
-          <div class="form-group">
-            <label for="service">What are you interested in?</label>
-            <select id="service" name="service">
-              <option value="">Select a service...</option>
-              <option value="Smart Lighting">Smart Lighting</option>
-              <option value="Security & Cameras">Security & Cameras</option>
-              <option value="Climate Control">Climate Control</option>
-              <option value="Full Home Automation">Full Home Automation</option>
-              <option value="Other">Other / Not Sure</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="message">Tell us about your project (optional)</label>
-            <textarea id="message" name="message" placeholder="E.g., I'm building a new home and want smart lighting throughout..."></textarea>
-          </div>
-          <button type="submit" class="btn-submit">Get My Free Consultation</button>
-          <div class="form-footer">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            Your info is secure. We never share your data.
-          </div>
-        </form>
+            <div class="form-group">
+              <label for="phone">Phone Number *</label>
+              <input type="tel" id="phone" placeholder="(941) 555-0123" required>
+            </div>
+            <div class="form-group">
+              <label for="address">Property Address or Neighborhood</label>
+              <input type="text" id="address" placeholder="e.g. Bird Key, Siesta Key, Lakewood Ranch...">
+            </div>
+            <div class="form-group">
+              <label for="message">Anything else we should know?</label>
+              <textarea id="message" placeholder="Tell us about your home, specific needs, etc."></textarea>
+            </div>
+            <div class="btn-row">
+              <button type="button" class="btn-back" onclick="goStep(3)">Back</button>
+              <button type="submit" class="btn-submit">Get My Custom Quote</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </section>
@@ -509,104 +700,63 @@
   <!-- SOCIAL PROOF -->
   <section class="proof-strip">
     <div class="proof-inner">
-      <div class="proof-stat">
-        <span class="number">500+</span>
-        <span class="label">Homes Automated</span>
+      <div class="proof-stat"><span class="number">500+</span><span class="label">Homes Automated</span></div>
+      <div class="proof-stat"><span class="number">5.0</span><span class="label">Google Rating</span></div>
+      <div class="proof-stat"><span class="number">15+</span><span class="label">Years Experience</span></div>
+      <div class="proof-stat"><span class="number">3</span><span class="label">Counties Served</span></div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU GET -->
+  <section class="value-section">
+    <h2>What to Expect</h2>
+    <p class="section-sub">We don't do cookie-cutter. Every project starts with understanding your home and your lifestyle.</p>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-num">1</div>
+        <div>
+          <h3>Personalized Quote</h3>
+          <p>We'll review your project details and send a custom proposal with transparent pricing — no generic packages.</p>
+        </div>
       </div>
-      <div class="proof-stat">
-        <span class="number">5.0</span>
-        <span class="label">Star Rating</span>
+      <div class="value-card">
+        <div class="value-num">2</div>
+        <div>
+          <h3>On-Site Walkthrough</h3>
+          <p>We visit your home to assess wiring, layout, and design a system that fits your space perfectly.</p>
+        </div>
       </div>
-      <div class="proof-stat">
-        <span class="number">15+</span>
-        <span class="label">Years Experience</span>
+      <div class="value-card">
+        <div class="value-num">3</div>
+        <div>
+          <h3>Professional Installation</h3>
+          <p>Clean, code-compliant installs by certified technicians. No shortcuts, no subcontractors.</p>
+        </div>
       </div>
-      <div class="proof-stat">
-        <span class="number">24hr</span>
-        <span class="label">Response Time</span>
+      <div class="value-card">
+        <div class="value-num">4</div>
+        <div>
+          <h3>Ongoing Support</h3>
+          <p>We don't disappear after install. Priority support, firmware updates, and system optimization included.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SERVICES -->
-  <section class="services">
-    <h2>What We Do</h2>
-    <p class="section-sub">Premium smart home solutions tailored to your lifestyle, from single-room upgrades to complete home automation.</p>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
-        </div>
-        <h3>Smart Lighting</h3>
-        <p>Lutron-powered dimmers, scenes, and automated schedules that set the perfect mood in every room.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-        </div>
-        <h3>Security & Cameras</h3>
-        <p>24/7 HD surveillance with smart alerts, remote viewing, and professional-grade camera systems.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
-        </div>
-        <h3>Climate Control</h3>
-        <p>Smart thermostats and zoned HVAC automation for perfect comfort and lower energy bills.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        </div>
-        <h3>Full Home Automation</h3>
-        <p>Control4 and Lutron systems that unify lighting, shades, AV, climate, and security into one touch.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
-        <h3>New Construction</h3>
-        <p>We partner with builders to pre-wire and design automation from the ground up — saving time and money.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <h3>Service & Support</h3>
-        <p>Ongoing maintenance, troubleshooting, and upgrades to keep your smart home running flawlessly.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="how-it-works">
-    <div class="how-inner">
-      <h2>How It Works</h2>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <h3>Book a Consultation</h3>
-          <p>Fill out the form above. We'll call you within 24 hours to discuss your vision and walk through options.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <h3>Get a Custom Plan</h3>
-          <p>We design a tailored automation plan with transparent pricing — no surprises, no hidden fees.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <h3>Enjoy Your Smart Home</h3>
-          <p>Our certified team handles installation. You just sit back and enjoy your upgraded lifestyle.</p>
-        </div>
-      </div>
+  <!-- TESTIMONIAL -->
+  <section class="testimonial">
+    <div class="testimonial-inner">
+      <div class="stars">★★★★★</div>
+      <blockquote>"From the first call to the final walkthrough, the ATA team was professional, knowledgeable, and delivered exactly what they promised. Our Lutron system is flawless."</blockquote>
+      <cite>— Homeowner, Siesta Key <span>| Whole-Home Lighting</span></cite>
     </div>
   </section>
 
   <!-- BOTTOM CTA -->
   <section class="cta-bottom">
-    <h2>Ready to Upgrade Your Home?</h2>
-    <p>Join hundreds of Sarasota homeowners who've made the switch to intelligent living.</p>
-    <a href="#" class="btn-submit" onclick="document.getElementById('firstName').focus();window.scrollTo({top:0,behavior:'smooth'});return false;">Get My Free Consultation</a>
+    <h2>Your Home Deserves Better</h2>
+    <p>Stop settling for basic. Get a custom automation plan designed specifically for your lifestyle and space.</p>
+    <a href="#" class="btn-next" onclick="document.getElementById('formCard').scrollIntoView({behavior:'smooth'});return false;">Request a Custom Quote</a>
   </section>
 
   <!-- FOOTER -->
@@ -616,44 +766,108 @@
 
   <script>
   (function() {
-    const form = document.getElementById('landingForm');
-    const formCard = form.closest('.form-card');
+    let selections = { service: '', budget: '', timeline: '' };
+    let currentStep = 1;
 
-    // Get UTM parameters from URL
+    // UTM tracking
     function getUTMParams() {
-      const params = new URLSearchParams(window.location.search);
+      const p = new URLSearchParams(window.location.search);
       return {
-        utm_source: params.get('utm_source') || '',
-        utm_medium: params.get('utm_medium') || '',
-        utm_campaign: params.get('utm_campaign') || '',
-        utm_term: params.get('utm_term') || '',
-        utm_content: params.get('utm_content') || '',
-        gclid: params.get('gclid') || ''
+        utm_source: p.get('utm_source') || '',
+        utm_medium: p.get('utm_medium') || '',
+        utm_campaign: p.get('utm_campaign') || '',
+        utm_term: p.get('utm_term') || '',
+        utm_content: p.get('utm_content') || '',
+        gclid: p.get('gclid') || ''
       };
     }
 
-    form.addEventListener('submit', function(e) {
+    // Option card selection logic
+    function initOptionGroup(containerId, key, btnId) {
+      const container = document.getElementById(containerId);
+      const btn = document.getElementById(btnId);
+      container.querySelectorAll('.option-card').forEach(function(card) {
+        card.addEventListener('click', function() {
+          container.querySelectorAll('.option-card').forEach(function(c) { c.classList.remove('selected'); });
+          card.classList.add('selected');
+          selections[key] = card.getAttribute('data-value');
+          btn.disabled = false;
+        });
+      });
+      btn.addEventListener('click', function() {
+        if (!btn.disabled) goStep(currentStep + 1);
+      });
+    }
+
+    initOptionGroup('serviceOptions', 'service', 'btn1');
+    initOptionGroup('budgetOptions', 'budget', 'btn2');
+    initOptionGroup('timelineOptions', 'timeline', 'btn3');
+
+    window.goStep = function(step) {
+      // Hide all steps
+      document.querySelectorAll('.form-step').forEach(function(s) { s.classList.remove('active'); });
+      document.getElementById('step' + step).classList.add('active');
+      currentStep = step;
+
+      // Update progress bar
+      for (var i = 1; i <= 4; i++) {
+        var prog = document.getElementById('prog' + i);
+        prog.classList.remove('active', 'done');
+        if (i < step) prog.classList.add('done');
+        else if (i === step) prog.classList.add('active');
+      }
+    };
+
+    // Form submit
+    document.getElementById('landingForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      const firstName = document.getElementById('firstName').value.trim();
-      const lastName = document.getElementById('lastName').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const service = document.getElementById('service').value;
-      const message = document.getElementById('message').value.trim();
-      const utm = getUTMParams();
+      var firstName = document.getElementById('firstName').value.trim();
+      var lastName = document.getElementById('lastName').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var phone = document.getElementById('phone').value.trim();
+      var address = document.getElementById('address').value.trim();
+      var message = document.getElementById('message').value.trim();
+      var utm = getUTMParams();
 
       if (!firstName || !lastName || !email || !phone) return;
 
-      // Save to ata_leads in localStorage (same key the dashboard reads)
-      const lead = {
+      // Score the lead
+      var score = 0;
+      var tier = 'cold';
+      // Budget scoring
+      if (selections.budget === '$15,000+') score += 40;
+      else if (selections.budget === '$5,000 - $15,000') score += 30;
+      else if (selections.budget === '$1,000 - $5,000') score += 15;
+      else score += 5;
+      // Timeline scoring
+      if (selections.timeline === 'ASAP') score += 30;
+      else if (selections.timeline === '1-3 Months') score += 25;
+      else if (selections.timeline === '3-6 Months') score += 15;
+      else score += 5;
+      // Service scoring
+      if (selections.service === 'Full Home Automation') score += 20;
+      else score += 10;
+      // Address bonus
+      if (address) score += 10;
+
+      if (score >= 60) tier = 'hot';
+      else if (score >= 35) tier = 'warm';
+      else tier = 'cold';
+
+      var lead = {
         name: firstName + ' ' + lastName,
         email: email,
         phone: phone,
-        service: service,
+        address: address,
+        service: selections.service,
+        budget: selections.budget,
+        timeline: selections.timeline,
         message: message,
         date: new Date().toISOString(),
         source: 'google-landing',
+        score: score,
+        tier: tier,
         utm_source: utm.utm_source,
         utm_medium: utm.utm_medium,
         utm_campaign: utm.utm_campaign,
@@ -663,26 +877,34 @@
         status: 'new'
       };
 
-      let leads = [];
-      try { leads = JSON.parse(localStorage.getItem('ata_leads')) || []; } catch(e) { leads = []; }
+      var leads = [];
+      try { leads = JSON.parse(localStorage.getItem('ata_leads')) || []; } catch(ex) { leads = []; }
       leads.push(lead);
       localStorage.setItem('ata_leads', JSON.stringify(leads));
 
-      // GA4 conversion event
+      // GA4 conversion event with value
       if (typeof gtag === 'function') {
         gtag('event', 'generate_lead', {
           event_category: 'Lead',
-          event_label: service || 'General',
-          value: 1
+          event_label: selections.service,
+          lead_score: score,
+          lead_tier: tier,
+          budget_range: selections.budget,
+          value: score
         });
       }
 
-      // Show success state
+      // Show success
+      var formCard = document.getElementById('formCard');
       formCard.innerHTML = '<div class="form-success">' +
         '<div class="check-circle"><svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" width="36" height="36"><path d="M20 6L9 17l-5-5"/></svg></div>' +
-        '<h2>You\'re All Set, ' + firstName + '!</h2>' +
-        '<p>We\'ll reach out within 24 hours to schedule your consultation. In the meantime, feel free to explore our <a href="https://itsallthingsautomated.com" style="color:var(--color-primary)">website</a>.</p>' +
-        '</div>';
+        '<h2>Thanks, ' + firstName + '!</h2>' +
+        '<p>We\'ve received your project details and will be in touch within 24 hours with a personalized quote.</p>' +
+        '<div class="next-steps"><h4>What Happens Next</h4><ul>' +
+        '<li>We review your project requirements</li>' +
+        '<li>A specialist will call to discuss your vision</li>' +
+        '<li>You\'ll receive a detailed custom proposal</li>' +
+        '</ul></div></div>';
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
