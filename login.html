@@ -204,14 +204,14 @@
     </div>
 
     <div class="back-link">
-      <a href="index.html">← Back to Website</a>
+      <a href="/">← Back to Website</a>
     </div>
   </div>
 
   <script>
     // Check if already logged in
     if (localStorage.getItem('ata_admin') === 'true') {
-      window.location.href = 'admin/dashboard.html';
+      window.location.href = '/admin/dashboard';
     }
 
     // Handle login form
@@ -234,7 +234,7 @@
         // Set auth flag in localStorage
         localStorage.setItem('ata_admin', 'true');
         // Redirect to dashboard
-        window.location.href = 'admin/dashboard.html';
+        window.location.href = '/admin/dashboard';
       } else {
         // Show error message
         errorMessage.textContent = '❌ Invalid email or password. Please try again.';
