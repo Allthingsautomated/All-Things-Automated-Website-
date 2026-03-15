@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Home Services - All Things Automated</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .service-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 80px;
+      min-height: 400px;
+    }
+
+    .service-block.reverse {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .service-block.reverse > :first-child {
+      order: 2;
+    }
+
+    .service-block.reverse > :last-child {
+      order: 1;
+    }
+
+    .service-image {
+      width: 100%;
+      height: 320px;
+      border-radius: 16px;
+      object-fit: cover;
+    }
+
+    .service-content h2 {
+      margin-bottom: 20px;
+    }
+
+    .service-content p {
+      font-weight: 300;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .service-features {
+      margin: 32px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .service-features li {
+      padding: 10px 0;
+      font-weight: 300;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    .service-features li:before {
+      content: "✓ ";
+      color: #3A7FC1;
+      font-weight: 600;
+      margin-right: 10px;
+    }
+
+    .service-pricing {
+      font-size: 12px;
+      color: #888;
+      margin-top: 24px;
+      font-weight: 300;
+    }
+
+    @media (max-width: 768px) {
+      .service-block {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-bottom: 60px;
+      }
+
+      .service-block.reverse > :first-child,
+      .service-block.reverse > :last-child {
+        order: unset;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-logo">
+      <img src="assets/logo-color.svg" alt="All Things Automated">
+    </div>
+    <div class="nav-center">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="blog.html">Blog</a>
+    </div>
+    <div class="nav-right">
+      <a href="contact.html" class="nav-contact">Contact</a>
+      <a href="contact.html" class="btn-quote">Get a Quote</a>
+    </div>
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="nav-mobile">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="services.html">Services</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html" class="btn-quote">Get a Quote</a>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="hero hero-centered">
+    <h1>Smart Home Services</h1>
+    <p style="margin-top: 16px; font-size: 16px;">Comprehensive automation solutions for every room in your home</p>
+  </section>
+
+  <!-- SERVICES CONTENT -->
+  <section style="background-color: white;">
+    <!-- SERVICE 1: SMART LIGHTING -->
+    <div class="service-block">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Smart Lighting" class="service-image">
+      <div class="service-content">
+        <h2>Smart Lighting</h2>
+        <p>Transform how you experience light in your home. Our smart lighting installations give you complete control over brightness, color, and scene creation from your phone or voice commands.</p>
+        <ul class="service-features">
+          <li>Lutron scene control and scheduling</li>
+          <li>Voice control integration (Alexa & Google Home)</li>
+          <li>Dimming and mood creation</li>
+          <li>Energy efficiency monitoring</li>
+        </ul>
+        <div class="service-pricing">Starting from $1,200</div>
+      </div>
+    </div>
+
+    <!-- SERVICE 2: SECURITY & CAMERAS -->
+    <div class="service-block reverse">
+      <img src="https://images.unsplash.com/photo-1558002038-1055e4e7e5b0?w=600&q=80" alt="Security Cameras" class="service-image">
+      <div class="service-content">
+        <h2>Security & Cameras</h2>
+        <p>Peace of mind starts with visibility. We install premium video doorbell systems, perimeter cameras, and smart door locks that let you monitor your home from anywhere in the world.</p>
+        <ul class="service-features">
+          <li>Video doorbell with two-way audio</li>
+          <li>Outdoor/indoor camera systems</li>
+          <li>Smart locks and keyless entry</li>
+          <li>Real-time alerts and cloud storage</li>
+        </ul>
+        <div class="service-pricing">Starting from $1,500</div>
+      </div>
+    </div>
+
+    <!-- SERVICE 3: CLIMATE CONTROL -->
+    <div class="service-block">
+      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Smart Thermostat" class="service-image">
+      <div class="service-content">
+        <h2>Climate Control</h2>
+        <p>Stay comfortable while reducing energy costs. Our smart thermostat installations provide intelligent scheduling, zone control, and energy insights to optimize your HVAC system.</p>
+        <ul class="service-features">
+          <li>Ecobee smart thermostat with voice control</li>
+          <li>Multi-zone temperature scheduling</li>
+          <li>Remote temperature adjustment</li>
+          <li>Energy usage reports & savings</li>
+        </ul>
+        <div class="service-pricing">Starting from $600</div>
+      </div>
+    </div>
+
+    <!-- SERVICE 4: FULL AUTOMATION -->
+    <div class="service-block reverse">
+      <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?w=600&q=80" alt="Full Home Automation" class="service-image">
+      <div class="service-content">
+        <h2>Full Home Automation</h2>
+        <p>Create the ultimate smart home experience with unified automation across all systems. Control lighting, security, climate, entertainment, and more from a single interface or voice command.</p>
+        <ul class="service-features">
+          <li>Integrated system design & planning</li>
+          <li>Multi-brand platform synchronization</li>
+          <li>Custom automation routines</li>
+          <li>Professional installation & ongoing support</li>
+        </ul>
+        <div class="service-pricing">Starting from $3,500</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="cta-section">
+    <h2>Ready To Automate Your Home?</h2>
+    <p>Free, no-obligation quote — Sarasota, Manatee & Charlotte Counties</p>
+    <a href="contact.html" class="btn btn-blue">Get My Free Quote</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-col-1">
+        <div class="footer-logo">
+          <img src="assets/logo-color.svg" alt="All Things Automated">
+        </div>
+        <div class="footer-tagline">Step Into The World Of Smart Homes With Ease</div>
+        <div class="footer-location">Serving Sarasota, Manatee & Charlotte Counties<br>Licensed & Insured</div>
+      </div>
+      <div class="footer-col-2">
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About Us</a>
+          <a href="services.html">Services</a>
+          <a href="blog.html">Blog</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div class="footer-col-3">
+        <div class="footer-contact">
+          <a href="tel:+14155551234">(941) 555-0123</a>
+          <a href="mailto:hello@allthingsautomated.com">hello@allthingsautomated.com</a>
+          <span style="margin-top: 12px;">Mon—Fri: 9am–5pm ET</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 All Things Automated. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
