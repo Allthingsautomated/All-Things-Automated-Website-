@@ -3,6 +3,26 @@
 // ============================================
 
 /* ============================================
+   LOAD CUSTOM LOGO
+   ============================================ */
+
+function loadCustomLogo() {
+  const customLogo = localStorage.getItem('ata_current_logo');
+  if (!customLogo) return;
+
+  try {
+    const logoData = JSON.parse(customLogo);
+    const logoImages = document.querySelectorAll('img[src*="logo"]');
+    logoImages.forEach(img => {
+      img.src = logoData.data;
+      img.alt = logoData.name;
+    });
+  } catch (e) {
+    console.log('No custom logo set');
+  }
+}
+
+/* ============================================
    STICKY NAVIGATION
    ============================================ */
 
@@ -299,6 +319,7 @@ function loadBlogPosts() {
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+  loadCustomLogo();
   initStickyNav();
   initHamburger();
   setActiveNav();

@@ -135,6 +135,27 @@
         </div>
 
         <div style="background-color: white; border-radius: 14px; padding: 32px; max-width: 600px;">
+          <h3 style="margin-bottom: 24px;">Upload Your Logo & Graphics</h3>
+
+          <div class="form-group">
+            <label for="logoUpload">Logo (Use This Everywhere)</label>
+            <div style="border: 2px dashed #3A7FC1; border-radius: 8px; padding: 24px; text-align: center; cursor: pointer; transition: background 0.2s;" id="logoDropZone">
+              <input type="file" id="logoUpload" name="logo" accept="image/*,.svg" style="display: none;">
+              <div style="font-size: 14px; color: #3A7FC1; font-weight: 500;">Click to upload or drag & drop</div>
+              <div style="font-size: 12px; color: #999; margin-top: 8px;">PNG, JPG, SVG — recommended size: 160x32px</div>
+              <div id="logoPreview" style="margin-top: 16px; display: none;">
+                <img id="logoPreviewImg" src="" alt="Logo Preview" style="max-height: 40px;">
+              </div>
+            </div>
+          </div>
+
+          <div id="uploadedFiles" style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #eee;">
+            <h4 style="margin-bottom: 16px;">Uploaded Files</h4>
+            <div id="uploadedFilesList" style="font-size: 13px; color: #999;">No files uploaded yet</div>
+          </div>
+
+          <hr style="margin: 32px 0; border: none; border-top: 1px solid #eee;">
+
           <h3 style="margin-bottom: 24px;">Business Information</h3>
 
           <form id="settingsForm">
