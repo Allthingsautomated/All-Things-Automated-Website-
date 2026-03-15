@@ -221,7 +221,7 @@
     }
     .option-card:hover { border-color: rgba(58,127,193,0.4); background: rgba(58,127,193,0.05); }
     .option-card.selected { border-color: var(--color-primary); background: rgba(58,127,193,0.1); }
-    .option-card .opt-icon { font-size: 24px; margin-bottom: 6px; display: block; }
+    .option-card .opt-icon { margin-bottom: 6px; display: flex; align-items: center; justify-content: center; gap: 2px; min-height: 28px; }
     .option-card .opt-label {
       font-weight: 600;
       font-size: 14px;
@@ -236,7 +236,7 @@
     }
     .option-single { grid-template-columns: 1fr; }
     .option-single .option-card { text-align: left; display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
-    .option-single .option-card .opt-icon { margin-bottom: 0; font-size: 20px; }
+    .option-single .option-card .opt-icon { margin-bottom: 0; min-height: 24px; }
     .option-single .option-card .opt-text { flex: 1; }
 
     /* Form fields */
@@ -394,7 +394,7 @@
       max-width: 640px;
       margin: 0 auto;
     }
-    .stars { color: var(--color-gold); font-size: 24px; margin-bottom: 16px; letter-spacing: 4px; }
+    .stars { display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 16px; }
     .testimonial blockquote {
       font-size: 1.15rem;
       color: var(--color-text-light);
@@ -560,22 +560,22 @@
           <div class="step-title">Step 1 — What do you need?</div>
           <div class="option-grid" id="serviceOptions">
             <div class="option-card" data-value="Smart Lighting">
-              <span class="opt-icon">💡</span>
+              <span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3A7FC1" stroke-width="1.5" width="28" height="28"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
               <span class="opt-label">Smart Lighting</span>
               <span class="opt-sub">Scenes, dimmers, schedules</span>
             </div>
             <div class="option-card" data-value="Security & Cameras">
-              <span class="opt-icon">📷</span>
+              <span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3A7FC1" stroke-width="1.5" width="28" height="28"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
               <span class="opt-label">Security & Cameras</span>
               <span class="opt-sub">HD cameras, smart locks</span>
             </div>
             <div class="option-card" data-value="Climate Control">
-              <span class="opt-icon">🌡️</span>
+              <span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3A7FC1" stroke-width="1.5" width="28" height="28"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></span>
               <span class="opt-label">Climate Control</span>
               <span class="opt-sub">Smart thermostats, zones</span>
             </div>
             <div class="option-card" data-value="Full Home Automation">
-              <span class="opt-icon">🏠</span>
+              <span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3A7FC1" stroke-width="1.5" width="28" height="28"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
               <span class="opt-label">Full Automation</span>
               <span class="opt-sub">Control4, Lutron whole-home</span>
             </div>
@@ -591,28 +591,28 @@
           <p style="color:var(--color-text);font-size:14px;margin-bottom:14px;">This helps us prepare an accurate quote.</p>
           <div class="option-grid option-single" id="budgetOptions">
             <div class="option-card" data-value="Under $1,000">
-              <span class="opt-icon">💲</span>
+              <span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3A7FC1" stroke-width="1.5" width="24" height="24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
               <div class="opt-text">
                 <span class="opt-label">Under $1,000</span>
                 <span class="opt-sub">Single device or room</span>
               </div>
             </div>
             <div class="option-card" data-value="$1,000 - $5,000">
-              <span class="opt-icon">💲💲</span>
+              <span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3A7FC1" stroke-width="1.5" width="24" height="24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#3A7FC1" stroke-width="1.5" width="24" height="24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
               <div class="opt-text">
                 <span class="opt-label">$1,000 – $5,000</span>
                 <span class="opt-sub">Multi-room upgrade</span>
               </div>
             </div>
             <div class="option-card" data-value="$5,000 - $15,000">
-              <span class="opt-icon">💲💲💲</span>
+              <span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3A7FC1" stroke-width="1.5" width="24" height="24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#3A7FC1" stroke-width="1.5" width="24" height="24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#3A7FC1" stroke-width="1.5" width="24" height="24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
               <div class="opt-text">
                 <span class="opt-label">$5,000 – $15,000</span>
                 <span class="opt-sub">Major system install</span>
               </div>
             </div>
             <div class="option-card" data-value="$15,000+">
-              <span class="opt-icon">⭐</span>
+              <span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="1.5" width="24" height="24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
               <div class="opt-text">
                 <span class="opt-label">$15,000+</span>
                 <span class="opt-sub">Whole-home or new build</span>
@@ -630,22 +630,22 @@
           <div class="step-title">Step 3 — Timeline</div>
           <div class="option-grid" id="timelineOptions">
             <div class="option-card" data-value="ASAP">
-              <span class="opt-icon">⚡</span>
+              <span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3A7FC1" stroke-width="1.5" width="28" height="28"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
               <span class="opt-label">ASAP</span>
               <span class="opt-sub">Within 2 weeks</span>
             </div>
             <div class="option-card" data-value="1-3 Months">
-              <span class="opt-icon">📅</span>
+              <span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3A7FC1" stroke-width="1.5" width="28" height="28"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
               <span class="opt-label">1–3 Months</span>
               <span class="opt-sub">Planning a project</span>
             </div>
             <div class="option-card" data-value="3-6 Months">
-              <span class="opt-icon">🏗️</span>
+              <span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3A7FC1" stroke-width="1.5" width="28" height="28"><path d="M2 20h20M5 20V8l7-5 7 5v12"/><rect x="9" y="12" width="6" height="8"/><line x1="9" y1="16" x2="15" y2="16"/></svg></span>
               <span class="opt-label">3–6 Months</span>
               <span class="opt-sub">New build or remodel</span>
             </div>
             <div class="option-card" data-value="Just Exploring">
-              <span class="opt-icon">🔍</span>
+              <span class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3A7FC1" stroke-width="1.5" width="28" height="28"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
               <span class="opt-label">Just Exploring</span>
               <span class="opt-sub">Getting ideas & pricing</span>
             </div>
@@ -746,7 +746,7 @@
   <!-- TESTIMONIAL -->
   <section class="testimonial">
     <div class="testimonial-inner">
-      <div class="stars">★★★★★</div>
+      <div class="stars"><svg viewBox="0 0 24 24" fill="#F59E0B" stroke="none" width="22" height="22"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="#F59E0B" stroke="none" width="22" height="22"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="#F59E0B" stroke="none" width="22" height="22"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="#F59E0B" stroke="none" width="22" height="22"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="#F59E0B" stroke="none" width="22" height="22"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
       <blockquote>"From the first call to the final walkthrough, the ATA team was professional, knowledgeable, and delivered exactly what they promised. Our Lutron system is flawless."</blockquote>
       <cite>— Homeowner, Siesta Key <span>| Whole-Home Lighting</span></cite>
     </div>
