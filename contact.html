@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<a class="skip-link" href="#main" style="position:absolute;left:-9999px;top:16px;padding:8px 16px;background:var(--color-dark-card);color:var(--color-primary);border:1px solid var(--color-primary);border-radius:8px;font-weight:600;font-size:14px;z-index:10000;text-decoration:none;" onfocus="this.style.left='16px'" onblur="this.style.left='-9999px'">Skip to content</a>
 
   <!-- NAVIGATION -->
   <nav>
@@ -36,7 +37,7 @@
     </div>
     <div class="nav-right">
       <a href="contact.html" class="nav-contact">Contact</a>
-      <a href="contact.html" class="btn-quote">Book a Consultation</a>
+      <a href="contact.html" class="btn-quote">Get a Quote</a>
     </div>
     <div class="hamburger">
       <span></span>
@@ -53,11 +54,11 @@
     <a href="pricing.html">Pricing</a>
     <a href="blog.html">Blog</a>
     <a href="contact.html">Contact</a>
-    <a href="contact.html" class="btn-quote">Book a Consultation</a>
+    <a href="contact.html" class="btn-quote">Get a Quote</a>
   </div>
 
   <!-- HERO SECTION -->
-  <section class="hero-page" style="opacity:1;transform:none;">
+  <section id="main" class="hero-page" style="opacity:1;transform:none;">
     <h1>Let's Talk Smart Home</h1>
     <p>Tell us about your smart home vision. We'll get back to you within 24 hours.</p>
   </section>
@@ -69,8 +70,10 @@
 
         <!-- CONTACT FORM -->
         <div>
-          <div class="success-message" style="display: none;">
-            Thanks! We'll be in touch shortly.
+          <div class="success-message" role="alert" style="display: none; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 24px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" width="36" height="36" style="display:block;margin:0 auto 12px;"><path d="M20 6L9 17l-5-5"/></svg>
+            <h3 style="color:var(--color-white);margin-bottom:8px;">Message Received</h3>
+            <p style="color:var(--color-text-light);font-size:14px;">Thanks for reaching out. We'll review your project details and get back to you within 24 hours.</p>
           </div>
           <form class="contact-form">
             <div class="form-group">
@@ -110,7 +113,9 @@
               <textarea id="message" name="message" rows="5" placeholder="Describe what you'd like to automate..." required></textarea>
             </div>
 
+            <p style="font-size:12px;color:var(--color-text);margin-bottom:12px;line-height:1.5;">By submitting this form, you agree that we may contact you about your project via phone or email. We never share your information with third parties.</p>
             <button type="submit" class="btn btn-primary" style="width: 100%;">Request a Consultation</button>
+            <div class="form-status" role="status" aria-live="polite" style="margin-top:12px;text-align:center;"></div>
           </form>
         </div>
 
@@ -154,7 +159,7 @@
       <p>Call us directly at <a href="tel:+19415550123" style="color: var(--color-primary);">(941) 555-0123</a> or book a consultation online.</p>
       <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
         <a href="tel:+19415550123" class="btn btn-primary btn-lg">Call Now</a>
-        <a href="https://calendly.com" class="btn btn-outline btn-lg" target="_blank" rel="noopener">Book Online</a>
+        <a href="https://calendly.com" class="btn btn-outline btn-lg" target="_blank" rel="noopener">Book a Call</a>
       </div>
     </div>
   </section>
