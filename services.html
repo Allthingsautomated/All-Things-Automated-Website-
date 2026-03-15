@@ -9,10 +9,13 @@
     .service-block {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 60px;
+      gap: 80px;
       align-items: center;
-      margin-bottom: 80px;
-      min-height: 400px;
+      margin-bottom: 120px;
+      padding: 60px;
+      background: linear-gradient(135deg, #f8fafb 0%, #f3f6fa 100%);
+      border-radius: 20px;
+      border: 1px solid #eef2f7;
     }
 
     .service-block.reverse {
@@ -29,53 +32,70 @@
 
     .service-image {
       width: 100%;
-      height: 320px;
+      height: 380px;
       border-radius: 16px;
       object-fit: cover;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
     }
 
     .service-content h2 {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+      font-size: 32px;
     }
 
     .service-content p {
       font-weight: 300;
       line-height: 1.8;
-      margin-bottom: 24px;
+      margin-bottom: 32px;
+      color: #666;
+      font-size: 15px;
     }
 
     .service-features {
-      margin: 32px 0;
+      margin: 0;
       padding: 0;
       list-style: none;
     }
 
     .service-features li {
-      padding: 10px 0;
+      padding: 14px 0;
       font-weight: 300;
-      color: #888;
+      color: #666;
       line-height: 1.6;
+      font-size: 15px;
+      border-bottom: 1px solid #e8ecf2;
+    }
+
+    .service-features li:last-child {
+      border-bottom: none;
     }
 
     .service-features li:before {
       content: "✓ ";
-      color: #3A7FC1;
+      color: #2d6a7f;
       font-weight: 600;
       margin-right: 10px;
-    }
-
-    .service-pricing {
-      font-size: 12px;
-      color: #888;
-      margin-top: 24px;
-      font-weight: 300;
     }
 
     @media (max-width: 768px) {
       .service-block {
         grid-template-columns: 1fr;
-        gap: 30px;
-        margin-bottom: 60px;
+        gap: 40px;
+        margin-bottom: 80px;
+        padding: 40px 20px;
+      }
+
+      .service-image {
+        height: 280px;
+      }
+
+      .service-content h2 {
+        font-size: 26px;
+      }
+
+      .service-content p,
+      .service-features li {
+        font-size: 14px;
       }
 
       .service-block.reverse > :first-child,
@@ -125,7 +145,7 @@
   </section>
 
   <!-- SERVICES CONTENT -->
-  <section style="background-color: white;">
+  <section style="background: linear-gradient(135deg, #ffffff 0%, #f9fbfc 100%);">
     <!-- SERVICE 1: SMART LIGHTING -->
     <div class="service-block">
       <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Smart Lighting" class="service-image">
@@ -138,7 +158,6 @@
           <li>Dimming and mood creation</li>
           <li>Energy efficiency monitoring</li>
         </ul>
-        <div class="service-pricing">Starting from $1,200</div>
       </div>
     </div>
 
@@ -154,7 +173,6 @@
           <li>Smart locks and keyless entry</li>
           <li>Real-time alerts and cloud storage</li>
         </ul>
-        <div class="service-pricing">Starting from $1,500</div>
       </div>
     </div>
 
@@ -170,7 +188,6 @@
           <li>Remote temperature adjustment</li>
           <li>Energy usage reports & savings</li>
         </ul>
-        <div class="service-pricing">Starting from $600</div>
       </div>
     </div>
 
@@ -186,7 +203,6 @@
           <li>Custom automation routines</li>
           <li>Professional installation & ongoing support</li>
         </ul>
-        <div class="service-pricing">Starting from $3,500</div>
       </div>
     </div>
   </section>
