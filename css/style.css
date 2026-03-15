@@ -155,7 +155,7 @@ nav.scrolled {
 .nav-logo img {
   height: 24px;
   width: auto;
-  filter: brightness(0) invert(1);
+  /* Logo is already white SVG, no filter needed */
 }
 
 .nav-center {
@@ -1084,7 +1084,7 @@ footer {
 
 .footer-logo img {
   height: 24px;
-  filter: brightness(0) invert(1);
+  /* Logo is already white SVG, no filter needed */
 }
 
 .footer-tagline {

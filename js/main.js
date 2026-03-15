@@ -182,52 +182,46 @@ function updateSlider() {
 
 const portfolioData = [
   {
-    title: 'Smart Lighting System',
-    description: 'Full Lutron scene control installed throughout a luxury waterfront residence.',
-    location: 'Sarasota, FL',
-    price: 'Starting at $2,500',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+    title: 'Whole-Home Lighting Design',
+    description: 'Lutron Cas\u00e9ta scene control across every room of a 4,200 sq ft waterfront residence.',
+    location: 'Siesta Key, FL',
+    image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&q=80',
     category: 'lighting'
   },
   {
-    title: 'Security Camera Setup',
-    description: 'Complete perimeter camera system with smart doorbell and remote monitoring.',
-    location: 'Osprey, FL',
-    price: 'Starting at $1,800',
-    image: 'https://images.unsplash.com/photo-1558002038-1055e4e7e5b0?w=600&q=80',
+    title: 'Estate Security System',
+    description: 'Luma 8-camera perimeter system with Ring doorbell and smart locks on a gated property.',
+    location: 'Bird Key, FL',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80',
     category: 'security'
   },
   {
-    title: 'Climate Control System',
-    description: 'Ecobee multi-zone installation with intelligent scheduling and app control.',
-    location: 'Bradenton, FL',
-    price: 'Starting at $800',
-    image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80',
+    title: 'Multi-Zone Climate',
+    description: 'Ecobee Premium with 6 room sensors across a two-story home for perfect comfort.',
+    location: 'Lakewood Ranch, FL',
+    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80',
     category: 'climate'
   },
   {
     title: 'Full Home Automation',
-    description: 'Complete smart home integration — lighting, climate, security & entertainment unified.',
-    location: 'Venice, FL',
-    price: 'Starting at $8,000',
-    image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=600&q=80',
+    description: 'Control4 whole-home system unifying lighting, climate, audio, and security from one interface.',
+    location: 'Casey Key, FL',
+    image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80',
     category: 'automation'
   },
   {
-    title: 'Smart Doorbell & Locks',
-    description: 'Keyless entry with video doorbell and remote access from anywhere.',
-    location: 'North Port, FL',
-    price: 'Starting at $600',
-    image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80',
-    category: 'security'
+    title: 'New Construction Pre-Wire',
+    description: 'Full smart home pre-wire and Lutron RA3 install for a custom builder\'s luxury spec home.',
+    location: 'Osprey, FL',
+    image: 'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600&q=80',
+    category: 'automation'
   },
   {
-    title: 'Outdoor Entertainment',
-    description: 'Weatherproof speakers, automated outdoor lighting, and patio control system.',
-    location: 'Lakewood Ranch, FL',
-    price: 'Starting at $3,500',
+    title: 'Outdoor Living Automation',
+    description: 'Landscape lighting scenes, weatherproof audio, and automated patio shades.',
+    location: 'Palmer Ranch, FL',
     image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80',
-    category: 'automation'
+    category: 'lighting'
   }
 ];
 
@@ -245,9 +239,8 @@ function renderPortfolioSlider() {
         <div class="card-description">${item.description}</div>
         <div class="card-footer">
           <span>${item.location}</span>
-          <a href="services.html" class="btn btn-primary btn-small">View Details</a>
+          <a href="services.html" style="color:var(--color-primary);font-weight:500;font-size:13px;">View Project &rarr;</a>
         </div>
-        <div class="card-price">${item.price}</div>
       </div>
     `;
     track.appendChild(card);
