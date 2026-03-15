@@ -1,37 +1,24 @@
-# Enable mod_rewrite
+# URL Rewriting
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # Set the base directory
-  RewriteBase /
-
-  # Remove .html extension from URLs
-  # Rewrite login to login.html
+  # Remove .html extension
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^([a-zA-Z0-9_-]+)/?$ $1.html [L]
+  RewriteRule ^([^\.]+)$ $1.html [NC,L]
 
-  # Rewrite /admin/dashboard to /admin/dashboard.html
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^admin/([a-zA-Z0-9_-]+)/?$ admin/$1.html [L]
-
-  # Redirect /login.html requests to /login (optional, for cleaner URLs)
+  # Redirect .html to clean URLs
   RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
   RewriteRule ^ /%1 [NC,L,R=301]
-
-  # Prevent direct access to .html files
-  RewriteCond %{THE_REQUEST} /.*\.html
-  RewriteRule ^.*$ - [L]
 </IfModule>
 
-# Security headers
+# Security Headers
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
   Header set X-Frame-Options "SAMEORIGIN"
 </IfModule>
 
-# Cache control
+# Caching
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType text/html "access plus 1 hour"

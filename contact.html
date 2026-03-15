@@ -3,24 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact - Get Your Free Quote</title>
+  <title>Get a Free Quote - All Things Automated</title>
+  <meta name="description" content="Request a free smart home automation quote from All Things Automated in Sarasota, FL. We respond within 24 hours.">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
   <!-- NAVIGATION -->
   <nav>
     <div class="nav-logo">
-      <img src="assets/logo-color.svg" alt="All Things Automated">
+      <img src="assets/logo-white.svg" alt="All Things Automated">
     </div>
     <div class="nav-center">
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
       <a href="services.html">Services</a>
+      <a href="pricing.html">Pricing</a>
       <a href="blog.html">Blog</a>
     </div>
     <div class="nav-right">
       <a href="contact.html" class="nav-contact">Contact</a>
-      <a href="contact.html" class="btn-quote">Get a Quote</a>
+      <a href="contact.html" class="btn-quote">Get a Free Quote</a>
     </div>
     <div class="hamburger">
       <span></span>
@@ -34,135 +37,165 @@
     <a href="index.html">Home</a>
     <a href="about.html">About Us</a>
     <a href="services.html">Services</a>
+    <a href="pricing.html">Pricing</a>
     <a href="blog.html">Blog</a>
     <a href="contact.html">Contact</a>
-    <a href="contact.html" class="btn-quote">Get a Quote</a>
+    <a href="contact.html" class="btn-quote">Get a Free Quote</a>
   </div>
 
   <!-- HERO SECTION -->
-  <section class="hero hero-centered">
+  <section class="hero-page" style="opacity:1;transform:none;">
     <h1>Get a Free Quote</h1>
-    <p style="margin-top: 16px; font-size: 16px;">Tell us about your smart home vision. We'll get back to you within 24 hours.</p>
+    <p>Tell us about your smart home vision. We'll get back to you within 24 hours.</p>
   </section>
 
   <!-- CONTACT SECTION -->
-  <section style="background-color: white;">
-    <div class="section-grid-2-gap">
-      <!-- FORM -->
-      <div>
-        <div class="success-message" style="display: none;">
-          Thanks! We'll be in touch shortly.
-        </div>
-        <form class="contact-form">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required>
+  <section style="background-color: var(--color-dark);">
+    <div class="container">
+      <div class="section-grid-2-gap">
+
+        <!-- CONTACT FORM -->
+        <div>
+          <div class="success-message" style="display: none;">
+            Thanks! We'll be in touch shortly.
           </div>
+          <form class="contact-form">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your full name" required>
+            </div>
 
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-          </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="you@email.com" required>
+            </div>
 
-          <div class="form-group">
-            <label for="phone">Phone</label>
-            <input type="tel" id="phone" name="phone" required>
-          </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" placeholder="(941) 555-0000" required>
+            </div>
 
-          <div class="form-group">
-            <label for="city">City / ZIP</label>
-            <input type="text" id="city" name="city" placeholder="e.g., Sarasota, FL 34236" required>
-          </div>
+            <div class="form-group">
+              <label for="city">City / ZIP</label>
+              <input type="text" id="city" name="city" placeholder="e.g., Sarasota, FL 34236" required>
+            </div>
 
-          <div class="form-group">
-            <label for="service">Service Type</label>
-            <select id="service" name="service" required>
-              <option value="">Select a service</option>
-              <option value="Smart Lighting">Smart Lighting</option>
-              <option value="Security & Cameras">Security & Cameras</option>
-              <option value="Climate Control">Climate Control</option>
-              <option value="Full Automation">Full Automation</option>
-              <option value="Not Sure Yet">Not Sure Yet</option>
-            </select>
-          </div>
+            <div class="form-group">
+              <label for="service">Service Type</label>
+              <select id="service" name="service" required>
+                <option value="">Select a service</option>
+                <option value="Smart Lighting">Smart Lighting</option>
+                <option value="Security & Cameras">Security & Cameras</option>
+                <option value="Climate Control">Climate Control</option>
+                <option value="Full Automation">Full Automation</option>
+                <option value="Not Sure Yet">Not Sure Yet</option>
+              </select>
+            </div>
 
-          <div class="form-group">
-            <label for="message">Tell Us About Your Project</label>
-            <textarea id="message" name="message" rows="5" placeholder="Describe what you'd like to automate..." required></textarea>
-          </div>
+            <div class="form-group">
+              <label for="message">Tell Us About Your Project</label>
+              <textarea id="message" name="message" rows="5" placeholder="Describe what you'd like to automate..." required></textarea>
+            </div>
 
-          <button type="submit" class="btn btn-blue" style="width: 100%; text-align: center;">Get My Free Quote</button>
-        </form>
-      </div>
-
-      <!-- CONTACT INFO -->
-      <div>
-        <h3 style="margin-bottom: 32px;">Contact Information</h3>
-
-        <div style="background-color: #F7F9FB; padding: 24px; border-radius: 16px; margin-bottom: 24px;">
-          <h4 style="font-size: 14px; margin-bottom: 12px; color: #0A0A0A;">Call Us</h4>
-          <a href="tel:+19415550123" style="font-size: 14px; color: #3A7FC1; font-weight: 500;">(941) 555-0123</a>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Get My Free Quote</button>
+          </form>
         </div>
 
-        <div style="background-color: #F7F9FB; padding: 24px; border-radius: 16px; margin-bottom: 24px;">
-          <h4 style="font-size: 14px; margin-bottom: 12px; color: #0A0A0A;">Email</h4>
-          <a href="mailto:hello@allthingsautomated.com" style="font-size: 14px; color: #3A7FC1; font-weight: 500;">hello@allthingsautomated.com</a>
+        <!-- CONTACT INFO SIDEBAR -->
+        <div>
+          <h3 style="color: var(--color-white); margin-bottom: 24px;">Contact Information</h3>
+
+          <div class="contact-info-card">
+            <h4>Call Us</h4>
+            <a href="tel:+19415550123" style="color: var(--color-primary); font-weight: 500;">(941) 555-0123</a>
+          </div>
+
+          <div class="contact-info-card">
+            <h4>Email</h4>
+            <a href="mailto:hello@allthingsautomated.com" style="color: var(--color-primary); font-weight: 500;">hello@allthingsautomated.com</a>
+          </div>
+
+          <div class="contact-info-card">
+            <h4>Service Area</h4>
+            <p>Sarasota, Manatee & Charlotte Counties, Florida</p>
+          </div>
+
+          <div class="contact-info-card">
+            <h4>Hours</h4>
+            <p>Monday — Friday: 9am-5pm ET<br>Saturday: By appointment<br>Sunday: Closed</p>
+          </div>
+
+          <div class="contact-info-card" style="text-align: center;">
+            <p style="color: var(--color-primary); font-weight: 500;">&#10003; Insured &nbsp;&nbsp; &#10003; Free Consultations</p>
+          </div>
         </div>
 
-        <div style="background-color: #F7F9FB; padding: 24px; border-radius: 16px; margin-bottom: 24px;">
-          <h4 style="font-size: 14px; margin-bottom: 12px; color: #0A0A0A;">Service Area</h4>
-          <p style="font-size: 13px; line-height: 1.6;">Sarasota, Manatee & Charlotte Counties, Florida</p>
-        </div>
-
-        <div style="background-color: #F7F9FB; padding: 24px; border-radius: 16px;">
-          <h4 style="font-size: 14px; margin-bottom: 12px; color: #0A0A0A;">Hours</h4>
-          <p style="font-size: 13px; line-height: 1.6;">Monday—Friday: 9am–5pm ET<br>Saturday: By appointment<br>Sunday: Closed</p>
-        </div>
-
-        <div style="background-color: #F7F9FB; padding: 24px; border-radius: 16px; margin-top: 24px; text-align: center;">
-          <p style="font-size: 12px; color: #888; margin-bottom: 8px;">✓ Insured</p>
-          <p style="font-size: 12px; color: #888;">✓ Free Consultations</p>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- MAP PLACEHOLDER -->
-  <section style="background-color: #F7F9FB; text-align: center; padding: 64px 40px;">
-    <div style="background-color: white; height: 300px; border-radius: 16px; display: flex; align-items: center; justify-content: center; color: #ccc; font-size: 18px;">
-      Map Coming Soon
+  <!-- CTA SECTION -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Prefer to Talk?</h2>
+      <p>Call us directly at <a href="tel:+19415550123" style="color: var(--color-primary);">(941) 555-0123</a> or book a consultation online.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="tel:+19415550123" class="btn btn-primary btn-lg">Call Now</a>
+        <a href="https://calendly.com" class="btn btn-outline btn-lg" target="_blank" rel="noopener">Book Online</a>
+      </div>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-top">
-      <div class="footer-col-1">
-        <div class="footer-logo">
-          <img src="assets/logo-color.svg" alt="All Things Automated">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-col-1">
+          <div class="footer-logo">
+            <img src="assets/logo-white.svg" alt="All Things Automated">
+          </div>
+          <div class="footer-tagline">Intelligent automation for modern living. Serving Florida's Gulf Coast with premium smart home solutions.</div>
+          <div class="footer-location">Sarasota, FL | Insured<br>Serving Sarasota, Manatee & Charlotte Counties</div>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></a>
+            <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.35z"/><polygon points="9.75,15.02 15.5,11.75 9.75,8.48"/></svg></a>
+          </div>
         </div>
-        <div class="footer-tagline">Step Into The World Of Smart Homes With Ease</div>
-        <div class="footer-location">Serving Sarasota, Manatee & Charlotte Counties<br>Insured</div>
-      </div>
-      <div class="footer-col-2">
-        <div class="footer-links">
-          <a href="index.html">Home</a>
-          <a href="about.html">About Us</a>
-          <a href="services.html">Services</a>
-          <a href="blog.html">Blog</a>
-          <a href="contact.html">Contact</a>
+        <div class="footer-col-2">
+          <div class="footer-heading">Navigation</div>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="services.html">Services</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+        <div class="footer-col-3">
+          <div class="footer-heading">Services</div>
+          <div class="footer-links">
+            <a href="services.html">Smart Lighting</a>
+            <a href="services.html">Security & Cameras</a>
+            <a href="services.html">Climate Control</a>
+            <a href="services.html">Full Automation</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-heading">Contact</div>
+          <div class="footer-contact">
+            <a href="tel:+19415550123">(941) 555-0123</a>
+            <a href="mailto:hello@allthingsautomated.com">hello@allthingsautomated.com</a>
+            <span>Mon-Fri: 9am-5pm ET</span>
+            <span>Sat: By appointment</span>
+          </div>
         </div>
       </div>
-      <div class="footer-col-3">
-        <div class="footer-contact">
-          <a href="tel:+14155551234">(941) 555-0123</a>
-          <a href="mailto:hello@allthingsautomated.com">hello@allthingsautomated.com</a>
-          <span style="margin-top: 12px;">Mon—Fri: 9am–5pm ET</span>
-        </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 All Things Automated. All rights reserved.</p>
+        <a href="login.html" class="footer-login">Admin</a>
       </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 All Things Automated. All rights reserved.</p>
     </div>
   </footer>
 

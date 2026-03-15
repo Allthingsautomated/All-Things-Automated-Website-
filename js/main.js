@@ -50,14 +50,16 @@ function initHamburger() {
 
   hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
-    navMobile.style.display = navMobile.style.display === 'flex' ? 'none' : 'flex';
+    const isOpen = navMobile.style.display === 'flex';
+    navMobile.style.display = isOpen ? 'none' : 'flex';
+    document.body.style.overflow = isOpen ? '' : 'hidden';
   });
 
-  // Close menu when a link is clicked
   navMobile.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('active');
       navMobile.style.display = 'none';
+      document.body.style.overflow = '';
     });
   });
 }
@@ -68,7 +70,7 @@ function initHamburger() {
 
 function setActiveNav() {
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  const navLinks = document.querySelectorAll('.nav-center a, .nav-mobile a');
+  const navLinks = document.querySelectorAll('.nav-center a, .nav-mobile a:not(.btn-quote)');
 
   navLinks.forEach(link => {
     const href = link.getAttribute('href');
@@ -92,7 +94,8 @@ function initIntersectionObserver() {
       }
     });
   }, {
-    threshold: 0.1
+    threshold: 0.08,
+    rootMargin: '0px 0px -40px 0px'
   });
 
   document.querySelectorAll('section').forEach(section => {
@@ -105,7 +108,12 @@ function initIntersectionObserver() {
    ============================================ */
 
 let currentSlideIndex = 0;
-const slidesToShow = 3;
+
+function getSlidesToShow() {
+  if (window.innerWidth <= 768) return 1;
+  if (window.innerWidth <= 1024) return 2;
+  return 3;
+}
 
 function initSlider() {
   const prevBtn = document.querySelector('[data-slider="prev"]');
@@ -116,82 +124,110 @@ function initSlider() {
   prevBtn.addEventListener('click', prevSlide);
   nextBtn.addEventListener('click', nextSlide);
 
+  // Touch/swipe support
+  const track = document.querySelector('.slider-track');
+  if (track) {
+    let startX = 0;
+    let isDragging = false;
+
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    }, { passive: true });
+
+    track.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) nextSlide();
+        else prevSlide();
+      }
+      isDragging = false;
+    }, { passive: true });
+  }
+
   updateSlider();
 }
 
 function prevSlide() {
-  const track = document.querySelector('.slider-track');
-  const totalCards = track.querySelectorAll('.slider-card').length;
-  const maxSlideIndex = Math.max(0, totalCards - slidesToShow);
-
   currentSlideIndex = Math.max(0, currentSlideIndex - 1);
   updateSlider();
 }
 
 function nextSlide() {
   const track = document.querySelector('.slider-track');
+  if (!track) return;
   const totalCards = track.querySelectorAll('.slider-card').length;
+  const slidesToShow = getSlidesToShow();
   const maxSlideIndex = Math.max(0, totalCards - slidesToShow);
-
   currentSlideIndex = Math.min(maxSlideIndex, currentSlideIndex + 1);
   updateSlider();
 }
 
 function updateSlider() {
   const track = document.querySelector('.slider-track');
-  const cardWidth = track.querySelector('.slider-card').offsetWidth;
-  const gap = 20;
+  if (!track) return;
+  const card = track.querySelector('.slider-card');
+  if (!card) return;
+  const cardWidth = card.offsetWidth;
+  const gap = 24;
   const offset = -(currentSlideIndex * (cardWidth + gap));
-
   track.style.transform = `translateX(${offset}px)`;
 }
 
 /* ============================================
-   PORTFOLIO CARDS
+   PORTFOLIO DATA & RENDERING
    ============================================ */
 
 const portfolioData = [
   {
     title: 'Smart Lighting System',
-    description: 'Full Lutron scene control installed throughout a luxury residence.',
+    description: 'Full Lutron scene control installed throughout a luxury waterfront residence.',
     location: 'Sarasota, FL',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80',
-    featured: false
+    price: 'Starting at $2,500',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+    category: 'lighting'
   },
   {
     title: 'Security Camera Setup',
-    description: 'Ring camera perimeter install with smart doorbell and remote access.',
+    description: 'Complete perimeter camera system with smart doorbell and remote monitoring.',
     location: 'Osprey, FL',
-    image: 'https://images.unsplash.com/photo-1558002038-1055e4e7e5b0?w=500&q=80',
-    featured: true
+    price: 'Starting at $1,800',
+    image: 'https://images.unsplash.com/photo-1558002038-1055e4e7e5b0?w=600&q=80',
+    category: 'security'
+  },
+  {
+    title: 'Climate Control System',
+    description: 'Ecobee multi-zone installation with intelligent scheduling and app control.',
+    location: 'Bradenton, FL',
+    price: 'Starting at $800',
+    image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80',
+    category: 'climate'
   },
   {
     title: 'Full Home Automation',
-    description: 'Complete smart home integration — lighting, climate, security unified.',
+    description: 'Complete smart home integration — lighting, climate, security & entertainment unified.',
     location: 'Venice, FL',
-    image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500&q=80',
-    featured: false
-  },
-  {
-    title: 'Smart Thermostat Install',
-    description: 'Ecobee system with multi-zone climate scheduling and app control.',
-    location: 'Bradenton, FL',
-    image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80',
-    featured: false
+    price: 'Starting at $8,000',
+    image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=600&q=80',
+    category: 'automation'
   },
   {
     title: 'Smart Doorbell & Locks',
     description: 'Keyless entry with video doorbell and remote access from anywhere.',
     location: 'North Port, FL',
-    image: 'https://images.unsplash.com/photo-1558618047-3c2f8f60bcce?w=500&q=80',
-    featured: false
+    price: 'Starting at $600',
+    image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80',
+    category: 'security'
   },
   {
-    title: 'Outdoor Security System',
-    description: 'Full perimeter Arlo camera system with motion alerts and cloud storage.',
+    title: 'Outdoor Entertainment',
+    description: 'Weatherproof speakers, automated outdoor lighting, and patio control system.',
     location: 'Lakewood Ranch, FL',
-    image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=500&q=80',
-    featured: false
+    price: 'Starting at $3,500',
+    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80',
+    category: 'automation'
   }
 ];
 
@@ -201,29 +237,23 @@ function renderPortfolioSlider() {
 
   portfolioData.forEach(item => {
     const card = document.createElement('div');
-    card.className = 'slider-card card';
-
-    const isFeatured = item.featured;
-    const buttonClass = isFeatured ? 'btn-blue' : 'btn-dark';
-
+    card.className = 'slider-card';
     card.innerHTML = `
-      <img src="${item.image}" alt="${item.title}" class="card-image" />
+      <img src="${item.image}" alt="${item.title}" class="card-image" loading="lazy" />
       <div class="card-content">
         <div class="card-title">${item.title}</div>
         <div class="card-description">${item.description}</div>
         <div class="card-footer">
           <span>${item.location}</span>
-          <button class="btn btn-small ${buttonClass}">View More</button>
+          <a href="services.html" class="btn btn-primary btn-small">View Details</a>
         </div>
+        <div class="card-price">${item.price}</div>
       </div>
     `;
-
     track.appendChild(card);
   });
 
-  setTimeout(() => {
-    updateSlider();
-  }, 100);
+  setTimeout(updateSlider, 100);
 }
 
 /* ============================================
@@ -249,7 +279,6 @@ function initContactForm() {
       return;
     }
 
-    // Create inquiry object
     const inquiry = {
       id: Date.now(),
       name,
@@ -262,21 +291,16 @@ function initContactForm() {
       read: false
     };
 
-    // Get existing inquiries from localStorage
     let inquiries = JSON.parse(localStorage.getItem('ata_inquiries')) || [];
     inquiries.push(inquiry);
     localStorage.setItem('ata_inquiries', JSON.stringify(inquiries));
 
-    // Show success message
     const successMsg = document.querySelector('.success-message');
     if (successMsg) {
       successMsg.classList.add('show');
-      setTimeout(() => {
-        successMsg.classList.remove('show');
-      }, 4000);
+      setTimeout(() => successMsg.classList.remove('show'), 4000);
     }
 
-    // Reset form
     form.reset();
   });
 }
@@ -293,25 +317,40 @@ function loadBlogPosts() {
   const publishedPosts = savedPosts.filter(p => p.status === 'Published');
 
   if (publishedPosts.length > 0) {
-    // Clear default posts and add saved posts
     blogGrid.innerHTML = '';
     publishedPosts.forEach(post => {
       const card = document.createElement('div');
-      card.className = 'card';
+      card.className = 'blog-card';
       card.innerHTML = `
-        <div style="background: linear-gradient(135deg, #e8f4f0 0%, #eef6fb 50%, #fdf6ee 100%); height: 180px; display: flex; align-items: center; justify-content: center; border-radius: 16px 16px 0 0;">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h16l8 8v28c0 2-1 3-3 3H15c-2 0-3-1-3-3V7c0-2 1-3 3-3Z" stroke="#3A7FC1" stroke-width="2" stroke-linejoin="round"/><path d="M28 4v8h8M18 24h12M18 30h12" stroke="#3A7FC1" stroke-width="2" stroke-linecap="round"/></svg>
+        <div class="blog-card-image" style="background: linear-gradient(135deg, rgba(58,127,193,0.15), rgba(8,11,20,0.9)); display:flex;align-items:center;justify-content:center;">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><path d="M16 4h16l8 8v28c0 2-1 3-3 3H15c-2 0-3-1-3-3V7c0-2 1-3 3-3Z" stroke="#3A7FC1" stroke-width="2" stroke-linejoin="round"/><path d="M28 4v8h8M18 24h12M18 30h12" stroke="#3A7FC1" stroke-width="2" stroke-linecap="round"/></svg>
         </div>
-        <div class="card-content">
+        <div class="blog-card-content">
           <span class="badge-category">${post.category || 'Tips'}</span>
-          <div class="card-title">${post.title}</div>
-          <div class="card-description">${post.content.substring(0, 80)}...</div>
-          <a href="#" style="color: #3A7FC1; font-weight: 500; font-size: 12px;">Read More →</a>
+          <h3>${post.title}</h3>
+          <p>${post.content.substring(0, 100)}...</p>
+          <a href="#">Read More &rarr;</a>
         </div>
       `;
       blogGrid.appendChild(card);
     });
   }
+}
+
+/* ============================================
+   SMOOTH SCROLL FOR ANCHOR LINKS
+   ============================================ */
+
+function initSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
 }
 
 /* ============================================
@@ -328,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderPortfolioSlider();
   initContactForm();
   loadBlogPosts();
+  initSmoothScroll();
 });
 
-// Update slider on window resize
 window.addEventListener('resize', updateSlider);

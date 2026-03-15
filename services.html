@@ -3,123 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Home Services - All Things Automated</title>
+  <title>Smart Home Services | All Things Automated | Sarasota, FL</title>
+  <meta name="description" content="Explore our smart home services: intelligent lighting, security & cameras, climate control, and full home automation solutions for Sarasota, FL.">
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    .service-block {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-      margin-bottom: 120px;
-      padding: 60px;
-      background: linear-gradient(135deg, #f8fafb 0%, #f3f6fa 100%);
-      border-radius: 20px;
-      border: 1px solid #eef2f7;
-    }
-
-    .service-block.reverse {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .service-block.reverse > :first-child {
-      order: 2;
-    }
-
-    .service-block.reverse > :last-child {
-      order: 1;
-    }
-
-    .service-image {
-      width: 100%;
-      height: 380px;
-      border-radius: 16px;
-      object-fit: cover;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-    }
-
-    .service-content h2 {
-      margin-bottom: 24px;
-      font-size: 32px;
-    }
-
-    .service-content p {
-      font-weight: 300;
-      line-height: 1.8;
-      margin-bottom: 32px;
-      color: #666;
-      font-size: 15px;
-    }
-
-    .service-features {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .service-features li {
-      padding: 14px 0;
-      font-weight: 300;
-      color: #666;
-      line-height: 1.6;
-      font-size: 15px;
-      border-bottom: 1px solid #e8ecf2;
-    }
-
-    .service-features li:last-child {
-      border-bottom: none;
-    }
-
-    .service-features li:before {
-      content: "✓ ";
-      color: #2d6a7f;
-      font-weight: 600;
-      margin-right: 10px;
-    }
-
-    @media (max-width: 768px) {
-      .service-block {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        margin-bottom: 80px;
-        padding: 40px 20px;
-      }
-
-      .service-image {
-        height: 280px;
-      }
-
-      .service-content h2 {
-        font-size: 26px;
-      }
-
-      .service-content p,
-      .service-features li {
-        font-size: 14px;
-      }
-
-      .service-block.reverse > :first-child,
-      .service-block.reverse > :last-child {
-        order: unset;
-      }
-    }
-  </style>
 </head>
 <body>
+
   <!-- NAVIGATION -->
   <nav>
     <div class="nav-logo">
-      <img src="assets/logo-color.svg" alt="All Things Automated">
+      <img src="assets/logo-white.svg" alt="All Things Automated">
     </div>
     <div class="nav-center">
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
       <a href="services.html" class="active">Services</a>
+      <a href="pricing.html">Pricing</a>
       <a href="blog.html">Blog</a>
     </div>
     <div class="nav-right">
       <a href="contact.html" class="nav-contact">Contact</a>
-      <a href="contact.html" class="btn-quote">Get a Quote</a>
+      <a href="contact.html" class="btn-quote">Get a Free Quote</a>
     </div>
     <div class="hamburger">
       <span></span>
@@ -133,116 +37,160 @@
     <a href="index.html">Home</a>
     <a href="about.html">About Us</a>
     <a href="services.html">Services</a>
+    <a href="pricing.html">Pricing</a>
     <a href="blog.html">Blog</a>
     <a href="contact.html">Contact</a>
-    <a href="contact.html" class="btn-quote">Get a Quote</a>
+    <a href="contact.html" class="btn-quote">Get a Free Quote</a>
   </div>
 
-  <!-- HERO SECTION -->
-  <section class="hero hero-centered">
-    <h1>Smart Home Services</h1>
-    <p style="margin-top: 16px; font-size: 16px;">Comprehensive automation solutions for every room in your home</p>
-  </section>
-
-  <!-- SERVICES CONTENT -->
-  <section style="background: linear-gradient(135deg, #ffffff 0%, #f9fbfc 100%);">
-    <!-- SERVICE 1: SMART LIGHTING -->
-    <div class="service-block">
-      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Smart Lighting" class="service-image">
-      <div class="service-content">
-        <h2>Smart Lighting</h2>
-        <p>Transform how you experience light in your home. Our smart lighting installations give you complete control over brightness, color, and scene creation from your phone or voice commands.</p>
-        <ul class="service-features">
-          <li>Lutron scene control and scheduling</li>
-          <li>Voice control integration (Alexa & Google Home)</li>
-          <li>Dimming and mood creation</li>
-          <li>Energy efficiency monitoring</li>
-        </ul>
-      </div>
+  <!-- ===================== HERO SECTION (PAGE) ===================== -->
+  <section class="hero-page">
+    <div class="hero-page-bg">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80" alt="Smart home services overview">
     </div>
-
-    <!-- SERVICE 2: SECURITY & CAMERAS -->
-    <div class="service-block reverse">
-      <img src="https://images.unsplash.com/photo-1558002038-1055e4e7e5b0?w=600&q=80" alt="Security Cameras" class="service-image">
-      <div class="service-content">
-        <h2>Security & Cameras</h2>
-        <p>Peace of mind starts with visibility. We install premium video doorbell systems, perimeter cameras, and smart door locks that let you monitor your home from anywhere in the world.</p>
-        <ul class="service-features">
-          <li>Video doorbell with two-way audio</li>
-          <li>Outdoor/indoor camera systems</li>
-          <li>Smart locks and keyless entry</li>
-          <li>Real-time alerts and cloud storage</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- SERVICE 3: CLIMATE CONTROL -->
-    <div class="service-block">
-      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Smart Thermostat" class="service-image">
-      <div class="service-content">
-        <h2>Climate Control</h2>
-        <p>Stay comfortable while reducing energy costs. Our smart thermostat installations provide intelligent scheduling, zone control, and energy insights to optimize your HVAC system.</p>
-        <ul class="service-features">
-          <li>Ecobee smart thermostat with voice control</li>
-          <li>Multi-zone temperature scheduling</li>
-          <li>Remote temperature adjustment</li>
-          <li>Energy usage reports & savings</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- SERVICE 4: FULL AUTOMATION -->
-    <div class="service-block reverse">
-      <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?w=600&q=80" alt="Full Home Automation" class="service-image">
-      <div class="service-content">
-        <h2>Full Home Automation</h2>
-        <p>Create the ultimate smart home experience with unified automation across all systems. Control lighting, security, climate, entertainment, and more from a single interface or voice command.</p>
-        <ul class="service-features">
-          <li>Integrated system design & planning</li>
-          <li>Multi-brand platform synchronization</li>
-          <li>Custom automation routines</li>
-          <li>Professional installation & ongoing support</li>
-        </ul>
-      </div>
+    <div class="hero-page-content">
+      <h1>Smart Home Services</h1>
+      <p class="hero-page-subtitle">Premium automation solutions tailored to your lifestyle. From intelligent lighting to full home integration, we design and install cutting-edge smart home technology across Sarasota, Manatee, and Charlotte Counties.</p>
     </div>
   </section>
 
-  <!-- CTA SECTION -->
+  <!-- ===================== SERVICE BLOCKS SECTION ===================== -->
+  <section class="services-section">
+    <div class="container">
+
+      <!-- Service Block 1: Smart Lighting -->
+      <div class="service-block">
+        <div class="service-image">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Smart Lighting Control">
+        </div>
+        <div class="service-content">
+          <h2>Smart Lighting</h2>
+          <p>Transform the ambiance of every room with intelligent lighting control. Our smart lighting systems offer seamless scene creation, dimming capabilities, and automated scheduling. Whether it's mood lighting for entertainment or energy-efficient scheduling for everyday living, we integrate leading platforms like Lutron to deliver precision and reliability.</p>
+          <ul class="service-features">
+            <li>Scene control and customization</li>
+            <li>Dimming and color temperature adjustment</li>
+            <li>Automated scheduling and occupancy sensors</li>
+            <li>Voice control integration</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Service Block 2: Security & Cameras (Reverse) -->
+      <div class="service-block reverse">
+        <div class="service-image">
+          <img src="https://images.unsplash.com/photo-1558002038-1055e4e7e5b0?w=600&q=80" alt="Security Cameras and Smart Locks">
+        </div>
+        <div class="service-content">
+          <h2>Security & Cameras</h2>
+          <p>Protect what matters most with advanced security and surveillance systems. Our comprehensive security solutions feature HD camera systems, intelligent smart locks, video doorbells, and 24/7 remote monitoring access. Stay connected to your home from anywhere with real-time alerts and crystal-clear video feeds.</p>
+          <ul class="service-features">
+            <li>HD and 4K camera systems</li>
+            <li>Smart locks and keyless entry</li>
+            <li>Video doorbell integration</li>
+            <li>24/7 monitoring and remote alerts</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Service Block 3: Climate Control -->
+      <div class="service-block">
+        <div class="service-image">
+          <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Climate Control Systems">
+        </div>
+        <div class="service-content">
+          <h2>Climate Control</h2>
+          <p>Achieve the perfect temperature year-round with intelligent climate control systems. Our multi-zone HVAC solutions provide independent temperature management for different areas of your home, automated scheduling, and energy optimization features. Enjoy personalized comfort while reducing energy consumption and utility costs.</p>
+          <ul class="service-features">
+            <li>Multi-zone thermostat management</li>
+            <li>Energy-saving automation</li>
+            <li>Weather-responsive scheduling</li>
+            <li>Remote temperature control via app</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Service Block 4: Full Home Automation (Reverse) -->
+      <div class="service-block reverse">
+        <div class="service-image">
+          <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?w=600&q=80" alt="Full Home Automation Control">
+        </div>
+        <div class="service-content">
+          <h2>Full Home Automation</h2>
+          <p>Experience seamless control of your entire home from a single intuitive interface. Our full home automation systems unify all your smart devices — lighting, climate, security, entertainment, and more — into one cohesive ecosystem. Create custom routines, automation scenes, and voice-activated controls that adapt to your lifestyle.</p>
+          <ul class="service-features">
+            <li>Unified control platform for all systems</li>
+            <li>Custom routines and automation scenes</li>
+            <li>Voice control and mobile app access</li>
+            <li>Integration with all major smart home platforms</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== CTA SECTION ===================== -->
   <section class="cta-section">
-    <h2>Ready To Automate Your Home?</h2>
-    <p>Free, no-obligation quote — Sarasota, Manatee & Charlotte Counties</p>
-    <a href="contact.html" class="btn btn-blue">Get My Free Quote</a>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-top">
-      <div class="footer-col-1">
-        <div class="footer-logo">
-          <img src="assets/logo-color.svg" alt="All Things Automated">
-        </div>
-        <div class="footer-tagline">Step Into The World Of Smart Homes With Ease</div>
-        <div class="footer-location">Serving Sarasota, Manatee & Charlotte Counties<br>Insured</div>
-      </div>
-      <div class="footer-col-2">
-        <div class="footer-links">
-          <a href="index.html">Home</a>
-          <a href="about.html">About Us</a>
-          <a href="services.html">Services</a>
-          <a href="blog.html">Blog</a>
-          <a href="contact.html">Contact</a>
-        </div>
-      </div>
-      <div class="footer-col-3">
-        <div class="footer-contact">
-          <a href="tel:+14155551234">(941) 555-0123</a>
-          <a href="mailto:hello@allthingsautomated.com">hello@allthingsautomated.com</a>
-          <span style="margin-top: 12px;">Mon—Fri: 9am–5pm ET</span>
-        </div>
+    <div class="container">
+      <h2>Ready To Transform Your Home?</h2>
+      <p>Schedule your free consultation with our smart home experts — no obligation, no pressure</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="contact.html" class="btn btn-primary btn-lg">Get My Free Quote</a>
+        <a href="https://calendly.com" class="btn btn-outline btn-lg" target="_blank" rel="noopener">Book Now</a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 All Things Automated. All rights reserved.</p>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-col-1">
+          <div class="footer-logo">
+            <img src="assets/logo-white.svg" alt="All Things Automated">
+          </div>
+          <div class="footer-tagline">Intelligent automation for modern living. Serving Florida's Gulf Coast with premium smart home solutions.</div>
+          <div class="footer-location">Sarasota, FL | Insured<br>Serving Sarasota, Manatee & Charlotte Counties</div>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></a>
+            <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.35z"/><polygon points="9.75,15.02 15.5,11.75 9.75,8.48"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-col-2">
+          <div class="footer-heading">Navigation</div>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="services.html">Services</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+        <div class="footer-col-3">
+          <div class="footer-heading">Services</div>
+          <div class="footer-links">
+            <a href="services.html">Smart Lighting</a>
+            <a href="services.html">Security & Cameras</a>
+            <a href="services.html">Climate Control</a>
+            <a href="services.html">Full Automation</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-heading">Contact</div>
+          <div class="footer-contact">
+            <a href="tel:+19415550123">(941) 555-0123</a>
+            <a href="mailto:hello@allthingsautomated.com">hello@allthingsautomated.com</a>
+            <span>Mon-Fri: 9am-5pm ET</span>
+            <span>Sat: By appointment</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 All Things Automated. All rights reserved.</p>
+        <a href="login.html" class="footer-login">Admin</a>
+      </div>
     </div>
   </footer>
 
