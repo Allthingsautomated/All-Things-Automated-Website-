@@ -192,7 +192,7 @@ const portfolioData = [
     title: 'Estate Security System',
     description: 'Luma 8-camera perimeter system with Ring doorbell and smart locks on a gated property.',
     location: 'Bird Key, FL',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80',
     category: 'security'
   },
   {
@@ -206,7 +206,7 @@ const portfolioData = [
     title: 'Full Home Automation',
     description: 'Control4 whole-home system unifying lighting, climate, audio, and security from one interface.',
     location: 'Casey Key, FL',
-    image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1558882224-dda166ffe592?w=600&q=80',
     category: 'automation'
   },
   {
@@ -220,7 +220,7 @@ const portfolioData = [
     title: 'Outdoor Living Automation',
     description: 'Landscape lighting scenes, weatherproof audio, and automated patio shades.',
     location: 'Palmer Ranch, FL',
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80',
     category: 'lighting'
   }
 ];
@@ -347,6 +347,128 @@ function initSmoothScroll() {
 }
 
 /* ============================================
+   LEAD CAPTURE POPUP
+   ============================================ */
+
+function initLeadCapture() {
+  // Don't show on contact page or if already dismissed/subscribed
+  if (window.location.pathname.includes('contact')) return;
+  if (localStorage.getItem('ata_lead_dismissed')) return;
+  if (localStorage.getItem('ata_lead_subscribed')) return;
+
+  // Show popup after 45 seconds or 60% scroll
+  let popupShown = false;
+
+  function showPopup() {
+    if (popupShown) return;
+    popupShown = true;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'lead-overlay';
+    overlay.innerHTML = `
+      <div class="lead-popup">
+        <button class="lead-close" aria-label="Close">&times;</button>
+        <div class="lead-popup-content">
+          <div class="lead-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#3A7FC1" stroke-width="1.5" width="48" height="48">
+              <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+            </svg>
+          </div>
+          <h3>Get Smart Home Tips & Exclusive Offers</h3>
+          <p>Join homeowners across the Gulf Coast who get our monthly insights on automation, energy savings, and home security.</p>
+          <form class="lead-form" id="leadCaptureForm">
+            <input type="text" name="lead_name" placeholder="Your name" required>
+            <input type="email" name="lead_email" placeholder="Your email" required>
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+          <p class="lead-privacy">No spam, ever. Unsubscribe anytime.</p>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+    requestAnimationFrame(() => overlay.classList.add('active'));
+
+    // Close handlers
+    overlay.querySelector('.lead-close').addEventListener('click', () => {
+      overlay.classList.remove('active');
+      setTimeout(() => overlay.remove(), 300);
+      localStorage.setItem('ata_lead_dismissed', Date.now());
+    });
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.classList.remove('active');
+        setTimeout(() => overlay.remove(), 300);
+        localStorage.setItem('ata_lead_dismissed', Date.now());
+      }
+    });
+
+    // Form submission
+    overlay.querySelector('#leadCaptureForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = e.target.lead_name.value.trim();
+      const email = e.target.lead_email.value.trim();
+
+      // Store lead
+      let leads = JSON.parse(localStorage.getItem('ata_leads')) || [];
+      leads.push({ name, email, date: new Date().toISOString(), source: 'popup' });
+      localStorage.setItem('ata_leads', JSON.stringify(leads));
+      localStorage.setItem('ata_lead_subscribed', 'true');
+
+      // Show success
+      overlay.querySelector('.lead-popup-content').innerHTML = `
+        <div class="lead-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3A7FC1" stroke-width="2" width="48" height="48">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+        </div>
+        <h3>You're In!</h3>
+        <p>Thanks, ${name}! You'll receive our next smart home update straight to your inbox.</p>
+      `;
+      setTimeout(() => {
+        overlay.classList.remove('active');
+        setTimeout(() => overlay.remove(), 300);
+      }, 3000);
+    });
+  }
+
+  // Timer trigger (45 seconds)
+  setTimeout(showPopup, 45000);
+
+  // Scroll trigger (60% page)
+  window.addEventListener('scroll', function scrollTrigger() {
+    const scrollPercent = (window.scrollY + window.innerHeight) / document.body.scrollHeight;
+    if (scrollPercent > 0.6) {
+      showPopup();
+      window.removeEventListener('scroll', scrollTrigger);
+    }
+  });
+}
+
+/* ============================================
+   FOOTER NEWSLETTER FORM
+   ============================================ */
+
+function initFooterNewsletter() {
+  const form = document.querySelector('.footer-newsletter-form');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = form.querySelector('input[type="email"]').value.trim();
+    if (!email) return;
+
+    let leads = JSON.parse(localStorage.getItem('ata_leads')) || [];
+    leads.push({ name: '', email, date: new Date().toISOString(), source: 'footer' });
+    localStorage.setItem('ata_leads', JSON.stringify(leads));
+    localStorage.setItem('ata_lead_subscribed', 'true');
+
+    form.innerHTML = '<p style="color: var(--color-primary); font-weight: 500;">Subscribed! Welcome aboard.</p>';
+  });
+}
+
+/* ============================================
    INITIALIZATION
    ============================================ */
 
@@ -361,6 +483,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   loadBlogPosts();
   initSmoothScroll();
+  initLeadCapture();
+  initFooterNewsletter();
 });
 
 window.addEventListener('resize', updateSlider);
