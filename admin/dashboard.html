@@ -201,17 +201,28 @@
       <!-- ===== LEADS TAB ===== -->
       <div id="tab-leads" class="tab-content">
         <div class="admin-header">
-          <div><h1>Website Leads</h1><p class="admin-subtitle">Leads captured from your website popup and newsletter</p></div>
+          <div><h1>All Leads</h1><p class="admin-subtitle">Leads from your website, landing pages, and Google Ads campaigns</p></div>
           <div class="admin-header-right"><button class="btn btn-gray" onclick="exportLeads()">Export CSV</button></div>
         </div>
         <div class="stat-cards">
           <div class="stat-card"><div class="stat-label">Total Leads</div><div class="stat-value" id="leads-total">0</div></div>
-          <div class="stat-card"><div class="stat-label">From Popup</div><div class="stat-value" id="leads-popup">0</div></div>
-          <div class="stat-card"><div class="stat-label">From Footer</div><div class="stat-value" id="leads-footer">0</div></div>
+          <div class="stat-card"><div class="stat-label" style="color:#EF4444">Hot Leads</div><div class="stat-value" id="leads-hot" style="color:#EF4444">0</div></div>
+          <div class="stat-card"><div class="stat-label" style="color:#F59E0B">Warm Leads</div><div class="stat-value" id="leads-warm" style="color:#F59E0B">0</div></div>
+          <div class="stat-card"><div class="stat-label">Cold Leads</div><div class="stat-value" id="leads-cold">0</div></div>
+          <div class="stat-card"><div class="stat-label">From Landing Page</div><div class="stat-value" id="leads-landing">0</div></div>
+          <div class="stat-card"><div class="stat-label">From Website</div><div class="stat-value" id="leads-website">0</div></div>
+        </div>
+        <div style="margin-bottom:12px;">
+          <button class="pill-btn active" onclick="filterLeads('all',this)">All</button>
+          <button class="pill-btn" onclick="filterLeads('hot',this)">Hot</button>
+          <button class="pill-btn" onclick="filterLeads('warm',this)">Warm</button>
+          <button class="pill-btn" onclick="filterLeads('cold',this)">Cold</button>
+          <button class="pill-btn" onclick="filterLeads('google-landing',this)">Landing Page</button>
+          <button class="pill-btn" onclick="filterLeads('website',this)">Website</button>
         </div>
         <div class="table-container">
           <table class="table">
-            <thead><tr><th>Name</th><th>Email</th><th>Source</th><th>Date</th><th>Actions</th></tr></thead>
+            <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Source</th><th>Score</th><th>Service</th><th>Budget</th><th>Timeline</th><th>Date</th><th>Actions</th></tr></thead>
             <tbody id="leadsTable"></tbody>
           </table>
         </div>

@@ -671,23 +671,61 @@ function generateEstimatePDF(est) {
 }
 
 // ===== LEADS =====
+let leadFilter = 'all';
+
+function filterLeads(filter, btn) {
+  leadFilter = filter;
+  document.querySelectorAll('#tab-leads .pill-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  refreshLeads();
+}
+
+function tierBadge(tier) {
+  const map = { hot: 'badge-red', warm: 'badge-yellow', cold: 'badge-gray' };
+  return tier ? `<span class="badge ${map[tier] || 'badge-gray'}">${tier}</span>` : '-';
+}
+
+function sourceBadge(source) {
+  const map = { 'google-landing': 'badge-green', 'popup': 'badge-blue', 'footer': 'badge-blue', 'contact-form': 'badge-navy' };
+  const labels = { 'google-landing': 'Landing Page', 'popup': 'Popup', 'footer': 'Footer', 'contact-form': 'Contact' };
+  return `<span class="badge ${map[source] || 'badge-gray'}">${labels[source] || source}</span>`;
+}
+
 function refreshLeads() {
   const leads = DB.get('leads');
-  document.getElementById('leads-total').textContent = leads.length;
-  document.getElementById('leads-popup').textContent = leads.filter(l => l.source === 'popup').length;
-  document.getElementById('leads-footer').textContent = leads.filter(l => l.source === 'footer').length;
 
-  document.getElementById('leadsTable').innerHTML = leads.length ? leads.sort((a, b) => new Date(b.date) - new Date(a.date)).map(l =>
+  // Stats
+  document.getElementById('leads-total').textContent = leads.length;
+  document.getElementById('leads-hot').textContent = leads.filter(l => l.tier === 'hot').length;
+  document.getElementById('leads-warm').textContent = leads.filter(l => l.tier === 'warm').length;
+  document.getElementById('leads-cold').textContent = leads.filter(l => l.tier === 'cold' || !l.tier).length;
+  document.getElementById('leads-landing').textContent = leads.filter(l => l.source === 'google-landing').length;
+  document.getElementById('leads-website').textContent = leads.filter(l => l.source !== 'google-landing').length;
+
+  // Filter
+  let filtered = leads;
+  if (leadFilter === 'hot') filtered = leads.filter(l => l.tier === 'hot');
+  else if (leadFilter === 'warm') filtered = leads.filter(l => l.tier === 'warm');
+  else if (leadFilter === 'cold') filtered = leads.filter(l => l.tier === 'cold' || !l.tier);
+  else if (leadFilter === 'google-landing') filtered = leads.filter(l => l.source === 'google-landing');
+  else if (leadFilter === 'website') filtered = leads.filter(l => l.source !== 'google-landing');
+
+  document.getElementById('leadsTable').innerHTML = filtered.length ? filtered.sort((a, b) => new Date(b.date) - new Date(a.date)).map(l =>
     `<tr>
-      <td>${l.name || '-'}</td>
+      <td><strong>${l.name || '-'}</strong></td>
       <td>${l.email}</td>
-      <td><span class="badge badge-blue">${l.source}</span></td>
+      <td>${l.phone || '-'}</td>
+      <td>${sourceBadge(l.source)}</td>
+      <td>${l.score ? tierBadge(l.tier) + ' <small style="color:#888">(' + l.score + ')</small>' : '-'}</td>
+      <td>${l.service || '-'}</td>
+      <td>${l.budget || '-'}</td>
+      <td>${l.timeline || '-'}</td>
       <td class="text-muted">${fmtDate(l.date)}</td>
       <td>
-        <button class="btn btn-text" onclick="convertLeadToClient('${l.email}','${l.name || ''}')">Add to CRM</button>
+        <button class="btn btn-text" onclick="convertLeadToClient('${l.email}','${(l.name || '').replace(/'/g, "\'")}')">Add to CRM</button>
       </td>
     </tr>`
-  ).join('') : '<tr><td colspan="5" style="text-align:center;padding:40px;">No leads captured yet. Leads from your website popup and newsletter will appear here.</td></tr>';
+  ).join('') : '<tr><td colspan="10" style="text-align:center;padding:40px;">No leads captured yet. Leads from your landing page and website will appear here.</td></tr>';
 }
 
 function convertLeadToClient(email, name) {
@@ -702,7 +740,9 @@ function convertLeadToClient(email, name) {
 function exportLeads() {
   const leads = DB.get('leads');
   if (!leads.length) return alert('No leads to export');
-  const csv = 'Name,Email,Source,Date\n' + leads.map(l => `"${l.name || ''}","${l.email}","${l.source}","${l.date}"`).join('\n');
+  const csv = 'Name,Email,Phone,Source,Score,Tier,Service,Budget,Timeline,Address,UTM Source,UTM Medium,UTM Campaign,Date\n' + leads.map(l =>
+    `"${l.name || ''}","${l.email}","${l.phone || ''}","${l.source}","${l.score || ''}","${l.tier || ''}","${l.service || ''}","${l.budget || ''}","${l.timeline || ''}","${l.address || ''}","${l.utm_source || ''}","${l.utm_medium || ''}","${l.utm_campaign || ''}","${l.date}"`
+  ).join('\n');
   const blob = new Blob([csv], { type: 'text/csv' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
