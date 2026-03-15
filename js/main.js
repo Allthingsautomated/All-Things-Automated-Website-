@@ -280,7 +280,7 @@ function loadBlogPosts() {
       card.className = 'card';
       card.innerHTML = `
         <div style="background: linear-gradient(135deg, #e8f4f0 0%, #eef6fb 50%, #fdf6ee 100%); height: 180px; display: flex; align-items: center; justify-content: center; border-radius: 16px 16px 0 0;">
-          <span style="color: #ccc; font-size: 36px;">📄</span>
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h16l8 8v28c0 2-1 3-3 3H15c-2 0-3-1-3-3V7c0-2 1-3 3-3Z" stroke="#3A7FC1" stroke-width="2" stroke-linejoin="round"/><path d="M28 4v8h8M18 24h12M18 30h12" stroke="#3A7FC1" stroke-width="2" stroke-linecap="round"/></svg>
         </div>
         <div class="card-content">
           <span class="badge-category">${post.category || 'Tips'}</span>
