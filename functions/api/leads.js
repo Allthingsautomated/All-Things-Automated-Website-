@@ -1,6 +1,7 @@
 // Cloudflare Pages Function — Leads API
-// Stores and retrieves leads via Cloudflare KV
-// Binding required: KV namespace named "LEADS"
+// Uses jsonblob.com as free cloud storage (no KV binding needed)
+
+const BLOB_URL = 'https://jsonblob.com/api/jsonBlob/019cf3c5-01d3-7a02-a103-3278af4373b5';
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -14,16 +15,13 @@ export async function onRequestOptions() {
 }
 
 // GET /api/leads — retrieve all leads
-export async function onRequestGet(context) {
+export async function onRequestGet() {
   try {
-    if (!context.env.LEADS) {
-      return new Response(JSON.stringify({ error: 'KV not bound', leads: [] }), {
-        status: 200, headers: CORS_HEADERS
-      });
-    }
-    const data = await context.env.LEADS.get('all_leads');
-    const leads = data ? JSON.parse(data) : [];
-    return new Response(JSON.stringify({ leads: leads }), {
+    const resp = await fetch(BLOB_URL, {
+      headers: { 'Accept': 'application/json' }
+    });
+    const data = await resp.json();
+    return new Response(JSON.stringify({ leads: data.leads || [] }), {
       status: 200, headers: CORS_HEADERS
     });
   } catch (err) {
@@ -32,26 +30,32 @@ export async function onRequestGet(context) {
     });
   }
 }
-
 // POST /api/leads — save a new lead
 export async function onRequestPost(context) {
   try {
     const lead = await context.request.json();
+
     // Add server-side timestamp and ID
     lead.id = Date.now() + '-' + Math.random().toString(36).substr(2, 6);
     lead.received = new Date().toISOString();
 
-    if (!context.env.LEADS) {
-      return new Response(JSON.stringify({ success: false, error: 'KV not bound. Please bind LEADS KV namespace in Cloudflare dashboard.' }), {
-        status: 200, headers: CORS_HEADERS
-      });
-    }
+    // Read current leads
+    const getResp = await fetch(BLOB_URL, {
+      headers: { 'Accept': 'application/json' }
+    });
+    const data = await getResp.json();
+    const leads = data.leads || [];
 
-    // Get existing leads, append new one
-    const data = await context.env.LEADS.get('all_leads');
-    const leads = data ? JSON.parse(data) : [];
+    // Append new lead
     leads.push(lead);
-    await context.env.LEADS.put('all_leads', JSON.stringify(leads));
+
+    // Write back
+    await fetch(BLOB_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ leads: leads })
+    });
+
     return new Response(JSON.stringify({ success: true, lead: lead }), {
       status: 200, headers: CORS_HEADERS
     });
