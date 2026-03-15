@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initInquiries();
   initBlog();
   initSettings();
+  initFileUpload();
 });
 
 /* ============================================
@@ -409,6 +410,147 @@ function deletePost(id) {
   localStorage.setItem('ata_posts', JSON.stringify(posts));
   renderBlog();
   updateDashboard();
+}
+
+/* ============================================
+   FILE UPLOAD
+   ============================================ */
+
+function initFileUpload() {
+  const logoUploadInput = document.getElementById('logoUpload');
+  const logoDropZone = document.getElementById('logoDropZone');
+  const logoPreview = document.getElementById('logoPreview');
+  const logoPreviewImg = document.getElementById('logoPreviewImg');
+
+  if (!logoUploadInput) return;
+
+  // Click to upload
+  logoDropZone.addEventListener('click', () => logoUploadInput.click());
+
+  // Drag and drop
+  logoDropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    logoDropZone.style.background = '#f0f4ff';
+  });
+
+  logoDropZone.addEventListener('dragleave', () => {
+    logoDropZone.style.background = 'transparent';
+  });
+
+  logoDropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    logoDropZone.style.background = 'transparent';
+    if (e.dataTransfer.files.length) {
+      handleFileUpload(e.dataTransfer.files[0]);
+    }
+  });
+
+  logoUploadInput.addEventListener('change', (e) => {
+    if (e.target.files.length) {
+      handleFileUpload(e.target.files[0]);
+    }
+  });
+
+  // Load existing files
+  loadUploadedFiles();
+}
+
+function handleFileUpload(file) {
+  const maxSize = 5 * 1024 * 1024; // 5MB
+  if (file.size > maxSize) {
+    alert('File too large. Max 5MB.');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const fileData = {
+      name: file.name,
+      type: file.type,
+      size: file.size,
+      data: e.target.result,
+      uploadedAt: new Date().toLocaleString(),
+      id: Date.now()
+    };
+
+    let uploads = JSON.parse(localStorage.getItem('ata_uploads')) || [];
+    uploads.push(fileData);
+    localStorage.setItem('ata_uploads', JSON.stringify(uploads));
+
+    // Show preview
+    const logoPreview = document.getElementById('logoPreview');
+    const logoPreviewImg = document.getElementById('logoPreviewImg');
+    logoPreviewImg.src = fileData.data;
+    logoPreview.style.display = 'block';
+
+    loadUploadedFiles();
+    alert('File uploaded successfully!');
+  };
+  reader.readAsDataURL(file);
+}
+
+function loadUploadedFiles() {
+  const uploads = JSON.parse(localStorage.getItem('ata_uploads')) || [];
+  const filesList = document.getElementById('uploadedFilesList');
+
+  if (uploads.length === 0) {
+    filesList.innerHTML = 'No files uploaded yet';
+    return;
+  }
+
+  filesList.innerHTML = '';
+  uploads.forEach(file => {
+    const div = document.createElement('div');
+    div.style.cssText = 'padding: 12px; background: #f9f9f9; border-radius: 6px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;';
+
+    const info = document.createElement('div');
+    info.innerHTML = `
+      <div style="font-weight: 500; margin-bottom: 4px;">${file.name}</div>
+      <div style="font-size: 11px; color: #999;">Uploaded: ${file.uploadedAt}</div>
+    `;
+
+    const actions = document.createElement('div');
+    actions.style.display = 'flex';
+    actions.style.gap = '8px';
+
+    const useBtn = document.createElement('button');
+    useBtn.className = 'btn btn-small btn-primary';
+    useBtn.textContent = 'Use as Logo';
+    useBtn.onclick = () => setAsLogo(file.id);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'btn btn-small btn-gray';
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.onclick = () => deleteUpload(file.id);
+
+    actions.appendChild(useBtn);
+    actions.appendChild(deleteBtn);
+
+    div.appendChild(info);
+    div.appendChild(actions);
+    filesList.appendChild(div);
+  });
+}
+
+function setAsLogo(fileId) {
+  const uploads = JSON.parse(localStorage.getItem('ata_uploads')) || [];
+  const file = uploads.find(f => f.id === fileId);
+
+  if (file) {
+    localStorage.setItem('ata_current_logo', JSON.stringify(file));
+    alert(`Logo set to "${file.name}" - changes will show throughout the site!`);
+    // Reload page to show changes
+    setTimeout(() => location.reload(), 500);
+  }
+}
+
+function deleteUpload(fileId) {
+  if (!confirm('Delete this file?')) return;
+
+  let uploads = JSON.parse(localStorage.getItem('ata_uploads')) || [];
+  uploads = uploads.filter(f => f.id !== fileId);
+  localStorage.setItem('ata_uploads', JSON.stringify(uploads));
+  loadUploadedFiles();
 }
 
 /* ============================================
