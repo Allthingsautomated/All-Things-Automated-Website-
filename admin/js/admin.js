@@ -1,859 +1,724 @@
-// ============================================
-// ADMIN DASHBOARD JAVASCRIPT
-// ============================================
-
 /* ============================================
-   AUTH CHECK
+   ATA ADMIN DASHBOARD - FULL CRM & BUSINESS TOOLS
    ============================================ */
 
-function checkAuth() {
-  if (localStorage.getItem('ata_admin') !== 'true') {
-    window.location.href = 'login.html';
-  }
-}
+// ===== DATA LAYER =====
+const DB = {
+  get(key) { try { return JSON.parse(localStorage.getItem('ata_' + key)) || []; } catch { return []; } },
+  set(key, val) { localStorage.setItem('ata_' + key, JSON.stringify(val)); },
+  nextId(key) { const items = this.get(key); return items.length ? Math.max(...items.map(i => i.id || 0)) + 1 : 1; }
+};
 
-/* ============================================
-   INITIALIZATION
-   ============================================ */
-
-document.addEventListener('DOMContentLoaded', () => {
-  checkAuth();
-
-  // Logout button
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    localStorage.removeItem('ata_admin');
-    window.location.href = 'login.html';
+// ===== TAB NAVIGATION =====
+document.querySelectorAll('.sidebar-nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.sidebar-nav-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    item.classList.add('active');
+    document.getElementById('tab-' + item.dataset.tab).classList.add('active');
+    refreshAll();
   });
-
-  // Sidebar nav items
-  document.querySelectorAll('.sidebar-nav-item').forEach(item => {
-    item.addEventListener('click', () => {
-      switchView(item.dataset.view);
-    });
-  });
-
-  // Initialize views
-  initDashboard();
-  initInquiries();
-  initBlog();
-  initMedia();
-  initSettings();
-  initFileUpload();
 });
 
-/* ============================================
-   VIEW SWITCHING
-   ============================================ */
+// ===== MODAL HELPERS =====
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-function switchView(viewName) {
-  // Hide all views
-  document.querySelectorAll('.admin-view').forEach(view => {
-    view.style.display = 'none';
-  });
-
-  // Show selected view
-  document.getElementById(viewName + '-view').style.display = 'block';
-
-  // Update sidebar active state
-  document.querySelectorAll('.sidebar-nav-item').forEach(item => {
-    item.classList.remove('active');
-  });
-  document.querySelector(`[data-view="${viewName}"]`).classList.add('active');
-
-  // Refresh data
-  if (viewName === 'dashboard') {
-    updateDashboard();
-  } else if (viewName === 'inquiries') {
-    renderInquiries('all');
-  } else if (viewName === 'blog') {
-    renderBlog();
-  } else if (viewName === 'media') {
-    renderMediaLibrary();
-  }
+// ===== FORMAT HELPERS =====
+function fmt$(n) { return '$' + Number(n || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+function fmtDate(d) { return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
+function statusBadge(status) {
+  const map = { lead: 'badge-blue', prospect: 'badge-yellow', active: 'badge-green', completed: 'badge-navy',
+    unpaid: 'badge-blue', paid: 'badge-green', overdue: 'badge-red', pending: 'badge-yellow', accepted: 'badge-green', declined: 'badge-red' };
+  return `<span class="badge ${map[status] || 'badge-gray'}">${status}</span>`;
 }
 
-/* ============================================
-   DASHBOARD VIEW
-   ============================================ */
+// ===== DASHBOARD =====
+function refreshDashboard() {
+  const clients = DB.get('clients');
+  const invoices = DB.get('invoices');
+  const estimates = DB.get('estimates');
+  const leads = DB.get('leads');
+  const images = DB.get('images');
 
-function initDashboard() {
-  updateDashboard();
-}
+  document.getElementById('stat-clients').textContent = clients.length;
+  document.getElementById('stat-invoices').textContent = invoices.filter(i => i.status === 'unpaid').length;
+  document.getElementById('stat-estimates').textContent = estimates.filter(e => e.status === 'pending').length;
+  document.getElementById('stat-leads').textContent = leads.length;
 
-function updateDashboard() {
-  const inquiries = JSON.parse(localStorage.getItem('ata_inquiries')) || [];
-  const posts = JSON.parse(localStorage.getItem('ata_posts')) || [];
-
-  const unread = inquiries.filter(q => !q.read).length;
-  const published = posts.filter(p => p.status === 'Published').length;
-
-  document.getElementById('totalQuotes').textContent = inquiries.length;
-  document.getElementById('unreadQuotes').textContent = unread;
-  document.getElementById('publishedPosts').textContent = published;
+  const paid = invoices.filter(i => i.status === 'paid').reduce((s, i) => s + (i.grand_total || 0), 0);
+  const outstanding = invoices.filter(i => i.status !== 'paid').reduce((s, i) => s + (i.grand_total || 0), 0);
+  document.getElementById('stat-revenue').textContent = fmt$(paid);
+  document.getElementById('stat-outstanding').textContent = fmt$(outstanding);
+  document.getElementById('stat-images').textContent = images.length;
 
   // Recent activity
-  const recentInquiries = inquiries.slice(-5).reverse();
-  const activityList = document.getElementById('activityList');
-  activityList.innerHTML = '';
+  const activity = [
+    ...clients.map(c => ({ type: 'Client', name: c.name, date: c.created, detail: c.service || '' })),
+    ...invoices.map(i => ({ type: 'Invoice', name: i.number + ' - ' + i.client_name, date: i.date, detail: fmt$(i.grand_total) })),
+    ...estimates.map(e => ({ type: 'Estimate', name: e.number + ' - ' + e.client_name, date: e.date, detail: fmt$(e.grand_total) })),
+    ...leads.map(l => ({ type: 'Lead', name: l.name || l.email, date: l.date, detail: l.source })),
+  ].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 10);
 
-  if (recentInquiries.length === 0) {
-    activityList.innerHTML = '<p style="color: #aaa; font-size: 13px;">No recent activity</p>';
-    return;
-  }
-
-  recentInquiries.forEach(inquiry => {
-    const activity = document.createElement('div');
-    activity.className = `activity-item ${!inquiry.read ? 'unread' : ''}`;
-    activity.innerHTML = `
-      <div class="activity-name">${inquiry.name}</div>
-      <div class="activity-service">${inquiry.service}</div>
-      <div class="activity-date">${inquiry.date}</div>
-    `;
-    activityList.appendChild(activity);
-  });
+  document.getElementById('recent-activity').innerHTML = activity.length ? activity.map(a =>
+    `<div class="activity-item"><div class="activity-name">${a.type}: ${a.name}</div><div class="activity-service">${a.detail}</div><div class="activity-date">${fmtDate(a.date)}</div></div>`
+  ).join('') : '<p style="text-align:center;padding:40px;">No activity yet. Start by adding clients or creating invoices.</p>';
 }
 
-/* ============================================
-   INQUIRIES VIEW
-   ============================================ */
+// ===== IMAGE MANAGER =====
+const uploadZone = document.getElementById('uploadZone');
+const imageInput = document.getElementById('imageInput');
 
-function initInquiries() {
-  // Filter buttons
-  document.querySelectorAll('[data-filter]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderInquiries(btn.dataset.filter);
-    });
-  });
+uploadZone?.addEventListener('click', () => imageInput.click());
+uploadZone?.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+uploadZone?.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+uploadZone?.addEventListener('drop', e => { e.preventDefault(); uploadZone.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
+imageInput?.addEventListener('change', e => handleFiles(e.target.files));
 
-  // Export CSV button
-  document.getElementById('exportBtn').addEventListener('click', exportCSV);
-
-  renderInquiries('all');
-}
-
-function renderInquiries(filter) {
-  let inquiries = JSON.parse(localStorage.getItem('ata_inquiries')) || [];
-
-  if (filter === 'unread') {
-    inquiries = inquiries.filter(q => !q.read);
-  } else if (filter === 'read') {
-    inquiries = inquiries.filter(q => q.read);
-  }
-
-  const table = document.getElementById('inquiriesTable');
-  table.innerHTML = '';
-
-  inquiries.forEach((inquiry, index) => {
-    const tr = document.createElement('tr');
-    const badge = inquiry.read ? '<span class="badge badge-gray">Read</span>' : '<span class="badge badge-blue">New</span>';
-
-    tr.innerHTML = `
-      <td><strong>${inquiry.name}</strong></td>
-      <td class="text-muted">${inquiry.email}</td>
-      <td class="text-muted">${inquiry.phone}</td>
-      <td class="text-muted">${inquiry.city}</td>
-      <td class="text-muted">${inquiry.service}</td>
-      <td class="text-truncate text-muted">${inquiry.message}</td>
-      <td class="text-muted" style="font-size: 11px;">${inquiry.date}</td>
-      <td>${badge}</td>
-      <td>
-        <button class="btn btn-text" data-action="mark-read" data-id="${inquiry.id}">Mark Read</button>
-        <button class="btn btn-text" data-action="delete" data-id="${inquiry.id}">Delete</button>
-      </td>
-    `;
-
-    // Add click handler for row expansion
-    tr.addEventListener('click', (e) => {
-      if (e.target.closest('button')) return;
-      expandInquiryRow(inquiry, tr);
-    });
-
-    table.appendChild(tr);
-  });
-
-  // Add event listeners to buttons
-  document.querySelectorAll('[data-action]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const id = parseInt(btn.dataset.id);
-      const action = btn.dataset.action;
-
-      if (action === 'mark-read') {
-        markInquiryRead(id);
-      } else if (action === 'delete') {
-        deleteInquiry(id);
-      }
-    });
-  });
-}
-
-function expandInquiryRow(inquiry, row) {
-  const expanded = row.nextElementSibling;
-
-  if (expanded && expanded.classList.contains('expanded-content')) {
-    expanded.remove();
-    return;
-  }
-
-  // Remove any other expanded rows
-  document.querySelectorAll('.expanded-content').forEach(el => el.remove());
-
-  const expandedRow = document.createElement('tr');
-  expandedRow.className = 'expanded-content';
-  expandedRow.innerHTML = `
-    <td colspan="9" style="padding: 20px; background-color: #fafafa;">
-      <strong>Full Message:</strong><br><br>
-      <p style="line-height: 1.6; color: #666;">${inquiry.message}</p>
-    </td>
-  `;
-
-  row.insertAdjacentElement('afterend', expandedRow);
-}
-
-function markInquiryRead(id) {
-  let inquiries = JSON.parse(localStorage.getItem('ata_inquiries')) || [];
-  const inquiry = inquiries.find(q => q.id === id);
-
-  if (inquiry) {
-    inquiry.read = true;
-    localStorage.setItem('ata_inquiries', JSON.stringify(inquiries));
-    renderInquiries('all');
-    updateDashboard();
-  }
-}
-
-function deleteInquiry(id) {
-  if (!confirm('Delete this inquiry?')) return;
-
-  let inquiries = JSON.parse(localStorage.getItem('ata_inquiries')) || [];
-  inquiries = inquiries.filter(q => q.id !== id);
-  localStorage.setItem('ata_inquiries', JSON.stringify(inquiries));
-  renderInquiries('all');
-  updateDashboard();
-}
-
-function exportCSV() {
-  const inquiries = JSON.parse(localStorage.getItem('ata_inquiries')) || [];
-
-  if (inquiries.length === 0) {
-    alert('No inquiries to export');
-    return;
-  }
-
-  let csv = 'Name,Email,Phone,City,Service,Message,Date\n';
-
-  inquiries.forEach(inquiry => {
-    csv += `"${inquiry.name}","${inquiry.email}","${inquiry.phone}","${inquiry.city}","${inquiry.service}","${inquiry.message}","${inquiry.date}"\n`;
-  });
-
-  const blob = new Blob([csv], { type: 'text/csv' });
-  const url = window.URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `ata_inquiries_${new Date().toISOString().split('T')[0]}.csv`;
-  a.click();
-  window.URL.revokeObjectURL(url);
-}
-
-/* ============================================
-   BLOG VIEW
-   ============================================ */
-
-let currentEditingPostId = null;
-
-function initBlog() {
-  // New post button
-  document.getElementById('newPostBtn').addEventListener('click', () => {
-    currentEditingPostId = null;
-    openEditorPanel('New Post');
-    document.getElementById('editorForm').reset();
-  });
-
-  // Panel close button
-  document.getElementById('panelClose').addEventListener('click', closeEditorPanel);
-  document.getElementById('panelCancel').addEventListener('click', closeEditorPanel);
-
-  // Editor form submit
-  document.getElementById('editorForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-    savePost();
-  });
-
-  // Status toggle
-  document.querySelectorAll('[data-status]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('[data-status]').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
-
-  renderBlog();
-}
-
-function renderBlog() {
-  const posts = JSON.parse(localStorage.getItem('ata_posts')) || [];
-  const table = document.getElementById('blogTable');
-  table.innerHTML = '';
-
-  posts.forEach(post => {
-    const tr = document.createElement('tr');
-    const badge = post.status === 'Published'
-      ? '<span class="badge badge-blue">Published</span>'
-      : '<span class="badge badge-gray">Draft</span>';
-
-    tr.innerHTML = `
-      <td><strong>${post.title}</strong></td>
-      <td>${post.category}</td>
-      <td>${badge}</td>
-      <td style="font-size: 11px;">${post.date}</td>
-      <td>
-        <button class="btn btn-text" data-action="edit" data-id="${post.id}">Edit</button>
-        <button class="btn btn-text" data-action="delete" data-id="${post.id}">Delete</button>
-      </td>
-    `;
-
-    table.appendChild(tr);
-  });
-
-  // Add event listeners
-  document.querySelectorAll('[data-action]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const id = parseInt(btn.dataset.id);
-      const action = btn.dataset.action;
-
-      if (action === 'edit') {
-        editPost(id);
-      } else if (action === 'delete') {
-        deletePost(id);
-      }
-    });
-  });
-}
-
-function openEditorPanel(title) {
-  document.getElementById('editorTitle').textContent = title;
-  document.getElementById('editorPanel').classList.add('open');
-}
-
-function closeEditorPanel() {
-  document.getElementById('editorPanel').classList.remove('open');
-}
-
-function savePost() {
-  const title = document.getElementById('postTitle').value.trim();
-  const category = document.getElementById('postCategory').value;
-  const status = document.querySelector('[data-status].active').dataset.status;
-  const content = document.getElementById('postContent').value.trim();
-  const image = document.getElementById('postImage').dataset.imageData || null;
-
-  if (!title || !content) {
-    alert('Please fill in all fields');
-    return;
-  }
-
-  let posts = JSON.parse(localStorage.getItem('ata_posts')) || [];
-
-  if (currentEditingPostId) {
-    // Edit existing post
-    const post = posts.find(p => p.id === currentEditingPostId);
-    if (post) {
-      post.title = title;
-      post.category = category;
-      post.status = status;
-      post.content = content;
-      if (image) post.image = image;
-    }
-  } else {
-    // Create new post
-    const newPost = {
-      id: Date.now(),
-      title,
-      category,
-      status,
-      content,
-      image: image,
-      date: new Date().toLocaleDateString()
+function handleFiles(files) {
+  Array.from(files).forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const images = DB.get('images');
+      images.push({ id: DB.nextId('images'), name: file.name, data: e.target.result, category: 'unassigned', uploaded: new Date().toISOString() });
+      DB.set('images', images);
+      refreshImages();
     };
-    posts.push(newPost);
-  }
-
-  localStorage.setItem('ata_posts', JSON.stringify(posts));
-  closeEditorPanel();
-  renderBlog();
-  updateDashboard();
-}
-
-function editPost(id) {
-  const posts = JSON.parse(localStorage.getItem('ata_posts')) || [];
-  const post = posts.find(p => p.id === id);
-
-  if (post) {
-    currentEditingPostId = id;
-    document.getElementById('postTitle').value = post.title;
-    document.getElementById('postCategory').value = post.category;
-    document.getElementById('postContent').value = post.content;
-
-    // Set image if exists
-    if (post.image) {
-      document.getElementById('postImage').dataset.imageData = post.image;
-      const postImagePreviewImg = document.getElementById('postImagePreviewImg');
-      postImagePreviewImg.src = post.image;
-      document.getElementById('postImagePreview').style.display = 'block';
-    }
-
-    // Set status toggle
-    document.querySelectorAll('[data-status]').forEach(btn => {
-      btn.classList.remove('active');
-      if (btn.dataset.status === post.status) {
-        btn.classList.add('active');
-      }
-    });
-
-    openEditorPanel('Edit Post');
-  }
-}
-
-function deletePost(id) {
-  if (!confirm('Delete this post?')) return;
-
-  let posts = JSON.parse(localStorage.getItem('ata_posts')) || [];
-  posts = posts.filter(p => p.id !== id);
-  localStorage.setItem('ata_posts', JSON.stringify(posts));
-  renderBlog();
-  updateDashboard();
-}
-
-/* ============================================
-   FILE UPLOAD
-   ============================================ */
-
-function initFileUpload() {
-  const logoUploadInput = document.getElementById('logoUpload');
-  const logoDropZone = document.getElementById('logoDropZone');
-  const logoPreview = document.getElementById('logoPreview');
-  const logoPreviewImg = document.getElementById('logoPreviewImg');
-
-  if (!logoUploadInput) return;
-
-  // Click to upload
-  logoDropZone.addEventListener('click', () => logoUploadInput.click());
-
-  // Drag and drop
-  logoDropZone.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    logoDropZone.style.background = '#f0f4ff';
-  });
-
-  logoDropZone.addEventListener('dragleave', () => {
-    logoDropZone.style.background = 'transparent';
-  });
-
-  logoDropZone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    logoDropZone.style.background = 'transparent';
-    if (e.dataTransfer.files.length) {
-      handleFileUpload(e.dataTransfer.files[0]);
-    }
-  });
-
-  logoUploadInput.addEventListener('change', (e) => {
-    if (e.target.files.length) {
-      handleFileUpload(e.target.files[0]);
-    }
-  });
-
-  // Load existing files
-  loadUploadedFiles();
-}
-
-function handleFileUpload(file) {
-  const maxSize = 5 * 1024 * 1024; // 5MB
-  if (file.size > maxSize) {
-    alert('File too large. Max 5MB.');
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const fileData = {
-      name: file.name,
-      type: file.type,
-      size: file.size,
-      data: e.target.result,
-      uploadedAt: new Date().toLocaleString(),
-      id: Date.now()
-    };
-
-    let uploads = JSON.parse(localStorage.getItem('ata_uploads')) || [];
-    uploads.push(fileData);
-    localStorage.setItem('ata_uploads', JSON.stringify(uploads));
-
-    // Show preview
-    const logoPreview = document.getElementById('logoPreview');
-    const logoPreviewImg = document.getElementById('logoPreviewImg');
-    logoPreviewImg.src = fileData.data;
-    logoPreview.style.display = 'block';
-
-    loadUploadedFiles();
-    alert('File uploaded successfully!');
-  };
-  reader.readAsDataURL(file);
-}
-
-function loadUploadedFiles() {
-  const uploads = JSON.parse(localStorage.getItem('ata_uploads')) || [];
-  const filesList = document.getElementById('uploadedFilesList');
-
-  if (uploads.length === 0) {
-    filesList.innerHTML = 'No files uploaded yet';
-    return;
-  }
-
-  filesList.innerHTML = '';
-  uploads.forEach(file => {
-    const div = document.createElement('div');
-    div.style.cssText = 'padding: 12px; background: #f9f9f9; border-radius: 6px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;';
-
-    const info = document.createElement('div');
-    info.innerHTML = `
-      <div style="font-weight: 500; margin-bottom: 4px;">${file.name}</div>
-      <div style="font-size: 11px; color: #999;">Uploaded: ${file.uploadedAt}</div>
-    `;
-
-    const actions = document.createElement('div');
-    actions.style.display = 'flex';
-    actions.style.gap = '8px';
-
-    const useBtn = document.createElement('button');
-    useBtn.className = 'btn btn-small btn-primary';
-    useBtn.textContent = 'Use as Logo';
-    useBtn.onclick = () => setAsLogo(file.id);
-
-    const deleteBtn = document.createElement('button');
-    deleteBtn.className = 'btn btn-small btn-gray';
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.onclick = () => deleteUpload(file.id);
-
-    actions.appendChild(useBtn);
-    actions.appendChild(deleteBtn);
-
-    div.appendChild(info);
-    div.appendChild(actions);
-    filesList.appendChild(div);
+    reader.readAsDataURL(file);
   });
 }
 
-function setAsLogo(fileId) {
-  const uploads = JSON.parse(localStorage.getItem('ata_uploads')) || [];
-  const file = uploads.find(f => f.id === fileId);
+function refreshImages() {
+  const images = DB.get('images');
+  const filter = document.getElementById('imageFilter')?.value || 'all';
+  const filtered = filter === 'all' ? images : images.filter(i => i.category === filter);
 
-  if (file) {
-    localStorage.setItem('ata_current_logo', JSON.stringify(file));
-    alert(`Logo set to "${file.name}" - changes will show throughout the site!`);
-    // Reload page to show changes
-    setTimeout(() => location.reload(), 500);
-  }
+  document.getElementById('imageGrid').innerHTML = filtered.length ? filtered.map(img =>
+    `<div class="image-card">
+      <img src="${img.data}" alt="${img.name}">
+      <div class="image-card-info">
+        <h4>${img.name}</h4>
+        <p>Category: <select onchange="updateImageCategory(${img.id}, this.value)" style="padding:2px 4px;font-size:11px;border:1px solid #ddd;border-radius:4px;margin:0;">
+          ${['unassigned','hero','services','portfolio','about'].map(c => `<option value="${c}" ${img.category===c?'selected':''}>${c}</option>`).join('')}
+        </select></p>
+      </div>
+      <div class="image-card-actions">
+        <button class="btn btn-sm btn-gray" onclick="copyImageUrl(${img.id})">Copy URL</button>
+        <button class="btn btn-sm" style="color:#C0392B;" onclick="deleteImage(${img.id})">Delete</button>
+      </div>
+    </div>`
+  ).join('') : '<p style="grid-column:1/-1;text-align:center;padding:40px;">No images uploaded yet. Drag and drop or click above to add images.</p>';
 }
 
-function deleteUpload(fileId) {
-  if (!confirm('Delete this file?')) return;
+document.getElementById('imageFilter')?.addEventListener('change', refreshImages);
 
-  let uploads = JSON.parse(localStorage.getItem('ata_uploads')) || [];
-  uploads = uploads.filter(f => f.id !== fileId);
-  localStorage.setItem('ata_uploads', JSON.stringify(uploads));
-  loadUploadedFiles();
+function updateImageCategory(id, cat) {
+  const images = DB.get('images');
+  const img = images.find(i => i.id === id);
+  if (img) { img.category = cat; DB.set('images', images); }
 }
 
-/* ============================================
-   MEDIA LIBRARY
-   ============================================ */
-
-function initMedia() {
-  const uploadMediaBtn = document.getElementById('uploadMediaBtn');
-  const mediaUploadArea = document.getElementById('mediaUploadArea');
-  const mediaUpload = document.getElementById('mediaUpload');
-  const mediaDropZone = document.getElementById('mediaDropZone');
-  const cancelUploadBtn = document.getElementById('cancelUploadBtn');
-  const confirmUploadBtn = document.getElementById('confirmUploadBtn');
-
-  uploadMediaBtn.addEventListener('click', () => {
-    mediaUploadArea.style.display = 'block';
-  });
-
-  cancelUploadBtn.addEventListener('click', () => {
-    mediaUploadArea.style.display = 'none';
-    mediaUpload.value = '';
-    document.getElementById('mediaUploadProgress').style.display = 'none';
-    confirmUploadBtn.style.display = 'none';
-  });
-
-  // Click to upload
-  mediaDropZone.addEventListener('click', () => mediaUpload.click());
-
-  // Drag and drop
-  mediaDropZone.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    mediaDropZone.style.background = '#f0f4ff';
-  });
-
-  mediaDropZone.addEventListener('dragleave', () => {
-    mediaDropZone.style.background = 'transparent';
-  });
-
-  mediaDropZone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    mediaDropZone.style.background = 'transparent';
-    if (e.dataTransfer.files.length) {
-      mediaUpload.files = e.dataTransfer.files;
-      confirmUploadBtn.style.display = 'inline-block';
-    }
-  });
-
-  mediaUpload.addEventListener('change', () => {
-    if (mediaUpload.files.length) {
-      confirmUploadBtn.style.display = 'inline-block';
-    }
-  });
-
-  confirmUploadBtn.addEventListener('click', () => {
-    if (mediaUpload.files.length) {
-      uploadMediaFile(mediaUpload.files[0]);
-    }
-  });
-
-  // Post image upload
-  const postImageDropZone = document.getElementById('postImageDropZone');
-  const postImage = document.getElementById('postImage');
-
-  if (postImageDropZone) {
-    postImageDropZone.addEventListener('click', () => postImage.click());
-
-    postImageDropZone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      postImageDropZone.style.background = '#f0f4ff';
-    });
-
-    postImageDropZone.addEventListener('dragleave', () => {
-      postImageDropZone.style.background = 'transparent';
-    });
-
-    postImageDropZone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      postImageDropZone.style.background = 'transparent';
-      if (e.dataTransfer.files.length) {
-        handlePostImageUpload(e.dataTransfer.files[0]);
-      }
-    });
-
-    postImage.addEventListener('change', (e) => {
-      if (e.target.files.length) {
-        handlePostImageUpload(e.target.files[0]);
-      }
-    });
-  }
-
-  renderMediaLibrary();
+function copyImageUrl(id) {
+  const img = DB.get('images').find(i => i.id === id);
+  if (img) { navigator.clipboard?.writeText(img.data); alert('Image data URL copied to clipboard!'); }
 }
 
-function uploadMediaFile(file) {
-  const maxSize = 2 * 1024 * 1024; // 2MB
-  if (file.size > maxSize) {
-    alert('File too large. Max 2MB.');
-    return;
-  }
-
-  if (!file.type.startsWith('image/')) {
-    alert('Please upload an image file');
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onprogress = (e) => {
-    if (e.lengthComputable) {
-      const percentComplete = (e.loaded / e.total) * 100;
-      document.getElementById('progressBar').style.width = percentComplete + '%';
-    }
-  };
-
-  reader.onload = (e) => {
-    const mediaData = {
-      name: file.name,
-      type: file.type,
-      size: file.size,
-      data: e.target.result,
-      uploadedAt: new Date().toLocaleString(),
-      id: Date.now()
-    };
-
-    let media = JSON.parse(localStorage.getItem('ata_media')) || [];
-    media.push(mediaData);
-    localStorage.setItem('ata_media', JSON.stringify(media));
-
-    // Reset form
-    document.getElementById('mediaUpload').value = '';
-    document.getElementById('mediaUploadProgress').style.display = 'none';
-    document.getElementById('mediaUploadArea').style.display = 'none';
-    document.getElementById('confirmUploadBtn').style.display = 'none';
-
-    renderMediaLibrary();
-    alert('Image uploaded successfully!');
-  };
-
-  document.getElementById('mediaUploadProgress').style.display = 'block';
-  reader.readAsDataURL(file);
-}
-
-function handlePostImageUpload(file) {
-  if (file.size > 2 * 1024 * 1024) {
-    alert('File too large. Max 2MB.');
-    return;
-  }
-
-  if (!file.type.startsWith('image/')) {
-    alert('Please upload an image file');
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    document.getElementById('postImage').dataset.imageData = e.target.result;
-    document.getElementById('postImagePreviewImg').src = e.target.result;
-    document.getElementById('postImagePreview').style.display = 'block';
-  };
-  reader.readAsDataURL(file);
-}
-
-function renderMediaLibrary() {
-  const media = JSON.parse(localStorage.getItem('ata_media')) || [];
-  const mediaGrid = document.getElementById('mediaGrid');
-  mediaGrid.innerHTML = '';
-
-  if (media.length === 0) {
-    mediaGrid.innerHTML = '<div style="text-align: center; padding: 24px; color: #999; grid-column: 1/-1;">No images yet. Upload one to get started.</div>';
-    return;
-  }
-
-  media.forEach(file => {
-    const div = document.createElement('div');
-    div.style.cssText = 'position: relative; border-radius: 8px; overflow: hidden; background: #f0f0f0; aspect-ratio: 1;';
-
-    const img = document.createElement('img');
-    img.src = file.data;
-    img.style.cssText = 'width: 100%; height: 100%; object-fit: cover; cursor: pointer;';
-    img.title = file.name;
-
-    const overlay = document.createElement('div');
-    overlay.style.cssText = 'position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: none; flex-direction: column; justify-content: center; align-items: center; gap: 8px;';
-
-    const copyBtn = document.createElement('button');
-    copyBtn.className = 'btn btn-small btn-primary';
-    copyBtn.textContent = 'Copy URL';
-    copyBtn.onclick = () => copyMediaUrl(file.id);
-
-    const deleteBtn = document.createElement('button');
-    deleteBtn.className = 'btn btn-small btn-gray';
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.onclick = () => deleteMedia(file.id);
-
-    overlay.appendChild(copyBtn);
-    overlay.appendChild(deleteBtn);
-
-    div.appendChild(img);
-    div.appendChild(overlay);
-
-    div.addEventListener('mouseenter', () => {
-      overlay.style.display = 'flex';
-    });
-
-    div.addEventListener('mouseleave', () => {
-      overlay.style.display = 'none';
-    });
-
-    mediaGrid.appendChild(div);
-  });
-}
-
-function copyMediaUrl(fileId) {
-  const media = JSON.parse(localStorage.getItem('ata_media')) || [];
-  const file = media.find(f => f.id === fileId);
-
-  if (file) {
-    const url = file.data;
-    navigator.clipboard.writeText(url).then(() => {
-      alert('Image URL copied to clipboard!');
-    });
-  }
-}
-
-function deleteMedia(fileId) {
+function deleteImage(id) {
   if (!confirm('Delete this image?')) return;
-
-  let media = JSON.parse(localStorage.getItem('ata_media')) || [];
-  media = media.filter(f => f.id !== fileId);
-  localStorage.setItem('ata_media', JSON.stringify(media));
-  renderMediaLibrary();
+  DB.set('images', DB.get('images').filter(i => i.id !== id));
+  refreshImages();
 }
 
-/* ============================================
-   SETTINGS VIEW
-   ============================================ */
+// ===== CRM =====
+let clientFilter = 'all';
 
-function initSettings() {
-  const settingsForm = document.getElementById('settingsForm');
-  const passwordForm = document.getElementById('passwordForm');
+function openClientModal(id) {
+  document.getElementById('clientModalTitle').textContent = id ? 'Edit Client' : 'Add Client';
+  if (id) {
+    const c = DB.get('clients').find(x => x.id === id);
+    if (!c) return;
+    document.getElementById('clientId').value = c.id;
+    document.getElementById('clientName').value = c.name;
+    document.getElementById('clientEmail').value = c.email;
+    document.getElementById('clientPhone').value = c.phone;
+    document.getElementById('clientStatus').value = c.status;
+    document.getElementById('clientAddress').value = c.address;
+    document.getElementById('clientService').value = c.service;
+    document.getElementById('clientValue').value = c.value;
+    document.getElementById('clientNotes').value = c.notes;
+  } else {
+    ['clientId','clientName','clientEmail','clientPhone','clientAddress','clientValue','clientNotes'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('clientStatus').value = 'lead';
+    document.getElementById('clientService').value = '';
+  }
+  openModal('clientModal');
+}
 
-  // Load settings from localStorage
-  const settings = JSON.parse(localStorage.getItem('ata_settings')) || {};
+function saveClient() {
+  const clients = DB.get('clients');
+  const id = document.getElementById('clientId').value;
+  const data = {
+    name: document.getElementById('clientName').value,
+    email: document.getElementById('clientEmail').value,
+    phone: document.getElementById('clientPhone').value,
+    status: document.getElementById('clientStatus').value,
+    address: document.getElementById('clientAddress').value,
+    service: document.getElementById('clientService').value,
+    value: parseFloat(document.getElementById('clientValue').value) || 0,
+    notes: document.getElementById('clientNotes').value,
+  };
+  if (!data.name) return alert('Name is required');
+  if (id) {
+    const idx = clients.findIndex(c => c.id == id);
+    if (idx >= 0) { clients[idx] = { ...clients[idx], ...data }; }
+  } else {
+    data.id = DB.nextId('clients');
+    data.created = new Date().toISOString();
+    clients.push(data);
+  }
+  DB.set('clients', clients);
+  closeModal('clientModal');
+  refreshCRM();
+}
 
-  if (settings.businessName) document.getElementById('businessName').value = settings.businessName;
-  if (settings.tagline) document.getElementById('tagline').value = settings.tagline;
-  if (settings.phone) document.getElementById('phone').value = settings.phone;
-  if (settings.email) document.getElementById('email').value = settings.email;
-  if (settings.serviceArea) document.getElementById('serviceArea').value = settings.serviceArea;
+function deleteClient(id) {
+  if (!confirm('Delete this client?')) return;
+  DB.set('clients', DB.get('clients').filter(c => c.id !== id));
+  refreshCRM();
+}
 
-  settingsForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+function filterClients(filter, btn) {
+  clientFilter = filter;
+  document.querySelectorAll('.filter-row .pill-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  refreshCRM();
+}
 
-    const settings = {
-      businessName: document.getElementById('businessName').value,
-      tagline: document.getElementById('tagline').value,
-      phone: document.getElementById('phone').value,
-      email: document.getElementById('email').value,
-      serviceArea: document.getElementById('serviceArea').value
-    };
+function refreshCRM() {
+  const clients = DB.get('clients');
+  const filtered = clientFilter === 'all' ? clients : clients.filter(c => c.status === clientFilter);
 
-    localStorage.setItem('ata_settings', JSON.stringify(settings));
-    alert('Settings saved!');
+  document.getElementById('clientsTable').innerHTML = filtered.length ? filtered.map(c =>
+    `<tr>
+      <td><strong>${c.name}</strong></td>
+      <td class="text-muted">${c.email || '-'}</td>
+      <td class="text-muted">${c.phone || '-'}</td>
+      <td>${statusBadge(c.status)}</td>
+      <td>${c.value ? fmt$(c.value) : '-'}</td>
+      <td>
+        <button class="btn btn-text" onclick="openClientModal(${c.id})">Edit</button>
+        <button class="btn btn-text" style="color:#C0392B" onclick="deleteClient(${c.id})">Del</button>
+      </td>
+    </tr>`
+  ).join('') : '<tr><td colspan="6" style="text-align:center;padding:40px;">No clients yet</td></tr>';
+
+  // Pipeline
+  ['lead','prospect','active','completed'].forEach(status => {
+    const col = document.getElementById('pipe-' + status);
+    const items = clients.filter(c => c.status === status);
+    col.innerHTML = items.map(c =>
+      `<div class="pipeline-card" onclick="openClientModal(${c.id})">
+        <h5>${c.name}</h5>
+        <p>${c.service || 'No service'}</p>
+        ${c.value ? `<div class="amount">${fmt$(c.value)}</div>` : ''}
+      </div>`
+    ).join('') || '<p style="font-size:11px;color:#aaa;text-align:center;">Empty</p>';
   });
 
-  passwordForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+  // Populate client dropdowns
+  populateClientDropdowns();
+}
 
-    const current = document.getElementById('currentPassword').value;
-    const newPass = document.getElementById('newPassword').value;
-    const confirm = document.getElementById('confirmPassword').value;
-
-    if (current !== 'ATA2025!') {
-      alert('Current password is incorrect');
-      return;
-    }
-
-    if (newPass !== confirm) {
-      alert('New passwords do not match');
-      return;
-    }
-
-    if (newPass.length < 6) {
-      alert('New password must be at least 6 characters');
-      return;
-    }
-
-    // Store new password in localStorage
-    localStorage.setItem('ata_admin_password', newPass);
-    alert('Password updated!');
-    passwordForm.reset();
+function populateClientDropdowns() {
+  const clients = DB.get('clients');
+  ['invClient', 'estClient'].forEach(selId => {
+    const sel = document.getElementById(selId);
+    if (!sel) return;
+    const current = sel.value;
+    sel.innerHTML = '<option value="">Select client</option>' +
+      clients.map(c => `<option value="${c.id}" ${c.id == current ? 'selected' : ''}>${c.name}</option>`).join('');
   });
 }
+
+// ===== INVOICES =====
+function openInvoiceModal() {
+  document.getElementById('invId').value = '';
+  document.getElementById('invNumber').value = 'INV-2026-' + String(DB.get('invoices').length + 1).padStart(3, '0');
+  document.getElementById('invDate').value = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  document.getElementById('invAddress').value = '';
+  document.getElementById('invDeposit').value = '0';
+  document.getElementById('invStatus').value = 'unpaid';
+  document.getElementById('invDue').value = 'Due Upon Receipt';
+  document.getElementById('invPayment').value = 'Check, Zelle, or Cash';
+  document.getElementById('invLaborItems').innerHTML = `<div class="form-row" style="grid-template-columns: 3fr 1fr 1fr;"><input type="text" placeholder="Description" class="inv-labor-desc"><input type="text" placeholder="Hrs" class="inv-labor-qty"><input type="text" placeholder="Rate" class="inv-labor-rate" value="90"></div>`;
+  document.getElementById('invMaterialItems').innerHTML = `<div class="form-row" style="grid-template-columns: 3fr 1fr;"><input type="text" placeholder="Item description" class="inv-mat-desc"><input type="text" placeholder="Amount" class="inv-mat-amt"></div>`;
+  populateClientDropdowns();
+  openModal('invoiceModal');
+}
+
+function addInvLaborRow() {
+  const div = document.createElement('div');
+  div.className = 'form-row'; div.style.gridTemplateColumns = '3fr 1fr 1fr';
+  div.innerHTML = '<input type="text" placeholder="Description" class="inv-labor-desc"><input type="text" placeholder="Hrs" class="inv-labor-qty"><input type="text" placeholder="Rate" class="inv-labor-rate" value="90">';
+  document.getElementById('invLaborItems').appendChild(div);
+}
+
+function addInvMatRow() {
+  const div = document.createElement('div');
+  div.className = 'form-row'; div.style.gridTemplateColumns = '3fr 1fr';
+  div.innerHTML = '<input type="text" placeholder="Item description" class="inv-mat-desc"><input type="text" placeholder="Amount" class="inv-mat-amt">';
+  document.getElementById('invMaterialItems').appendChild(div);
+}
+
+function saveInvoice() {
+  const invoices = DB.get('invoices');
+  const clientId = document.getElementById('invClient').value;
+  const client = DB.get('clients').find(c => c.id == clientId);
+
+  const labor_items = [];
+  const descs = document.querySelectorAll('.inv-labor-desc');
+  const qtys = document.querySelectorAll('.inv-labor-qty');
+  const rates = document.querySelectorAll('.inv-labor-rate');
+  descs.forEach((d, i) => {
+    if (d.value.trim()) {
+      const qty = parseFloat(qtys[i].value) || 0;
+      const rate = parseFloat(rates[i].value) || 90;
+      labor_items.push({ desc: d.value, qty, rate, amount: qty * rate });
+    }
+  });
+
+  const material_items = [];
+  const matDescs = document.querySelectorAll('.inv-mat-desc');
+  const matAmts = document.querySelectorAll('.inv-mat-amt');
+  matDescs.forEach((d, i) => {
+    if (d.value.trim()) {
+      material_items.push({ desc: d.value, amount: parseFloat(matAmts[i].value) || 0 });
+    }
+  });
+
+  const labor_total = labor_items.reduce((s, i) => s + i.amount, 0);
+  const material_total = material_items.reduce((s, i) => s + i.amount, 0);
+  const grand_total = labor_total + material_total;
+  const deposit = parseFloat(document.getElementById('invDeposit').value) || 0;
+
+  const invoice = {
+    id: DB.nextId('invoices'),
+    number: document.getElementById('invNumber').value,
+    date: document.getElementById('invDate').value,
+    client_id: clientId,
+    client_name: client?.name || 'Unknown',
+    address: document.getElementById('invAddress').value || client?.address || '',
+    status: document.getElementById('invStatus').value,
+    due_date: document.getElementById('invDue').value,
+    payment_methods: document.getElementById('invPayment').value,
+    labor_items, material_items,
+    labor_total, material_total, grand_total, deposit,
+    created: new Date().toISOString()
+  };
+
+  invoices.push(invoice);
+  DB.set('invoices', invoices);
+  closeModal('invoiceModal');
+  generateInvoicePDF(invoice);
+  refreshInvoices();
+}
+
+function refreshInvoices() {
+  const invoices = DB.get('invoices');
+  const paid = invoices.filter(i => i.status === 'paid').reduce((s, i) => s + (i.grand_total || 0), 0);
+  const unpaid = invoices.filter(i => i.status === 'unpaid').reduce((s, i) => s + (i.grand_total || 0), 0);
+  const overdue = invoices.filter(i => i.status === 'overdue').reduce((s, i) => s + (i.grand_total || 0), 0);
+
+  document.getElementById('inv-paid').textContent = fmt$(paid);
+  document.getElementById('inv-unpaid').textContent = fmt$(unpaid);
+  document.getElementById('inv-overdue').textContent = fmt$(overdue);
+
+  document.getElementById('invoicesTable').innerHTML = invoices.length ? invoices.sort((a, b) => new Date(b.created) - new Date(a.created)).map(inv =>
+    `<tr>
+      <td><strong>${inv.number}</strong></td>
+      <td>${inv.client_name}</td>
+      <td class="text-muted">${inv.date}</td>
+      <td>${fmt$(inv.grand_total)}</td>
+      <td>${statusBadge(inv.status)}</td>
+      <td>
+        <button class="btn btn-text" onclick="generateInvoicePDF(DB.get('invoices').find(i=>i.id===${inv.id}))">PDF</button>
+        <button class="btn btn-text" onclick="toggleInvoiceStatus(${inv.id})">Toggle</button>
+        <button class="btn btn-text" style="color:#C0392B" onclick="deleteInvoice(${inv.id})">Del</button>
+      </td>
+    </tr>`
+  ).join('') : '<tr><td colspan="6" style="text-align:center;padding:40px;">No invoices yet</td></tr>';
+}
+
+function toggleInvoiceStatus(id) {
+  const invoices = DB.get('invoices');
+  const inv = invoices.find(i => i.id === id);
+  if (!inv) return;
+  const cycle = { unpaid: 'paid', paid: 'overdue', overdue: 'unpaid' };
+  inv.status = cycle[inv.status] || 'unpaid';
+  DB.set('invoices', invoices);
+  refreshInvoices();
+  refreshDashboard();
+}
+
+function deleteInvoice(id) {
+  if (!confirm('Delete this invoice?')) return;
+  DB.set('invoices', DB.get('invoices').filter(i => i.id !== id));
+  refreshInvoices();
+}
+
+// ===== INVOICE PDF GENERATION =====
+function generateInvoicePDF(inv) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF('p', 'mm', 'letter');
+  const W = 215.9, H = 279.4;
+  const NAVY = [44, 62, 80], BLUE = [41, 128, 185], GREEN = [39, 174, 96], RED = [192, 57, 43], LGRAY = [242, 243, 244], WHITE = [255, 255, 255];
+
+  // Header bar
+  doc.setFillColor(...NAVY); doc.rect(0, 0, W, 28, 'F');
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(...WHITE);
+  doc.text('ALL THINGS AUTOMATED', 15, 13);
+  doc.setFontSize(8); doc.setFont('helvetica', 'normal');
+  doc.text('Intelligent Automation for Modern Living', 15, 19);
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(18);
+  doc.text('INVOICE', W - 15, 13, { align: 'right' });
+  doc.setFontSize(8); doc.setFont('helvetica', 'normal');
+  doc.text(inv.date + '  |  ' + inv.number, W - 15, 19, { align: 'right' });
+
+  // Client info bar
+  let y = 32;
+  doc.setFillColor(234, 240, 246); doc.rect(0, y, W, 18, 'F');
+  doc.setFontSize(7); doc.setTextColor(127, 140, 141); doc.text('BILL TO', 15, y + 5);
+  doc.setFontSize(9); doc.setTextColor(0); doc.setFont('helvetica', 'bold'); doc.text(inv.client_name, 15, y + 11);
+  doc.setFontSize(7); doc.setTextColor(127, 140, 141); doc.setFont('helvetica', 'normal'); doc.text('PROJECT ADDRESS', 80, y + 5);
+  doc.setFontSize(8); doc.setTextColor(0); doc.text(inv.address || '-', 80, y + 11);
+  doc.setFontSize(7); doc.setTextColor(127, 140, 141); doc.text('PREPARED BY', 150, y + 5);
+  doc.setFontSize(8); doc.setTextColor(0); doc.text('Jorge | 941-263-5325', 150, y + 11);
+
+  // Status badge
+  const statusColors = { unpaid: BLUE, paid: GREEN, overdue: RED };
+  const sc = statusColors[inv.status] || BLUE;
+  doc.setFillColor(...sc); doc.roundedRect(W - 40, y + 3, 25, 8, 2, 2, 'F');
+  doc.setFontSize(7); doc.setTextColor(...WHITE); doc.setFont('helvetica', 'bold');
+  doc.text(inv.status.toUpperCase(), W - 27.5, y + 8.5, { align: 'center' });
+
+  // Labor table
+  y = 56;
+  doc.setFillColor(...NAVY); doc.rect(10, y, W - 20, 8, 'F');
+  doc.setTextColor(...WHITE); doc.setFontSize(9); doc.text('Scope of Work', 15, y + 5.5);
+  y += 10;
+  doc.setFillColor(52, 73, 94); doc.rect(10, y, W - 20, 7, 'F');
+  doc.setFontSize(7); doc.setTextColor(...WHITE);
+  doc.text('DESCRIPTION', 15, y + 5); doc.text('QTY', 140, y + 5); doc.text('RATE', 160, y + 5); doc.text('AMOUNT', 185, y + 5);
+  y += 7;
+
+  inv.labor_items.forEach((item, i) => {
+    if (i % 2 === 0) { doc.setFillColor(249, 249, 249); doc.rect(10, y, W - 20, 7, 'F'); }
+    doc.setTextColor(0); doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
+    doc.text(item.desc, 15, y + 5);
+    doc.text(String(item.qty), 142, y + 5);
+    doc.text(fmt$(item.rate), 160, y + 5);
+    doc.text(fmt$(item.amount), 185, y + 5);
+    y += 7;
+  });
+
+  // Materials
+  if (inv.material_items?.length) {
+    y += 4;
+    doc.setFillColor(...NAVY); doc.rect(10, y, W - 20, 8, 'F');
+    doc.setTextColor(...WHITE); doc.setFontSize(9); doc.setFont('helvetica', 'bold');
+    doc.text('Materials & Supplies', 15, y + 5.5);
+    y += 10;
+    doc.setFillColor(52, 73, 94); doc.rect(10, y, W - 20, 7, 'F');
+    doc.setFontSize(7); doc.setTextColor(...WHITE);
+    doc.text('ITEM', 15, y + 5); doc.text('AMOUNT', 185, y + 5);
+    y += 7;
+
+    inv.material_items.forEach((item, i) => {
+      if (i % 2 === 0) { doc.setFillColor(249, 249, 249); doc.rect(10, y, W - 20, 7, 'F'); }
+      doc.setTextColor(0); doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
+      doc.text(item.desc, 15, y + 5);
+      doc.text(fmt$(item.amount), 185, y + 5);
+      y += 7;
+    });
+  }
+
+  // Totals
+  y += 6;
+  doc.setFillColor(...LGRAY); doc.rect(120, y, W - 130, 7, 'F');
+  doc.setTextColor(0); doc.setFontSize(8); doc.setFont('helvetica', 'normal');
+  doc.text('Subtotal', 125, y + 5); doc.text(fmt$(inv.grand_total), 185, y + 5);
+  y += 8;
+
+  if (inv.deposit > 0) {
+    doc.setFillColor(...LGRAY); doc.rect(120, y, W - 130, 7, 'F');
+    doc.text('Deposit Applied', 125, y + 5); doc.text('-' + fmt$(inv.deposit), 185, y + 5);
+    y += 8;
+  }
+
+  doc.setFillColor(...BLUE); doc.rect(120, y, W - 130, 9, 'F');
+  doc.setTextColor(...WHITE); doc.setFont('helvetica', 'bold'); doc.setFontSize(10);
+  doc.text('Balance Due', 125, y + 6.5); doc.text(fmt$(inv.grand_total - (inv.deposit || 0)), 185, y + 6.5);
+
+  // Payment info box
+  y += 16;
+  doc.setFillColor(...LGRAY); doc.rect(10, y, W - 20, 20, 'F');
+  doc.setTextColor(0); doc.setFont('helvetica', 'bold'); doc.setFontSize(8);
+  doc.text('Payment Information', 15, y + 6);
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(7);
+  doc.text('Due: ' + inv.due_date + '  |  Accepted: ' + inv.payment_methods, 15, y + 12);
+  doc.text('Jorge@allthingsautomated.org  |  941-263-5325', 15, y + 17);
+
+  // Footer
+  doc.setFillColor(...NAVY); doc.rect(0, H - 12, W, 12, 'F');
+  doc.setTextColor(...WHITE); doc.setFontSize(7); doc.setFont('helvetica', 'normal');
+  doc.text('All Things Automated  |  Sarasota, FL  |  itsallthingsautomated.com  |  941-263-5325', W / 2, H - 5, { align: 'center' });
+
+  doc.save(inv.number + '.pdf');
+}
+
+// ===== ESTIMATES =====
+function openEstimateModal() {
+  document.getElementById('estId').value = '';
+  document.getElementById('estNumber').value = 'ELE-2026-' + String(DB.get('estimates').length + 1).padStart(3, '0');
+  document.getElementById('estDate').value = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  document.getElementById('estAddress').value = '';
+  document.getElementById('estStatus').value = 'pending';
+  document.getElementById('estNotes').value = 'Standard ceiling heights ≤10ft; existing wiring functional and up to code.\nEstimate valid for 30 days from date of issue.';
+  document.getElementById('estLaborItems').innerHTML = `<div class="form-row" style="grid-template-columns: 3fr 1fr 1fr;"><input type="text" placeholder="Description" class="est-labor-desc"><input type="text" placeholder="Hrs" class="est-labor-qty"><input type="text" placeholder="Rate" class="est-labor-rate" value="90"></div>`;
+  document.getElementById('estMaterialItems').innerHTML = `<div class="form-row" style="grid-template-columns: 3fr 1fr;"><input type="text" placeholder="Item description" class="est-mat-desc"><input type="text" placeholder="Amount" class="est-mat-amt"></div>`;
+  populateClientDropdowns();
+  openModal('estimateModal');
+}
+
+function addEstLaborRow() {
+  const div = document.createElement('div');
+  div.className = 'form-row'; div.style.gridTemplateColumns = '3fr 1fr 1fr';
+  div.innerHTML = '<input type="text" placeholder="Description" class="est-labor-desc"><input type="text" placeholder="Hrs" class="est-labor-qty"><input type="text" placeholder="Rate" class="est-labor-rate" value="90">';
+  document.getElementById('estLaborItems').appendChild(div);
+}
+
+function addEstMatRow() {
+  const div = document.createElement('div');
+  div.className = 'form-row'; div.style.gridTemplateColumns = '3fr 1fr';
+  div.innerHTML = '<input type="text" placeholder="Item description" class="est-mat-desc"><input type="text" placeholder="Amount" class="est-mat-amt">';
+  document.getElementById('estMaterialItems').appendChild(div);
+}
+
+function saveEstimate() {
+  const estimates = DB.get('estimates');
+  const clientId = document.getElementById('estClient').value;
+  const client = DB.get('clients').find(c => c.id == clientId);
+
+  const labor_items = [];
+  document.querySelectorAll('.est-labor-desc').forEach((d, i) => {
+    if (d.value.trim()) {
+      const qty = parseFloat(document.querySelectorAll('.est-labor-qty')[i].value) || 0;
+      const rate = parseFloat(document.querySelectorAll('.est-labor-rate')[i].value) || 90;
+      labor_items.push({ desc: d.value, qty, rate, amount: qty * rate });
+    }
+  });
+
+  const material_items = [];
+  document.querySelectorAll('.est-mat-desc').forEach((d, i) => {
+    if (d.value.trim()) {
+      material_items.push({ desc: d.value, amount: parseFloat(document.querySelectorAll('.est-mat-amt')[i].value) || 0 });
+    }
+  });
+
+  const labor_total = labor_items.reduce((s, i) => s + i.amount, 0);
+  const material_total = material_items.reduce((s, i) => s + i.amount, 0);
+
+  const estimate = {
+    id: DB.nextId('estimates'),
+    number: document.getElementById('estNumber').value,
+    date: document.getElementById('estDate').value,
+    client_id: clientId,
+    client_name: client?.name || 'Unknown',
+    address: document.getElementById('estAddress').value || client?.address || '',
+    status: document.getElementById('estStatus').value,
+    notes: document.getElementById('estNotes').value,
+    labor_items, material_items,
+    labor_total, material_total,
+    grand_total: labor_total + material_total,
+    created: new Date().toISOString()
+  };
+
+  estimates.push(estimate);
+  DB.set('estimates', estimates);
+  closeModal('estimateModal');
+  generateEstimatePDF(estimate);
+  refreshEstimates();
+}
+
+function refreshEstimates() {
+  const estimates = DB.get('estimates');
+  document.getElementById('estimatesTable').innerHTML = estimates.length ? estimates.sort((a, b) => new Date(b.created) - new Date(a.created)).map(est =>
+    `<tr>
+      <td><strong>${est.number}</strong></td>
+      <td>${est.client_name}</td>
+      <td class="text-muted">${est.date}</td>
+      <td>${fmt$(est.grand_total)}</td>
+      <td>${statusBadge(est.status)}</td>
+      <td>
+        <button class="btn btn-text" onclick="generateEstimatePDF(DB.get('estimates').find(e=>e.id===${est.id}))">PDF</button>
+        <button class="btn btn-text" style="color:#C0392B" onclick="deleteEstimate(${est.id})">Del</button>
+      </td>
+    </tr>`
+  ).join('') : '<tr><td colspan="6" style="text-align:center;padding:40px;">No estimates yet</td></tr>';
+}
+
+function deleteEstimate(id) {
+  if (!confirm('Delete this estimate?')) return;
+  DB.set('estimates', DB.get('estimates').filter(e => e.id !== id));
+  refreshEstimates();
+}
+
+// ===== ESTIMATE PDF GENERATION =====
+function generateEstimatePDF(est) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF('p', 'mm', 'letter');
+  const W = 215.9, H = 279.4;
+  const NAVY = [44, 62, 80], BLUE = [41, 128, 185], LGRAY = [242, 243, 244], WHITE = [255, 255, 255];
+
+  // Header
+  doc.setFillColor(...NAVY); doc.rect(0, 0, W, 28, 'F');
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(...WHITE);
+  doc.text('ALL THINGS AUTOMATED', 15, 13);
+  doc.setFontSize(8); doc.setFont('helvetica', 'normal');
+  doc.text('Intelligent Automation for Modern Living', 15, 19);
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(16);
+  doc.text('ESTIMATE', W - 15, 13, { align: 'right' });
+  doc.setFontSize(8); doc.setFont('helvetica', 'normal');
+  doc.text(est.date + '  |  ' + est.number, W - 15, 19, { align: 'right' });
+
+  // Client bar
+  let y = 32;
+  doc.setFillColor(234, 240, 246); doc.rect(0, y, W, 18, 'F');
+  doc.setFontSize(7); doc.setTextColor(127, 140, 141); doc.text('CLIENT', 15, y + 5);
+  doc.setFontSize(9); doc.setTextColor(0); doc.setFont('helvetica', 'bold'); doc.text(est.client_name, 15, y + 11);
+  doc.setFontSize(7); doc.setTextColor(127, 140, 141); doc.setFont('helvetica', 'normal'); doc.text('PROJECT ADDRESS', 80, y + 5);
+  doc.setFontSize(8); doc.setTextColor(0); doc.text(est.address || '-', 80, y + 11);
+  doc.setFontSize(7); doc.setTextColor(127, 140, 141); doc.text('PREPARED BY', 150, y + 5);
+  doc.setFontSize(8); doc.setTextColor(0); doc.text('Jorge | 941-263-5325', 150, y + 11);
+
+  // Labor table
+  y = 56;
+  doc.setFillColor(...NAVY); doc.rect(10, y, W - 20, 8, 'F');
+  doc.setTextColor(...WHITE); doc.setFontSize(9); doc.setFont('helvetica', 'bold');
+  doc.text('Scope of Work & Estimate', 15, y + 5.5);
+  y += 10;
+  doc.setFillColor(52, 73, 94); doc.rect(10, y, W - 20, 7, 'F');
+  doc.setFontSize(7); doc.setTextColor(...WHITE);
+  doc.text('DESCRIPTION', 15, y + 5); doc.text('QTY', 140, y + 5); doc.text('RATE', 160, y + 5); doc.text('AMOUNT', 185, y + 5);
+  y += 7;
+
+  est.labor_items.forEach((item, i) => {
+    if (i % 2 === 0) { doc.setFillColor(249, 249, 249); doc.rect(10, y, W - 20, 7, 'F'); }
+    doc.setTextColor(0); doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
+    doc.text(item.desc, 15, y + 5);
+    doc.text(String(item.qty), 142, y + 5);
+    doc.text(fmt$(item.rate), 160, y + 5);
+    doc.text(fmt$(item.amount), 185, y + 5);
+    y += 7;
+  });
+
+  // Materials
+  if (est.material_items?.length) {
+    y += 4;
+    doc.setFillColor(...NAVY); doc.rect(10, y, W - 20, 8, 'F');
+    doc.setTextColor(...WHITE); doc.setFontSize(9); doc.setFont('helvetica', 'bold');
+    doc.text('Materials & Supplies', 15, y + 5.5);
+    y += 10;
+    doc.setFillColor(52, 73, 94); doc.rect(10, y, W - 20, 7, 'F');
+    doc.setFontSize(7); doc.setTextColor(...WHITE);
+    doc.text('ITEM', 15, y + 5); doc.text('AMOUNT', 185, y + 5);
+    y += 7;
+
+    est.material_items.forEach((item, i) => {
+      if (i % 2 === 0) { doc.setFillColor(249, 249, 249); doc.rect(10, y, W - 20, 7, 'F'); }
+      doc.setTextColor(0); doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
+      doc.text(item.desc, 15, y + 5);
+      doc.text(fmt$(item.amount), 185, y + 5);
+      y += 7;
+    });
+  }
+
+  // Total
+  y += 4;
+  doc.setFillColor(...BLUE); doc.rect(10, y, W - 20, 9, 'F');
+  doc.setTextColor(...WHITE); doc.setFont('helvetica', 'bold'); doc.setFontSize(10);
+  doc.text('Total Project Cost', 15, y + 6.5); doc.text(fmt$(est.grand_total), 185, y + 6.5);
+
+  // Notes
+  if (est.notes) {
+    y += 16;
+    doc.setFillColor(...NAVY); doc.rect(10, y, W - 20, 8, 'F');
+    doc.setTextColor(...WHITE); doc.setFontSize(9);
+    doc.text('Notes & Assumptions', 15, y + 5.5);
+    y += 12;
+    doc.setTextColor(0); doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5);
+    const lines = doc.splitTextToSize(est.notes, W - 40);
+    doc.text(lines, 15, y);
+  }
+
+  // Footer
+  doc.setFillColor(...NAVY); doc.rect(0, H - 12, W, 12, 'F');
+  doc.setTextColor(...WHITE); doc.setFontSize(7); doc.setFont('helvetica', 'normal');
+  doc.text('All Things Automated  |  Sarasota, FL  |  itsallthingsautomated.com  |  941-263-5325', W / 2, H - 5, { align: 'center' });
+
+  doc.save(est.number + '.pdf');
+}
+
+// ===== LEADS =====
+function refreshLeads() {
+  const leads = DB.get('leads');
+  document.getElementById('leads-total').textContent = leads.length;
+  document.getElementById('leads-popup').textContent = leads.filter(l => l.source === 'popup').length;
+  document.getElementById('leads-footer').textContent = leads.filter(l => l.source === 'footer').length;
+
+  document.getElementById('leadsTable').innerHTML = leads.length ? leads.sort((a, b) => new Date(b.date) - new Date(a.date)).map(l =>
+    `<tr>
+      <td>${l.name || '-'}</td>
+      <td>${l.email}</td>
+      <td><span class="badge badge-blue">${l.source}</span></td>
+      <td class="text-muted">${fmtDate(l.date)}</td>
+      <td>
+        <button class="btn btn-text" onclick="convertLeadToClient('${l.email}','${l.name || ''}')">Add to CRM</button>
+      </td>
+    </tr>`
+  ).join('') : '<tr><td colspan="5" style="text-align:center;padding:40px;">No leads captured yet. Leads from your website popup and newsletter will appear here.</td></tr>';
+}
+
+function convertLeadToClient(email, name) {
+  document.getElementById('clientName').value = name;
+  document.getElementById('clientEmail').value = email;
+  document.getElementById('clientStatus').value = 'lead';
+  document.getElementById('clientId').value = '';
+  document.getElementById('clientModalTitle').textContent = 'Add Client from Lead';
+  openModal('clientModal');
+}
+
+function exportLeads() {
+  const leads = DB.get('leads');
+  if (!leads.length) return alert('No leads to export');
+  const csv = 'Name,Email,Source,Date\n' + leads.map(l => `"${l.name || ''}","${l.email}","${l.source}","${l.date}"`).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'ata-leads-' + new Date().toISOString().slice(0, 10) + '.csv';
+  a.click();
+}
+
+// ===== REFRESH ALL =====
+function refreshAll() {
+  refreshDashboard();
+  refreshImages();
+  refreshCRM();
+  refreshInvoices();
+  refreshEstimates();
+  refreshLeads();
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', refreshAll);

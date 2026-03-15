@@ -3,307 +3,343 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard - All Things Automated</title>
+  <title>ATA Admin Dashboard</title>
   <link rel="stylesheet" href="css/admin.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    /* Additional dashboard styles */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-top: 20px; }
+    .image-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 8px rgba(0,0,0,0.05); }
+    .image-card img { width: 100%; height: 140px; object-fit: cover; }
+    .image-card-info { padding: 12px; }
+    .image-card-info h4 { font-size: 12px; margin-bottom: 4px; }
+    .image-card-info p { font-size: 11px; }
+    .image-card-actions { padding: 8px 12px; display: flex; gap: 8px; border-top: 1px solid #f0f0f0; }
+    .upload-zone { border: 2px dashed #d0d0d0; border-radius: 12px; padding: 48px; text-align: center; cursor: pointer; transition: all 0.2s; background: white; margin-bottom: 20px; }
+    .upload-zone:hover, .upload-zone.dragover { border-color: var(--color-primary); background: #f5f9ff; }
+    .upload-zone h3 { margin-bottom: 8px; }
+    .upload-zone p { font-size: 12px; }
+    .upload-zone input { display: none; }
+    .pipeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 20px; }
+    .pipeline-col { background: #f7f9fb; border-radius: 10px; padding: 16px; min-height: 300px; }
+    .pipeline-col h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; color: #888; }
+    .pipeline-card { background: white; border-radius: 8px; padding: 14px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); cursor: pointer; }
+    .pipeline-card h5 { font-size: 13px; color: #0A0A0A; font-family: 'Syne'; font-weight: 700; margin-bottom: 4px; }
+    .pipeline-card p { font-size: 11px; }
+    .pipeline-card .amount { font-weight: 600; color: var(--color-primary); margin-top: 6px; font-size: 13px; }
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 2000; align-items: center; justify-content: center; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: white; border-radius: 14px; padding: 32px; max-width: 560px; width: 90%; max-height: 90vh; overflow-y: auto; }
+    .modal h2 { margin-bottom: 20px; }
+    .modal-actions { display: flex; gap: 12px; margin-top: 24px; }
+    .modal-actions .btn { flex: 1; }
+    .badge-green { background-color: #E8F5E9; color: #27AE60; }
+    .badge-red { background-color: #FDEBEB; color: #C0392B; }
+    .badge-yellow { background-color: #FFF8E1; color: #F39C12; }
+    .badge-navy { background-color: #EAF0F6; color: #2C3E50; }
+    .section-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .search-input { max-width: 300px; margin-bottom: 0; }
+    .stat-cards-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px; }
+    .inv-header { display: flex; gap: 12px; margin-bottom: 20px; }
+    .inv-header select, .inv-header input { margin-bottom: 0; max-width: 200px; }
+    @media (max-width: 1024px) { .pipeline { grid-template-columns: repeat(2, 1fr); } .stat-cards-4 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) { .pipeline { grid-template-columns: 1fr; } .stat-cards-4 { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
   <div class="admin-container">
     <!-- SIDEBAR -->
-    <div class="admin-sidebar">
+    <aside class="admin-sidebar">
       <div class="sidebar-logo">
-        <img src="../assets/logo-color.svg" alt="All Things Automated">
+        <img src="../assets/logo-color.svg" alt="ATA">
       </div>
-
-      <div class="sidebar-nav">
-        <div class="sidebar-nav-item active" data-view="dashboard">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>
-          <span>Dashboard</span>
+      <nav class="sidebar-nav">
+        <div class="sidebar-nav-item active" data-tab="dashboard">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Dashboard
         </div>
-        <div class="sidebar-nav-item" data-view="inquiries">
-          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-          <span>Quote Inquiries</span>
+        <div class="sidebar-nav-item" data-tab="images">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          Images
         </div>
-        <div class="sidebar-nav-item" data-view="blog">
-          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-          <span>Blog Posts</span>
+        <div class="sidebar-nav-item" data-tab="crm">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          CRM
         </div>
-        <div class="sidebar-nav-item" data-view="media">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="M21 15l-5-5L5 21"></path></svg>
-          <span>Media Library</span>
+        <div class="sidebar-nav-item" data-tab="invoices">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+          Invoices
         </div>
-        <div class="sidebar-nav-item" data-view="settings">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-          <span>Settings</span>
+        <div class="sidebar-nav-item" data-tab="estimates">
+          <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><path d="M9 14l2 2 4-4"/></svg>
+          Estimates
         </div>
-      </div>
-
+        <div class="sidebar-nav-item" data-tab="leads">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          Leads
+        </div>
+      </nav>
       <div class="sidebar-logout">
-        <button class="btn-logout" id="logoutBtn">Log Out</button>
+        <button class="btn-logout" onclick="location.href='../index.html'">Back to Website</button>
       </div>
-    </div>
+    </aside>
 
     <!-- MAIN CONTENT -->
-    <div class="admin-main">
-      <!-- DASHBOARD VIEW -->
-      <div id="dashboard-view" class="admin-view active">
+    <main class="admin-main">
+
+      <!-- ===== DASHBOARD TAB ===== -->
+      <div id="tab-dashboard" class="tab-content active">
         <div class="admin-header">
           <div>
             <h1>Dashboard</h1>
-            <p class="admin-subtitle">Welcome back — here's what's happening.</p>
+            <p class="admin-subtitle">All Things Automated — Business Overview</p>
           </div>
         </div>
-
+        <div class="stat-cards-4">
+          <div class="stat-card"><div class="stat-label">Total Clients</div><div class="stat-value" id="stat-clients">0</div></div>
+          <div class="stat-card"><div class="stat-label">Open Invoices</div><div class="stat-value" id="stat-invoices">0</div></div>
+          <div class="stat-card"><div class="stat-label">Pending Estimates</div><div class="stat-value" id="stat-estimates">0</div></div>
+          <div class="stat-card"><div class="stat-label">New Leads</div><div class="stat-value" id="stat-leads">0</div></div>
+        </div>
         <div class="stat-cards">
-          <div class="stat-card">
-            <div class="stat-label">Total Quote Requests</div>
-            <div class="stat-value" id="totalQuotes">0</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Unread Inquiries</div>
-            <div class="stat-value" id="unreadQuotes">0</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Blog Posts Published</div>
-            <div class="stat-value" id="publishedPosts">0</div>
-          </div>
+          <div class="stat-card"><div class="stat-label">Revenue (Paid)</div><div class="stat-value" id="stat-revenue">$0</div></div>
+          <div class="stat-card"><div class="stat-label">Outstanding</div><div class="stat-value" id="stat-outstanding">$0</div></div>
+          <div class="stat-card"><div class="stat-label">Website Images</div><div class="stat-value" id="stat-images">0</div></div>
         </div>
-
-        <h2 style="margin-bottom: 24px;">Recent Activity</h2>
-        <div id="activityList" style="max-height: 400px; overflow-y: auto;"></div>
+        <h3 style="margin-bottom:16px;">Recent Activity</h3>
+        <div id="recent-activity"></div>
       </div>
 
-      <!-- INQUIRIES VIEW -->
-      <div id="inquiries-view" class="admin-view" style="display: none;">
+      <!-- ===== IMAGES TAB ===== -->
+      <div id="tab-images" class="tab-content">
         <div class="admin-header">
-          <h1>Quote Inquiries</h1>
-          <div class="admin-header-right">
-            <button class="btn btn-gray" id="exportBtn">Export CSV</button>
-          </div>
+          <div><h1>Image Manager</h1><p class="admin-subtitle">Upload and manage website images</p></div>
         </div>
+        <div class="upload-zone" id="uploadZone">
+          <h3>Drop images here or click to upload</h3>
+          <p>Supports JPG, PNG, WebP — Images are stored in your browser for website use</p>
+          <input type="file" id="imageInput" accept="image/*" multiple>
+        </div>
+        <div class="section-title-row">
+          <h3>Your Images</h3>
+          <select id="imageFilter" style="max-width:200px;margin-bottom:0;">
+            <option value="all">All Images</option>
+            <option value="hero">Hero Sections</option>
+            <option value="services">Services</option>
+            <option value="portfolio">Portfolio</option>
+            <option value="about">About</option>
+            <option value="unassigned">Unassigned</option>
+          </select>
+        </div>
+        <div class="image-grid" id="imageGrid"></div>
+      </div>
 
+      <!-- ===== CRM TAB ===== -->
+      <div id="tab-crm" class="tab-content">
+        <div class="admin-header">
+          <div><h1>Client Management</h1><p class="admin-subtitle">Manage clients, leads, and pipeline</p></div>
+          <div class="admin-header-right"><button class="btn btn-primary" onclick="openClientModal()">+ Add Client</button></div>
+        </div>
         <div class="filter-row">
-          <button class="pill-btn active" data-filter="all">All</button>
-          <button class="pill-btn" data-filter="unread">Unread</button>
-          <button class="pill-btn" data-filter="read">Read</button>
+          <button class="pill-btn active" data-filter="all" onclick="filterClients('all',this)">All</button>
+          <button class="pill-btn" data-filter="lead" onclick="filterClients('lead',this)">Leads</button>
+          <button class="pill-btn" data-filter="prospect" onclick="filterClients('prospect',this)">Prospects</button>
+          <button class="pill-btn" data-filter="active" onclick="filterClients('active',this)">Active</button>
+          <button class="pill-btn" data-filter="completed" onclick="filterClients('completed',this)">Completed</button>
         </div>
-
         <div class="table-container">
           <table class="table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>City</th>
-                <th>Service</th>
-                <th>Message</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="inquiriesTable"></tbody>
+            <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Status</th><th>Value</th><th>Actions</th></tr></thead>
+            <tbody id="clientsTable"></tbody>
+          </table>
+        </div>
+        <h3 style="margin: 32px 0 12px;">Pipeline View</h3>
+        <div class="pipeline">
+          <div class="pipeline-col"><h4>Lead</h4><div id="pipe-lead"></div></div>
+          <div class="pipeline-col"><h4>Prospect</h4><div id="pipe-prospect"></div></div>
+          <div class="pipeline-col"><h4>Active Project</h4><div id="pipe-active"></div></div>
+          <div class="pipeline-col"><h4>Completed</h4><div id="pipe-completed"></div></div>
+        </div>
+      </div>
+
+      <!-- ===== INVOICES TAB ===== -->
+      <div id="tab-invoices" class="tab-content">
+        <div class="admin-header">
+          <div><h1>Invoices</h1><p class="admin-subtitle">Create and manage invoices</p></div>
+          <div class="admin-header-right"><button class="btn btn-primary" onclick="openInvoiceModal()">+ New Invoice</button></div>
+        </div>
+        <div class="stat-cards">
+          <div class="stat-card"><div class="stat-label">Paid</div><div class="stat-value badge-green" id="inv-paid" style="font-size:24px;">$0</div></div>
+          <div class="stat-card"><div class="stat-label">Unpaid</div><div class="stat-value" id="inv-unpaid" style="font-size:24px;color:#2980B9;">$0</div></div>
+          <div class="stat-card"><div class="stat-label">Overdue</div><div class="stat-value" id="inv-overdue" style="font-size:24px;color:#C0392B;">$0</div></div>
+        </div>
+        <div class="table-container">
+          <table class="table">
+            <thead><tr><th>Invoice #</th><th>Client</th><th>Date</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="invoicesTable"></tbody>
           </table>
         </div>
       </div>
 
-      <!-- BLOG VIEW -->
-      <div id="blog-view" class="admin-view" style="display: none;">
+      <!-- ===== ESTIMATES TAB ===== -->
+      <div id="tab-estimates" class="tab-content">
         <div class="admin-header">
-          <h1>Blog Posts</h1>
-          <div class="admin-header-right">
-            <button class="btn btn-primary" id="newPostBtn">New Post</button>
-          </div>
+          <div><h1>Estimates</h1><p class="admin-subtitle">Create and manage project estimates</p></div>
+          <div class="admin-header-right"><button class="btn btn-primary" onclick="openEstimateModal()">+ New Estimate</button></div>
         </div>
-
         <div class="table-container">
           <table class="table">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Status</th>
-                <th>Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="blogTable"></tbody>
+            <thead><tr><th>Estimate #</th><th>Client</th><th>Date</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="estimatesTable"></tbody>
           </table>
         </div>
       </div>
 
-      <!-- MEDIA VIEW -->
-      <div id="media-view" class="admin-view" style="display: none;">
+      <!-- ===== LEADS TAB ===== -->
+      <div id="tab-leads" class="tab-content">
         <div class="admin-header">
-          <h1>Media Library</h1>
-          <div class="admin-header-right">
-            <button class="btn btn-primary" id="uploadMediaBtn">Upload Image</button>
-          </div>
+          <div><h1>Website Leads</h1><p class="admin-subtitle">Leads captured from your website popup and newsletter</p></div>
+          <div class="admin-header-right"><button class="btn btn-gray" onclick="exportLeads()">Export CSV</button></div>
         </div>
-
-        <div style="background-color: white; border-radius: 14px; padding: 32px; margin-bottom: 24px; display: none;" id="mediaUploadArea">
-          <div class="form-group">
-            <label>Upload Image for Blog or Website</label>
-            <div style="border: 2px dashed #3A7FC1; border-radius: 8px; padding: 48px 24px; text-align: center; cursor: pointer; transition: all 0.3s;" id="mediaDropZone">
-              <input type="file" id="mediaUpload" name="media" accept="image/*" style="display: none;">
-              <div style="font-size: 16px; color: #3A7FC1; font-weight: 600;">Click to upload or drag & drop</div>
-              <div style="font-size: 13px; color: #999; margin-top: 8px;">WEBP, JPG, PNG — recommended: max 2MB</div>
-              <div id="mediaUploadProgress" style="margin-top: 16px; display: none;">
-                <div style="background: #eee; height: 4px; border-radius: 2px; overflow: hidden;">
-                  <div id="progressBar" style="width: 0%; height: 100%; background: #3A7FC1; transition: width 0.3s;"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div style="display: flex; gap: 12px; margin-top: 16px;">
-            <button type="button" class="btn btn-gray" id="cancelUploadBtn">Cancel</button>
-            <button type="button" class="btn btn-primary" id="confirmUploadBtn" style="display: none;">Upload</button>
-          </div>
+        <div class="stat-cards">
+          <div class="stat-card"><div class="stat-label">Total Leads</div><div class="stat-value" id="leads-total">0</div></div>
+          <div class="stat-card"><div class="stat-label">From Popup</div><div class="stat-value" id="leads-popup">0</div></div>
+          <div class="stat-card"><div class="stat-label">From Footer</div><div class="stat-value" id="leads-footer">0</div></div>
         </div>
-
-        <div id="mediaGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px;">
-          <div style="text-align: center; padding: 24px; color: #999;">No images yet. Upload one to get started.</div>
+        <div class="table-container">
+          <table class="table">
+            <thead><tr><th>Name</th><th>Email</th><th>Source</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="leadsTable"></tbody>
+          </table>
         </div>
       </div>
 
-      <!-- SETTINGS VIEW -->
-      <div id="settings-view" class="admin-view" style="display: none;">
-        <div class="admin-header">
-          <h1>Settings</h1>
+    </main>
+  </div>
+
+  <!-- CLIENT MODAL -->
+  <div class="modal-overlay" id="clientModal">
+    <div class="modal">
+      <h2 id="clientModalTitle">Add Client</h2>
+      <input type="hidden" id="clientId">
+      <div class="form-row">
+        <div class="form-group"><label>Name</label><input type="text" id="clientName" placeholder="Client name"></div>
+        <div class="form-group"><label>Email</label><input type="email" id="clientEmail" placeholder="email@example.com"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Phone</label><input type="text" id="clientPhone" placeholder="(941) 555-0000"></div>
+        <div class="form-group"><label>Status</label>
+          <select id="clientStatus"><option value="lead">Lead</option><option value="prospect">Prospect</option><option value="active">Active</option><option value="completed">Completed</option></select>
         </div>
-
-        <div style="background-color: white; border-radius: 14px; padding: 32px; max-width: 600px;">
-          <h3 style="margin-bottom: 24px;">Upload Your Logo & Graphics</h3>
-
-          <div class="form-group">
-            <label for="logoUpload">Logo (Use This Everywhere)</label>
-            <div style="border: 2px dashed #3A7FC1; border-radius: 8px; padding: 24px; text-align: center; cursor: pointer; transition: background 0.2s;" id="logoDropZone">
-              <input type="file" id="logoUpload" name="logo" accept="image/*,.svg" style="display: none;">
-              <div style="font-size: 14px; color: #3A7FC1; font-weight: 500;">Click to upload or drag & drop</div>
-              <div style="font-size: 12px; color: #999; margin-top: 8px;">PNG, JPG, SVG — recommended size: 160x32px</div>
-              <div id="logoPreview" style="margin-top: 16px; display: none;">
-                <img id="logoPreviewImg" src="" alt="Logo Preview" style="max-height: 40px;">
-              </div>
-            </div>
-          </div>
-
-          <div id="uploadedFiles" style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #eee;">
-            <h4 style="margin-bottom: 16px;">Uploaded Files</h4>
-            <div id="uploadedFilesList" style="font-size: 13px; color: #999;">No files uploaded yet</div>
-          </div>
-
-          <hr style="margin: 32px 0; border: none; border-top: 1px solid #eee;">
-
-          <h3 style="margin-bottom: 24px;">Business Information</h3>
-
-          <form id="settingsForm">
-            <div class="form-group">
-              <label for="businessName">Business Name</label>
-              <input type="text" id="businessName" name="businessName" value="All Things Automated">
-            </div>
-
-            <div class="form-group">
-              <label for="tagline">Tagline</label>
-              <input type="text" id="tagline" name="tagline" value="Step Into The World Of Smart Homes With Ease">
-            </div>
-
-            <div class="form-group">
-              <label for="phone">Phone</label>
-              <input type="tel" id="phone" name="phone" value="(941) 555-0123">
-            </div>
-
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" value="hello@allthingsautomated.com">
-            </div>
-
-            <div class="form-group">
-              <label for="serviceArea">Service Area</label>
-              <input type="text" id="serviceArea" name="serviceArea" value="Sarasota, Manatee & Charlotte Counties, Florida">
-            </div>
-
-            <button type="submit" class="btn btn-primary" style="margin-top: 12px;">Save Changes</button>
-          </form>
-
-          <h3 style="margin-top: 48px; margin-bottom: 24px;">Change Password</h3>
-
-          <form id="passwordForm">
-            <div class="form-group">
-              <label for="currentPassword">Current Password</label>
-              <input type="password" id="currentPassword" name="currentPassword" placeholder="••••••••">
-            </div>
-
-            <div class="form-group">
-              <label for="newPassword">New Password</label>
-              <input type="password" id="newPassword" name="newPassword" placeholder="••••••••">
-            </div>
-
-            <div class="form-group">
-              <label for="confirmPassword">Confirm Password</label>
-              <input type="password" id="confirmPassword" name="confirmPassword" placeholder="••••••••">
-            </div>
-
-            <button type="submit" class="btn btn-primary" style="margin-top: 12px;">Update Password</button>
-          </form>
+      </div>
+      <div class="form-group"><label>Address</label><input type="text" id="clientAddress" placeholder="Full address"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Service Type</label>
+          <select id="clientService"><option value="">Select</option><option value="Smart Lighting">Smart Lighting</option><option value="Security & Cameras">Security & Cameras</option><option value="Climate Control">Climate Control</option><option value="Full Automation">Full Automation</option><option value="Multiple">Multiple Services</option></select>
         </div>
+        <div class="form-group"><label>Est. Value ($)</label><input type="text" id="clientValue" placeholder="0"></div>
+      </div>
+      <div class="form-group"><label>Notes</label><textarea id="clientNotes" placeholder="Any notes about this client..."></textarea></div>
+      <div class="modal-actions">
+        <button class="btn btn-gray" onclick="closeModal('clientModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveClient()">Save Client</button>
       </div>
     </div>
   </div>
 
-  <!-- EDITOR PANEL -->
-  <div class="editor-panel" id="editorPanel">
-    <div class="panel-header">
-      <h2 id="editorTitle">New Post</h2>
-      <button class="panel-close" id="panelClose">×</button>
+  <!-- INVOICE MODAL -->
+  <div class="modal-overlay" id="invoiceModal">
+    <div class="modal">
+      <h2>Create Invoice</h2>
+      <input type="hidden" id="invId">
+      <div class="form-row">
+        <div class="form-group"><label>Invoice #</label><input type="text" id="invNumber" placeholder="INV-2026-001"></div>
+        <div class="form-group"><label>Date</label><input type="text" id="invDate"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Client</label>
+          <select id="invClient"><option value="">Select client</option></select>
+        </div>
+        <div class="form-group"><label>Status</label>
+          <select id="invStatus"><option value="unpaid">Unpaid</option><option value="paid">Paid</option><option value="overdue">Overdue</option></select>
+        </div>
+      </div>
+      <div class="form-group"><label>Project Address</label><input type="text" id="invAddress" placeholder="Project address"></div>
+      <div class="form-group"><label>Due Date</label>
+        <select id="invDue"><option value="Due Upon Receipt">Due Upon Receipt</option><option value="Net 15">Net 15</option><option value="Net 30">Net 30</option></select>
+      </div>
+      <h4 style="margin:16px 0 8px; color: #0A0A0A;">Labor Items</h4>
+      <div id="invLaborItems">
+        <div class="form-row" style="grid-template-columns: 3fr 1fr 1fr;">
+          <input type="text" placeholder="Description" class="inv-labor-desc">
+          <input type="text" placeholder="Hrs" class="inv-labor-qty">
+          <input type="text" placeholder="Rate" class="inv-labor-rate" value="90">
+        </div>
+      </div>
+      <button class="btn btn-sm btn-gray" style="margin:8px 0 16px;" onclick="addInvLaborRow()">+ Add Labor Line</button>
+      <h4 style="margin:8px 0 8px; color: #0A0A0A;">Materials (optional)</h4>
+      <div id="invMaterialItems">
+        <div class="form-row" style="grid-template-columns: 3fr 1fr;">
+          <input type="text" placeholder="Item description" class="inv-mat-desc">
+          <input type="text" placeholder="Amount" class="inv-mat-amt">
+        </div>
+      </div>
+      <button class="btn btn-sm btn-gray" style="margin:8px 0 16px;" onclick="addInvMatRow()">+ Add Material</button>
+      <div class="form-row">
+        <div class="form-group"><label>Deposit Paid ($)</label><input type="text" id="invDeposit" value="0"></div>
+        <div class="form-group"><label>Payment Methods</label><input type="text" id="invPayment" value="Check, Zelle, or Cash"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-gray" onclick="closeModal('invoiceModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveInvoice()">Save & Generate PDF</button>
+      </div>
     </div>
+  </div>
 
-    <form id="editorForm">
-      <div class="form-group">
-        <label for="editorTitle">Title</label>
-        <input type="text" id="postTitle" name="title" placeholder="Post title">
+  <!-- ESTIMATE MODAL -->
+  <div class="modal-overlay" id="estimateModal">
+    <div class="modal">
+      <h2>Create Estimate</h2>
+      <input type="hidden" id="estId">
+      <div class="form-row">
+        <div class="form-group"><label>Estimate #</label><input type="text" id="estNumber" placeholder="ELE-2026-001"></div>
+        <div class="form-group"><label>Date</label><input type="text" id="estDate"></div>
       </div>
-
-      <div class="form-group">
-        <label for="editorCategory">Category</label>
-        <select id="postCategory" name="category">
-          <option value="Smart Lighting">Smart Lighting</option>
-          <option value="Security">Security</option>
-          <option value="Climate">Climate</option>
-          <option value="Automation">Automation</option>
-          <option value="Tips">Tips</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Status</label>
-        <div class="toggle-switch">
-          <div class="toggle-option active" data-status="Published">Published</div>
-          <div class="toggle-option" data-status="Draft">Draft</div>
+      <div class="form-row">
+        <div class="form-group"><label>Client</label>
+          <select id="estClient"><option value="">Select client</option></select>
+        </div>
+        <div class="form-group"><label>Status</label>
+          <select id="estStatus"><option value="pending">Pending</option><option value="accepted">Accepted</option><option value="declined">Declined</option></select>
         </div>
       </div>
-
-      <div class="form-group">
-        <label for="postImage">Featured Image</label>
-        <div style="border: 2px dashed #3A7FC1; border-radius: 8px; padding: 16px; text-align: center; cursor: pointer;" id="postImageDropZone">
-          <input type="file" id="postImage" name="image" accept="image/*" style="display: none;">
-          <div style="font-size: 13px; color: #3A7FC1; font-weight: 500;">Click to upload or drag & drop</div>
-          <div id="postImagePreview" style="margin-top: 12px; display: none;">
-            <img id="postImagePreviewImg" src="" alt="Preview" style="max-height: 120px; border-radius: 6px;">
-          </div>
+      <div class="form-group"><label>Project Address</label><input type="text" id="estAddress" placeholder="Project address"></div>
+      <h4 style="margin:16px 0 8px; color: #0A0A0A;">Labor Items</h4>
+      <div id="estLaborItems">
+        <div class="form-row" style="grid-template-columns: 3fr 1fr 1fr;">
+          <input type="text" placeholder="Description" class="est-labor-desc">
+          <input type="text" placeholder="Hrs" class="est-labor-qty">
+          <input type="text" placeholder="Rate" class="est-labor-rate" value="90">
         </div>
       </div>
-
-      <div class="form-group">
-        <label for="postContent">Content</label>
-        <textarea id="postContent" name="content" placeholder="Write your post content here..." style="height: 240px;"></textarea>
+      <button class="btn btn-sm btn-gray" style="margin:8px 0 16px;" onclick="addEstLaborRow()">+ Add Labor Line</button>
+      <h4 style="margin:8px 0 8px; color: #0A0A0A;">Materials (optional)</h4>
+      <div id="estMaterialItems">
+        <div class="form-row" style="grid-template-columns: 3fr 1fr;">
+          <input type="text" placeholder="Item description" class="est-mat-desc">
+          <input type="text" placeholder="Amount" class="est-mat-amt">
+        </div>
       </div>
-
-      <div class="panel-footer">
-        <button type="button" class="btn btn-gray" id="panelCancel">Cancel</button>
-        <button type="submit" class="btn btn-primary">Save Post</button>
+      <button class="btn btn-sm btn-gray" style="margin:8px 0 16px;" onclick="addEstMatRow()">+ Add Material</button>
+      <div class="form-group"><label>Notes</label><textarea id="estNotes" placeholder="Assumptions, validity, etc."></textarea></div>
+      <div class="modal-actions">
+        <button class="btn btn-gray" onclick="closeModal('estimateModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveEstimate()">Save & Generate PDF</button>
       </div>
-    </form>
+    </div>
   </div>
 
   <script src="js/admin.js"></script>
