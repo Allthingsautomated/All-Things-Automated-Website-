@@ -2136,3 +2136,545 @@ textarea {
     flex-direction: column;
   }
 }
+
+/* ============================================
+   REVIEWS SECTION
+   ============================================ */
+
+.reviews-section {
+  padding: 100px 0;
+  background: var(--color-dark-2);
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.review-card {
+  background: var(--color-dark-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform var(--transition-normal), border-color var(--transition-normal);
+}
+
+.review-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+}
+
+.review-stars {
+  display: flex;
+  gap: 4px;
+  color: #FBBF24;
+}
+
+.review-stars svg {
+  width: 18px;
+  height: 18px;
+}
+
+.review-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-text-light);
+  font-style: italic;
+  flex: 1;
+}
+
+.review-author {
+  border-top: 1px solid var(--color-border);
+  padding-top: 16px;
+  margin-top: 8px;
+}
+
+.review-author-name {
+  color: var(--color-white);
+  font-weight: var(--fw-600);
+  font-size: 15px;
+}
+
+.review-author-detail {
+  color: var(--color-muted);
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.reviews-cta {
+  text-align: center;
+  margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   VIDEO WALKTHROUGH SECTION
+   ============================================ */
+
+.video-section {
+  padding: 100px 0;
+  background: var(--color-dark-3);
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.video-content .section-label {
+  margin-bottom: 12px;
+}
+
+.video-content h2 {
+  margin-bottom: 20px;
+}
+
+.video-content p {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.video-embed {
+  position: relative;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  background: var(--color-dark-card);
+  border: 1px solid var(--color-border);
+}
+
+.video-embed iframe {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.video-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(135deg, var(--color-dark-card), var(--color-dark-4));
+}
+
+.video-play-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  box-shadow: 0 4px 20px rgba(58, 127, 193, 0.4);
+}
+
+.video-play-btn svg {
+  width: 28px;
+  height: 28px;
+  margin-left: 4px;
+}
+
+.video-placeholder-text {
+  color: var(--color-white);
+  font-weight: var(--fw-600);
+  font-size: 16px;
+}
+
+.video-placeholder-sub {
+  color: var(--color-muted);
+  font-size: 13px;
+}
+
+@media (max-width: 768px) {
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   REFERRAL BANNER
+   ============================================ */
+
+.referral-section {
+  padding: 60px 0;
+  background: var(--color-dark);
+}
+
+.referral-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 40px 48px;
+  background: linear-gradient(135deg, var(--color-dark-card), var(--color-dark-4));
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-card);
+}
+
+.referral-content h3 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.referral-content p {
+  font-size: 15px;
+  max-width: 600px;
+}
+
+@media (max-width: 768px) {
+  .referral-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 32px 24px;
+  }
+}
+
+/* ============================================
+   GALLERY PAGE
+   ============================================ */
+
+.gallery-section {
+  padding: 100px 0;
+  background: var(--color-dark-2);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.gallery-card {
+  position: relative;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  transition: transform var(--transition-normal), border-color var(--transition-normal);
+}
+
+.gallery-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.gallery-card:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+  color: var(--color-white);
+}
+
+.gallery-overlay h4 {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.gallery-overlay p {
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   CASE STUDIES PAGE
+   ============================================ */
+
+.case-studies-section {
+  padding: 100px 0;
+  background: var(--color-dark-2);
+}
+
+.case-study-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 48px;
+  background: var(--color-dark-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  margin-bottom: 32px;
+  transition: border-color var(--transition-normal);
+}
+
+.case-study-card:hover {
+  border-color: var(--color-primary);
+}
+
+.case-study-card:nth-child(even) {
+  direction: rtl;
+}
+
+.case-study-card:nth-child(even) > * {
+  direction: ltr;
+}
+
+.case-study-image {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  aspect-ratio: 16/10;
+}
+
+.case-study-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.case-study-content .section-label {
+  margin-bottom: 12px;
+}
+
+.case-study-content h3 {
+  margin-bottom: 16px;
+}
+
+.case-study-content p {
+  margin-bottom: 12px;
+}
+
+.case-study-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border);
+}
+
+.case-study-stat {
+  text-align: center;
+}
+
+.case-study-stat-value {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: var(--fw-800);
+  color: var(--color-primary);
+}
+
+.case-study-stat-label {
+  font-size: 12px;
+  color: var(--color-muted);
+  margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+  .case-study-card {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
+
+  .case-study-card:nth-child(even) {
+    direction: ltr;
+  }
+}
+
+/* ============================================
+   MAINTENANCE PLANS
+   ============================================ */
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.plan-card {
+  background: var(--color-dark-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 40px 32px;
+  text-align: center;
+  transition: transform var(--transition-normal), border-color var(--transition-normal);
+  position: relative;
+}
+
+.plan-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+}
+
+.plan-card.featured {
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-dark-card), rgba(58, 127, 193, 0.08));
+}
+
+.plan-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: var(--fw-600);
+  padding: 4px 16px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.plan-name {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  color: var(--color-white);
+  margin-bottom: 8px;
+}
+
+.plan-price {
+  font-size: 36px;
+  font-weight: var(--fw-700);
+  color: var(--color-primary);
+  margin-bottom: 4px;
+}
+
+.plan-price span {
+  font-size: 16px;
+  color: var(--color-muted);
+  font-weight: var(--fw-400);
+}
+
+.plan-period {
+  font-size: 13px;
+  color: var(--color-muted);
+  margin-bottom: 24px;
+}
+
+.plan-features {
+  list-style: none;
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+.plan-features li {
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--color-text-light);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.plan-features li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .plans-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   FINANCING SECTION
+   ============================================ */
+
+.financing-section {
+  padding: 80px 0;
+  background: var(--color-dark);
+}
+
+.financing-banner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 48px;
+  background: var(--color-dark-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+}
+
+.financing-content h3 {
+  margin-bottom: 16px;
+}
+
+.financing-content p {
+  margin-bottom: 16px;
+  font-size: 15px;
+}
+
+.financing-highlights {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.financing-highlight {
+  text-align: center;
+  padding: 20px;
+  background: var(--color-dark-3);
+  border-radius: var(--radius-sm);
+  flex: 1;
+}
+
+.financing-highlight-value {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: var(--fw-800);
+  color: var(--color-primary);
+}
+
+.financing-highlight-label {
+  font-size: 12px;
+  color: var(--color-muted);
+  margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+  .financing-banner {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
+
+  .financing-highlights {
+    flex-direction: column;
+  }
+}

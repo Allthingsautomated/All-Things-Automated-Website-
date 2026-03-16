@@ -64,6 +64,20 @@ export async function onRequestPost(context) {
       lead.source === 'popup' ? 'Popup' : lead.source || 'Website';
     const subject = '[' + tierLabel + ' LEAD] ' + (lead.name || 'Unknown') + ' - ' + (lead.service || sourceLabel);
 
+    // Send instant push notification via ntfy.sh (free, no account needed)
+    // Download ntfy app on phone and subscribe to topic: ata-leads
+    const smsBody = 'NEW LEAD: ' + (lead.name || 'Unknown') + ' | ' + (lead.service || 'General') + ' | ' + (lead.phone || 'No phone') + ' | ' + sourceLabel;
+    fetch('https://ntfy.sh/ata-leads-' + '65a6ab2e', {
+      method: 'POST',
+      headers: {
+        'Title': subject,
+        'Priority': 'high',
+        'Tags': 'money_with_wings'
+      },
+      body: smsBody
+    }).catch(() => {});
+
+    // Send email notification via FormSubmit
     fetch('https://formsubmit.co/ajax/65a6ab2ee87c151ffec81e39d824f727', {
       method: 'POST',
       headers: {
