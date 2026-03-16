@@ -56,6 +56,33 @@ export async function onRequestPost(context) {
       body: JSON.stringify({ leads: leads })
     });
 
+    // Send email notification (server-side, non-blocking)
+    const tierLabel = (lead.tier || 'NEW').toUpperCase();
+    const sourceLabel = lead.source === 'google-landing' ? 'Landing Page' :
+      lead.source === 'chatbot' ? 'Chatbot' :
+      lead.source === 'contact-form' ? 'Contact Form' :
+      lead.source === 'popup' ? 'Popup' : lead.source || 'Website';
+    const subject = '[' + tierLabel + ' LEAD] ' + (lead.name || 'Unknown') + ' - ' + (lead.service || sourceLabel);
+
+    fetch('https://formsubmit.co/ajax/romeroj0007@gmail.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        _subject: subject,
+        Name: lead.name || 'Not provided',
+        Email: lead.email || 'Not provided',
+        Phone: lead.phone || 'Not provided',
+        Service: lead.service || 'Not specified',
+        Budget: lead.budget || 'N/A',
+        Timeline: lead.timeline || 'N/A',
+        Address: lead.address || 'Not provided',
+        Source: sourceLabel,
+        'Lead Score': lead.score ? (lead.score + '/100 (' + tierLabel + ')') : 'N/A',
+        Message: lead.message || 'None',
+        _template: 'table'
+      })
+    }).catch(() => {});
+
     return new Response(JSON.stringify({ success: true, lead: lead }), {
       status: 200, headers: CORS_HEADERS
     });
