@@ -296,7 +296,7 @@ function initContactForm() {
     }).catch(function() {});
 
     // Email notification
-    fetch('https://formsubmit.co/ajax/romeroj0007@gmail.com', {
+    fetch('https://formsubmit.co/ajax/65a6ab2ee87c151ffec81e39d824f727', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({ _subject: '[CONTACT FORM] ' + name + ' - ' + service, Name: name, Email: email, Phone: phone, City: city, Service: service, Message: message, _template: 'table' })
@@ -438,7 +438,7 @@ function initLeadCapture() {
       }).catch(function() {});
 
       // Email notification
-      fetch('https://formsubmit.co/ajax/romeroj0007@gmail.com', {
+      fetch('https://formsubmit.co/ajax/65a6ab2ee87c151ffec81e39d824f727', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({ _subject: '[POPUP LEAD] ' + name, Name: name, Email: email, _template: 'table' })
@@ -500,7 +500,7 @@ function initFooterNewsletter() {
     }).catch(function() {});
 
     // Email notification
-    fetch('https://formsubmit.co/ajax/romeroj0007@gmail.com', {
+    fetch('https://formsubmit.co/ajax/65a6ab2ee87c151ffec81e39d824f727', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({ _subject: '[NEWSLETTER] New subscriber', Email: email, _template: 'table' })

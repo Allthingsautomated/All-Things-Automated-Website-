@@ -64,9 +64,14 @@ export async function onRequestPost(context) {
       lead.source === 'popup' ? 'Popup' : lead.source || 'Website';
     const subject = '[' + tierLabel + ' LEAD] ' + (lead.name || 'Unknown') + ' - ' + (lead.service || sourceLabel);
 
-    fetch('https://formsubmit.co/ajax/romeroj0007@gmail.com', {
+    fetch('https://formsubmit.co/ajax/65a6ab2ee87c151ffec81e39d824f727', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Origin': 'https://itsallthingsautomated.com',
+        'Referer': 'https://itsallthingsautomated.com/'
+      },
       body: JSON.stringify({
         _subject: subject,
         Name: lead.name || 'Not provided',
