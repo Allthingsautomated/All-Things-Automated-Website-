@@ -62,7 +62,7 @@
         brands: 'Ring, Luma Surveillance, Control4',
         includes: 'HD/4K cameras, video doorbell, professional mounting, cable runs, NVR/cloud setup, motion zones, smart alerts, and app walkthrough.',
         duration: '4 to 6 hours for a typical 4-6 camera residential install. Larger properties may require a full day.',
-        priceRange: 'Ring doorbell + 2 cameras from $899. Full 6-8 camera Luma system from $2,500+.',
+        priceRange: 'Three packages: Essential Security from $899 (doorbell + 2 cameras), Complete Coverage from $2,500 (4-6 cameras + NVR), and Premium Surveillance from $5,000 (8+ Luma 4K with analytics).',
         whyUs: 'We handle the complete install including cable routing, weatherproofing, and optimal camera placement. No visible wires, no blind spots.'
       },
       'climate-control': {
@@ -82,7 +82,7 @@
         brands: 'Control4, Lutron RadioRA 3, combined with Ring, Nest, Luma, Sonos, and more',
         includes: 'Whole-home lighting control, full security system, climate automation, entertainment integration, motorized shades, custom UI programming, touchscreens or remotes, dedicated project management, and extended support.',
         duration: '2 to 5 days depending on home size and complexity. We schedule around your availability.',
-        priceRange: 'Starts at $8,500 for a standard home. Luxury estates typically range from $15,000 to $40,000+.',
+        priceRange: 'Custom quote -- every whole-home project is unique. We design a solution around your lifestyle and provide a detailed quote during your consultation.',
         whyUs: 'This is where we really shine. We handle the full design, installation, and programming. You get a dedicated project manager and a system built to grow with you for years.'
       },
       'home-theater': {
@@ -94,6 +94,16 @@
         duration: '2 to 4 hours for TV mount and soundbar. Full home theater takes 1-2 days.',
         priceRange: 'TV mounting with soundbar from $399. Full surround theater from $3,500+.',
         whyUs: 'Every wire hidden, every speaker calibrated. We test everything before we leave so your first movie night is perfect.'
+      },
+      'design-blueprint': {
+        name: 'Smart Home Design & Blueprints',
+        keywords: ['blueprint', 'design', 'plan', 'pre-wire', 'rough in', 'floor plan', 'layout', 'builder', 'architect', 'interior designer', 'new build', 'construction'],
+        description: 'Professional smart home design services for custom builders, interior designers, and homeowners planning a build or renovation. We create detailed lighting plans and full smart home blueprints that your electrician and builder can work from.',
+        brands: 'Lutron, Control4, and all supported brands',
+        includes: 'Lighting Design Plan ($500+): room-by-room lighting layout, switch/dimmer/keypad placement, scene recommendations, Lutron spec sheet, wiring diagrams. Full Smart Home Blueprint ($1,500+): complete automation design covering lighting, security, network, climate, AV pre-wire, equipment list, and builder coordination package.',
+        duration: 'Lighting plan: 1-2 weeks. Full blueprint: 2-4 weeks depending on home size.',
+        priceRange: 'Lighting Design Plan from $500. Full Smart Home Blueprint from $1,500. Design fees are credited toward installation if we do the install.',
+        whyUs: 'We are not just installers -- we are designers. We work directly with your builder and electrician during pre-construction so everything is wired right the first time. No retrofitting, no compromises.'
       },
       'networking': {
         name: 'Smart Home Networking',
@@ -157,9 +167,29 @@
 
     // Pricing packages
     packages: {
-      smartStart: { name: 'Smart Start', price: '$499+', description: 'Single-room or single-device upgrade. Great entry point into smart home tech.' },
-      homeEssentials: { name: 'Home Essentials', price: '$2,499+', description: 'Multi-room package with lighting, security cameras, thermostat, and smart lock. Our most popular choice.' },
-      totalHome: { name: 'Total Home', price: '$8,500+', description: 'Complete whole-home automation with Control4 or Lutron RA3. The full experience.' }
+      smartStart: { name: 'Smart Start', price: '$499+', description: 'Single-room or single-device upgrade. Great entry point into smart home tech. Includes Lutron Caseta lighting for one room or a smart thermostat, plus voice assistant setup and 30-day support.' },
+      homeEssentials: { name: 'Home Essentials', price: '$2,499+', description: 'Our most popular choice. Multi-room package with Caseta lighting (up to 5 zones), smart thermostat, Ring doorbell + 2 cameras, smart lock, custom scene programming, and 90-day priority support.' },
+      totalHome: { name: 'Total Home', price: 'Custom Quote', description: 'Complete whole-home automation with Control4 or Lutron RadioRA 3. Every Total Home project is unique, so we design a custom solution around your lifestyle and provide a detailed quote during your consultation. Includes full lighting, security, climate, entertainment, motorized shades, custom smart home blueprint, a dedicated project manager, and 1-year support.' }
+    },
+
+    // Camera packages
+    cameraPackages: {
+      essential: { name: 'Essential Security', price: '$899+', description: 'Ring video doorbell + 2 outdoor cameras, cloud recording, smart alerts and motion zones, mobile app walkthrough.' },
+      complete: { name: 'Complete Coverage', price: '$2,500+', description: 'Our best value. 4-6 HD cameras (indoor/outdoor), video doorbell, NVR with local storage, professional cable runs with no visible wires, remote viewing, and smart home integration.' },
+      premium: { name: 'Premium Surveillance', price: '$5,000+', description: 'Estate and commercial grade. 8+ Luma 4K cameras with analytics, license plate and person detection, enterprise NVR with redundant storage, zero blind spots with full perimeter coverage, smart lock and sensor integration.' }
+    },
+
+    // Commercial services
+    commercial: {
+      security: { name: 'Commercial Security', description: 'Luma 4K cameras with business analytics, access control and smart lock systems, multi-location remote monitoring, employee and visitor management, NVR with extended retention.' },
+      automation: { name: 'Business Automation', description: 'Lutron commercial lighting control, smart climate zoning and scheduling, conference room AV and display systems, occupancy-based automation, energy management and reporting, enterprise-grade networking.' },
+      property: { name: 'Property & HOA', description: 'Common area surveillance systems, gate and access control integration, clubhouse and amenity automation, landscape and exterior lighting control, ongoing maintenance contracts available.' }
+    },
+
+    // Design services
+    designServices: {
+      lighting: { name: 'Lighting Design Plan', price: '$500+', description: 'Room-by-room lighting layout, switch/dimmer/keypad placement, scene programming recommendations, Lutron product specification sheet, and wiring diagram for electricians.' },
+      fullBlueprint: { name: 'Full Smart Home Blueprint', price: '$1,500+', description: 'Complete automation design document. Full lighting design, security camera placement plan, network infrastructure layout, climate zone mapping, audio/video pre-wire specs, complete equipment list with budget estimate, and builder/electrician coordination package.' }
     },
 
     // Brand knowledge
@@ -191,7 +221,10 @@
       diy: ['diy', 'do it myself', 'self install', 'install myself', 'youtube', 'tutorial'],
       existing: ['already have', 'existing', 'upgrade', 'add to', 'expand', 'integrate', 'current system', 'old system', 'take over'],
       timeline: ['how long', 'how fast', 'timeline', 'time frame', 'when', 'turnaround', 'lead time', 'wait'],
-      referral: ['referral', 'refer', 'friend', 'recommend', 'tell someone']
+      referral: ['referral', 'refer', 'friend', 'recommend', 'tell someone'],
+      commercial: ['commercial', 'business', 'office', 'retail', 'restaurant', 'hotel', 'hoa', 'property management', 'medical', 'dental', 'gym', 'clubhouse', 'multi-unit', 'conference room', 'storefront'],
+      blueprint: ['blueprint', 'design plan', 'lighting plan', 'lighting design', 'pre-wire', 'pre wire', 'rough in', 'builder', 'architect', 'interior designer', 'new construction', 'renovation', 'remodel', 'floor plan'],
+      cameras: ['camera package', 'how many cameras', 'camera system', 'surveillance package', 'camera options', 'camera pricing', 'doorbell camera', 'outdoor camera', 'indoor camera', 'luma camera', 'ring camera', 'nvr']
     },
 
     init() {
@@ -276,7 +309,7 @@
     },
 
     showGreeting() {
-      this.addMessage('bot', 'Welcome to All Things Automated -- Sarasota\'s smart home experts. We design and install Lutron lighting, Control4 automation, security cameras, climate control, and more across Sarasota, Manatee, and Charlotte Counties.');
+      this.addMessage('bot', 'Welcome to All Things Automated -- Sarasota\'s smart home experts. We design and install Lutron lighting, Control4 automation, security cameras, climate control, and more for homes and businesses across Sarasota, Manatee, and Charlotte Counties.');
       var self = this;
       setTimeout(function() {
         self.addMessage('bot', 'How can we help you today? Ask me anything or pick an option below.');
@@ -362,6 +395,9 @@
       else if (intent === 'maintenance') this.respondMaintenance();
       else if (intent === 'financing') this.respondFinancing();
       else if (intent === 'packages') this.respondPackages();
+      else if (intent === 'commercial') this.respondCommercial();
+      else if (intent === 'blueprint') this.respondBlueprint();
+      else if (intent === 'cameras') this.respondCameraPackages();
       else if (intent === 'brands') this.respondBrands(lower);
       else if (intent === 'warranty') this.respondWarranty();
       else if (intent === 'diy') this.respondDIY();
@@ -539,24 +575,25 @@
     },
 
     respondPackages() {
-      this.addMessage('bot', 'We offer three main installation packages, plus fully custom solutions:');
+      this.addMessage('bot', 'We offer residential packages, security camera packages, commercial solutions, and standalone design services. Here are our main residential tiers:');
       var self = this;
       setTimeout(function() {
-        self.addMessage('bot', 'Smart Start (' + self.packages.smartStart.price + ') -- ' + self.packages.smartStart.description + ' Includes Lutron Caseta lighting for one room OR a smart thermostat, plus voice assistant setup and 30-day support.');
+        self.addMessage('bot', 'Smart Start (' + self.packages.smartStart.price + ') -- ' + self.packages.smartStart.description);
       }, 300);
       setTimeout(function() {
-        self.addMessage('bot', 'Home Essentials (' + self.packages.homeEssentials.price + ') -- ' + self.packages.homeEssentials.description + ' Includes multi-room Caseta lighting, smart thermostat, Ring doorbell + 2 cameras, smart lock, custom scenes, and 90-day priority support.');
+        self.addMessage('bot', 'Home Essentials (' + self.packages.homeEssentials.price + ') -- ' + self.packages.homeEssentials.description);
       }, 600);
       setTimeout(function() {
-        self.addMessage('bot', 'Total Home (' + self.packages.totalHome.price + ') -- ' + self.packages.totalHome.description + ' Includes Control4 or Lutron RA3, full lighting, security, climate, entertainment integration, and 1-year support with a dedicated project manager.');
+        self.addMessage('bot', 'Total Home (Custom Quote) -- ' + self.packages.totalHome.description);
       }, 900);
       setTimeout(function() {
-        self.addMessage('bot', 'Every project gets a free consultation where we assess your home and recommend the best fit. All pricing is transparent with no hidden fees.');
+        self.addMessage('bot', 'We also offer tiered camera packages starting at $899, commercial solutions for businesses, and smart home blueprint/design services for builders and designers. What would you like to explore?');
         self.showSuggestions([
           { text: 'Get a Free Quote', action: 'quote' },
-          { text: 'Financing Options', action: 'financing' },
-          { text: 'Maintenance Plans', action: 'maintenance' },
-          { text: 'Book a Consultation', action: 'booking' }
+          { text: 'Camera Packages', action: 'cameras' },
+          { text: 'Commercial Solutions', action: 'commercial' },
+          { text: 'Design & Blueprints', action: 'blueprint' },
+          { text: 'Financing Options', action: 'financing' }
         ]);
       }, 1200);
     },
@@ -629,6 +666,73 @@
       ]);
     },
 
+    respondCommercial() {
+      this.addMessage('bot', 'We serve all types of commercial clients across Sarasota, Manatee, and Charlotte Counties. Offices, retail, restaurants, medical and dental facilities, hotels, HOA common areas, gyms, and property management companies.');
+      this.addMessage('bot', 'Our commercial services include:');
+      var self = this;
+      setTimeout(function() {
+        self.addMessage('bot', 'Commercial Security -- ' + self.commercial.security.description);
+      }, 300);
+      setTimeout(function() {
+        self.addMessage('bot', 'Business Automation -- ' + self.commercial.automation.description);
+      }, 600);
+      setTimeout(function() {
+        self.addMessage('bot', 'Property & HOA Solutions -- ' + self.commercial.property.description);
+      }, 900);
+      setTimeout(function() {
+        self.addMessage('bot', 'All commercial work is billed at $' + self.config.laborRateCommercial + '/hr. Every project gets a custom quote based on scope and complexity. Want to discuss your project?');
+        self.showSuggestions([
+          { text: 'Get a Commercial Quote', action: 'quote' },
+          { text: 'Book a Site Assessment', action: 'booking' },
+          { text: 'Residential Packages', action: 'packages' },
+          { text: 'Contact Us', action: 'contact' }
+        ]);
+      }, 1200);
+    },
+
+    respondBlueprint() {
+      this.addMessage('bot', 'We offer standalone smart home design and blueprint services. This is perfect for custom home builders, interior designers, and homeowners planning a build or renovation.');
+      var self = this;
+      setTimeout(function() {
+        self.addMessage('bot', 'Lighting Design Plan (' + self.designServices.lighting.price + ') -- ' + self.designServices.lighting.description);
+      }, 300);
+      setTimeout(function() {
+        self.addMessage('bot', 'Full Smart Home Blueprint (' + self.designServices.fullBlueprint.price + ') -- ' + self.designServices.fullBlueprint.description);
+      }, 600);
+      setTimeout(function() {
+        self.addMessage('bot', 'We work directly with builders, architects, and electricians during pre-construction and rough-in phases. Design fees are credited toward any installation performed by All Things Automated.');
+        self.showSuggestions([
+          { text: 'Request a Design Consultation', action: 'quote' },
+          { text: 'View Pricing Page', action: 'open-pricing' },
+          { text: 'Our Services', action: 'services' },
+          { text: 'Contact Us', action: 'contact' }
+        ]);
+      }, 900);
+    },
+
+    respondCameraPackages() {
+      this.addMessage('bot', 'We offer three security camera packages for homes and businesses:');
+      var self = this;
+      setTimeout(function() {
+        self.addMessage('bot', 'Essential Security (' + self.cameraPackages.essential.price + ') -- ' + self.cameraPackages.essential.description);
+      }, 300);
+      setTimeout(function() {
+        self.addMessage('bot', 'Complete Coverage (' + self.cameraPackages.complete.price + ') -- ' + self.cameraPackages.complete.description);
+      }, 600);
+      setTimeout(function() {
+        self.addMessage('bot', 'Premium Surveillance (' + self.cameraPackages.premium.price + ') -- ' + self.cameraPackages.premium.description);
+      }, 900);
+      setTimeout(function() {
+        self.addMessage('bot', 'Every install includes optimal camera placement to eliminate blind spots, professional mounting with no visible wires, and a full app walkthrough. Which package interests you?');
+        self.showSuggestions([
+          { text: 'Get a Security Quote', action: 'quote-security-cameras' },
+          { text: 'Book a Site Assessment', action: 'booking' },
+          { text: 'Commercial Security', action: 'commercial' },
+          { text: 'View All Pricing', action: 'packages' }
+        ]);
+      }, 1200);
+    },
+
     respondReferral() {
       this.addMessage('bot', 'We love referrals! If you know someone who could benefit from smart home automation, send them our way. Happy clients are the best way we grow our business.');
       this.addMessage('bot', 'You can share our website at <a href="https://itsallthingsautomated.com" target="_blank" style="color:#3A7FC1">itsallthingsautomated.com</a> or have them call us at <a href="tel:+19412635325" style="color:#3A7FC1">' + this.config.businessPhone + '</a>.');
@@ -694,6 +798,10 @@
         window.open('maintenance-' + pageTier + '.html', '_blank');
         this.addMessage('bot', 'Opening the ' + this.maintenancePlans[pageTier].name + ' plan details page.');
       }
+      else if (action === 'commercial') this.respondCommercial();
+      else if (action === 'blueprint') this.respondBlueprint();
+      else if (action === 'cameras') this.respondCameraPackages();
+      else if (action === 'open-pricing') { window.open('pricing.html', '_blank'); this.addMessage('bot', 'Opening the pricing page for you.'); }
       else if (action === 'open-booking') this.openBookingLink();
       else if (action === 'restart') this.restartChat();
       else if (action === 'goodbye') this.addMessage('bot', 'Thanks for chatting with All Things Automated! We are here whenever you need us. Have a great day.');
