@@ -333,6 +333,21 @@
           if (response.ok) {
             this.addMessage('bot', "Perfect! I've received your quote request. Jorge will review your details and get back to you soon with a customized quote.");
             this.showPostSubmissionOptions();
+            // Send email notification client-side via FormSubmit
+            fetch('https://formsubmit.co/ajax/65a6ab2ee87c151ffec81e39d824f727', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+              body: JSON.stringify({
+                _subject: '[NEW LEAD] ' + (payload.name || 'Unknown') + ' - ' + (payload.service || 'Chatbot'),
+                Name: payload.name || 'Not provided',
+                Email: payload.email || 'Not provided',
+                Phone: payload.phone || 'Not provided',
+                Service: payload.service || 'Not specified',
+                Source: 'Chatbot Widget',
+                Message: 'Lead captured via website chatbot',
+                _template: 'table'
+              })
+            }).catch(function() {});
           } else {
             throw new Error('Server error');
           }
