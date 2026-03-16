@@ -31,7 +31,7 @@
       serviceCallFee: 99,
       laborRateResidential: 90,
       laborRateCommercial: 110,
-      squareBookingUrl: 'SQUARE_BOOKING_URL',
+      squareBookingUrl: 'https://Allthingsautomatedcalendar.as.me/',
       apiEndpoint: '/api/leads',
       businessPhone: '(941) 263-5325',
       businessEmail: 'info@allthingsautomated.org',
@@ -988,7 +988,7 @@
     },
 
     openBookingLink() {
-      if (this.config.squareBookingUrl === 'SQUARE_BOOKING_URL') {
+      if (!this.config.squareBookingUrl || this.config.squareBookingUrl === 'SQUARE_BOOKING_URL') {
         this.addMessage('bot', 'Our online booking system is being finalized. In the meantime, you can reach us at <a href="tel:+19412635325" style="color:#3A7FC1">' + this.config.businessPhone + '</a> or <a href="mailto:' + this.config.businessEmail + '" style="color:#3A7FC1">' + this.config.businessEmail + '</a> to schedule your service call.');
       } else {
         window.open(this.config.squareBookingUrl, '_blank');
