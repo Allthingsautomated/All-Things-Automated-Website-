@@ -109,7 +109,8 @@ function refreshImages() {
         </select></p>
       </div>
       <div class="image-card-actions">
-        <button class="btn btn-sm btn-gray" onclick="copyImageUrl(${img.id})">Copy URL</button>
+        <button class="btn btn-sm btn-gray" onclick="copyImageUrl(${img.id})" title="Copy short URL for this image">Copy URL</button>
+        <button class="btn btn-sm btn-gray" onclick="viewImagePreview(${img.id})" title="Open in browser">View</button>
         <button class="btn btn-sm" style="color:#C0392B;" onclick="deleteImage(${img.id})">Delete</button>
       </div>
     </div>`
@@ -126,7 +127,20 @@ function updateImageCategory(id, cat) {
 
 function copyImageUrl(id) {
   const img = DB.get('images').find(i => i.id === id);
-  if (img) { navigator.clipboard?.writeText(img.data); alert('Image data URL copied to clipboard!'); }
+  if (img) {
+    // Generate a short, shareable URL format
+    const shortUrl = `/images/img-${img.id}`;
+    navigator.clipboard?.writeText(shortUrl);
+    alert(`✓ Short URL copied to clipboard!\n\n${shortUrl}\n\nUse this URL in your HTML or website to reference the image!`);
+  }
+}
+
+function viewImagePreview(id) {
+  const img = DB.get('images').find(i => i.id === id);
+  if (img) {
+    const shortUrl = `/images/img-${img.id}`;
+    window.open(shortUrl, '_blank');
+  }
 }
 
 function deleteImage(id) {
