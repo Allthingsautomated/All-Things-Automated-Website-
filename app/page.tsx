@@ -3,7 +3,7 @@ import AnimatedTextCycle from "@/components/ui/animated-text-cycle"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-zinc-950">
+    <>
       <section className="py-20 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
@@ -30,6 +30,6 @@ export default function Home() {
       </section>
 
       <FeaturedCrmDemoSection />
-    </main>
+    </>
   )
 }
