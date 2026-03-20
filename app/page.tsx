@@ -1,33 +1,52 @@
+import HeroSection from "@/components/ui/hero-section"
+import ServicesGrid from "@/components/ui/services-grid"
 import FeaturedCrmDemoSection from "@/components/ui/featured-crm-demo-section"
-import AnimatedTextCycle from "@/components/ui/animated-text-cycle"
 
 export default function Home() {
   return (
     <>
-      <section className="py-20 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-            Your <AnimatedTextCycle
-              words={[
-                "smart home",
-                "automation",
-                "lifestyle",
-                "control system",
-              ]}
-              interval={3000}
-              className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"
-            /> deserves
-            <br />
-            premium installation
-          </h1>
-          <p className="text-xl text-zinc-400 mb-8 max-w-2xl">
-            Transform your Sarasota home with cutting-edge smart automation. From lighting and climate control to security and full home integration.
-          </p>
-          <button className="px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-colors">
-            Request a Consultation
-          </button>
-        </div>
-      </section>
+      <HeroSection
+        label="Sarasota's Premier Smart Home Experts"
+        title="Intelligent Automation for Modern Living"
+        subtitle="Transform your home with cutting-edge smart technology. From lighting and climate to security and full automation — we design, install, and support it all."
+        backgroundImage="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80"
+        backgroundImageAlt="Luxury modern home at twilight with warm interior lighting"
+        buttons={[
+          { text: "Request a Consultation", href: "/contact", variant: "primary" },
+          { text: "See Our Work", href: "/services", variant: "outline" },
+        ]}
+        stats={[
+          { number: "500+", label: "Homes Automated" },
+          { number: "5.0", label: "Google Rating" },
+          { number: "6+", label: "Years Experience" },
+          { number: "3", label: "Counties Served" },
+        ]}
+      />
+
+      <ServicesGrid
+        services={[
+          {
+            title: "Smart Lighting",
+            description: "Scene control, dimming, and automated scheduling powered by Lutron and leading platforms.",
+            icon: "lightbulb",
+          },
+          {
+            title: "Security & Cameras",
+            description: "HD camera systems, smart locks, video doorbells, and 24/7 remote monitoring access.",
+            icon: "shield",
+          },
+          {
+            title: "Climate Control",
+            description: "Intelligent thermostat systems with multi-zone scheduling and energy optimization.",
+            icon: "thermometer",
+          },
+          {
+            title: "Full Automation",
+            description: "Unified control of all systems from one interface — lighting, climate, security, and entertainment.",
+            icon: "tv",
+          },
+        ]}
+      />
 
       <FeaturedCrmDemoSection />
     </>
