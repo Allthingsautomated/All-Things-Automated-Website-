@@ -95,6 +95,9 @@ export default function Footer() {
               <Link href="/pricing" className="text-zinc-400 hover:text-white transition-colors text-sm">
                 Pricing
               </Link>
+              <Link href="/case-studies" className="text-zinc-400 hover:text-white transition-colors text-sm">
+                Case Studies
+              </Link>
               <Link href="/blog" className="text-zinc-400 hover:text-white transition-colors text-sm">
                 Blog
               </Link>

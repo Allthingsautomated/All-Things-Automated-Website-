@@ -1,5 +1,7 @@
 import HeroSection from "@/components/ui/hero-section"
 import ServicesGrid from "@/components/ui/services-grid"
+import TestimonialSection from "@/components/ui/testimonials"
+import CTABanner from "@/components/ui/cta-banner"
 import FeaturedCrmDemoSection from "@/components/ui/featured-crm-demo-section"
 
 export default function Home() {
@@ -48,7 +50,39 @@ export default function Home() {
         ]}
       />
 
+      <TestimonialSection
+        testimonials={[
+          {
+            name: "Sarah Martinez",
+            title: "Homeowner",
+            content: "The team at All Things Automated completely transformed our home. Everything works seamlessly together, and the mobile app makes controlling everything so easy.",
+            rating: 5,
+          },
+          {
+            name: "James Thompson",
+            title: "Property Manager",
+            content: "Professional installation, excellent communication, and exceptional service. They went above and beyond to ensure everything was perfect.",
+            rating: 5,
+          },
+          {
+            name: "Michelle Chen",
+            title: "Homeowner",
+            content: "Best investment we made for our home. The smart lighting alone saves us money monthly, and the security system gives us peace of mind.",
+            rating: 5,
+          },
+        ]}
+      />
+
       <FeaturedCrmDemoSection />
+
+      <CTABanner
+        title="Transform Your Space Today"
+        subtitle="Get professional smart home automation consultation and installation. Free assessment for your property."
+        buttonText="Schedule Free Consultation"
+        buttonHref="/contact"
+        secondaryButtonText="View Our Portfolio"
+        secondaryButtonHref="/gallery"
+      />
     </>
   )
 }
