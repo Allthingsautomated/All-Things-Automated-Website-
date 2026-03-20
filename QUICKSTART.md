@@ -38,10 +38,14 @@ Visit **http://localhost:3000** to see the site
 
 ## 📝 What You'll See
 
-- Home page with animated text cycling
-- Demo CRM section with video player and feature cards
-- Professional layout and styling
-- Fully responsive design
+- **Home** (`/`) - Hero section with animated elements, services grid, and demo section
+- **About** (`/about`) - Company information and mission statement
+- **Services** (`/services`) - Core services with service areas (Sarasota, Manatee, Charlotte Counties)
+- **Pricing** (`/pricing`) - Smart home packages with feature comparison
+- **Blog** (`/blog`) - Smart home articles and technology insights
+- **Gallery** (`/gallery`) - Portfolio of completed smart home projects
+- **Contact** (`/contact`) - Contact form with business information
+- Professional layout and styling with responsive design
 
 ## 🎨 Customization
 
@@ -63,14 +67,32 @@ Create: `components/ui/[component-name].tsx`
 
 ```
 app/
-├── globals.css         # Global styles & animations
-├── layout.tsx          # Root layout
-└── page.tsx            # Home page
+├── globals.css              # Global styles & animations
+├── layout.tsx               # Root layout with Header & Footer
+├── page.tsx                 # Home page
+├── about/
+│   └── page.tsx             # About page
+├── services/
+│   └── page.tsx             # Services page
+├── pricing/
+│   └── page.tsx             # Pricing page
+├── blog/
+│   └── page.tsx             # Blog listing page
+├── gallery/
+│   └── page.tsx             # Gallery page
+└── contact/
+    └── page.tsx             # Contact page
 
-components/ui/
-├── card.tsx                           # Card component
-├── animated-text-cycle.tsx            # Text animation
-└── featured-crm-demo-section.tsx      # CRM demo
+components/
+├── layout/
+│   ├── header.tsx           # Navigation header
+│   └── footer.tsx           # Footer with links
+└── ui/
+    ├── card.tsx                       # Card component
+    ├── hero-section.tsx               # Reusable hero section
+    ├── services-grid.tsx              # Services grid component
+    ├── animated-text-cycle.tsx        # Text animation
+    └── featured-crm-demo-section.tsx  # CRM demo
 
 lib/
 └── utils.ts            # Utility functions
