@@ -1020,13 +1020,18 @@ section.visible {
   text-align: center;
   position: relative;
   z-index: 1;
+  transition: transform var(--transition-normal);
+}
+
+.step-card:hover {
+  transform: translateY(-4px);
 }
 
 .step-number {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: var(--color-dark-card);
+  background: linear-gradient(135deg, rgba(20, 27, 45, 0.95) 0%, rgba(74, 159, 255, 0.1) 100%);
   border: 2px solid var(--color-primary);
   display: flex;
   align-items: center;
@@ -1035,7 +1040,17 @@ section.visible {
   font-family: var(--font-heading);
   font-size: 28px;
   font-weight: var(--fw-800);
-  color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  box-shadow: 0 8px 24px rgba(74, 159, 255, 0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+  transition: all var(--transition-normal);
+}
+
+.step-card:hover .step-number {
+  box-shadow: 0 12px 32px rgba(74, 159, 255, 0.3);
+  transform: scale(1.05);
 }
 
 .step-card h3 {
@@ -2259,6 +2274,78 @@ textarea {
 }
 
 /* ============================================
+   CUSTOM ANIMATIONS & EFFECTS
+   ============================================ */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(74, 159, 255, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(74, 159, 255, 0.5); }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.hero-label {
+  animation: float 3s ease-in-out infinite;
+}
+
+.btn-primary {
+  background-size: 200% 100%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+.service-icon {
+  animation: float 4s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* Stagger animation for service cards */
+.service-card:nth-child(1) .service-icon { --delay: 0s; }
+.service-card:nth-child(2) .service-icon { --delay: 0.1s; }
+.service-card:nth-child(3) .service-icon { --delay: 0.2s; }
+.service-card:nth-child(4) .service-icon { --delay: 0.3s; }
+
+/* Enhanced hero background blur effect */
+.hero-bg::after {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Smooth gradient backgrounds */
+.pricing-card.featured::before,
+.service-card::before,
+.review-card::before {
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+/* ============================================
+   ENHANCED FOCUS STATES
+   ============================================ */
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ============================================
    REVIEWS SECTION
    ============================================ */
 
@@ -2509,13 +2596,30 @@ textarea {
   overflow: hidden;
   aspect-ratio: 4/3;
   cursor: pointer;
-  border: 1px solid var(--color-border);
-  transition: transform var(--transition-normal), border-color var(--transition-normal);
+  border: 1px solid var(--color-border-light);
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(74, 159, 255, 0.2) 0%, rgba(0, 212, 255, 0.1) 100%);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .gallery-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
   border-color: var(--color-primary);
+  box-shadow: 0 12px 32px rgba(74, 159, 255, 0.2);
+}
+
+.gallery-card:hover::before {
+  opacity: 1;
 }
 
 .gallery-card img {
@@ -2570,15 +2674,32 @@ textarea {
   gap: 48px;
   align-items: center;
   padding: 48px;
-  background: var(--color-dark-card);
-  border: 1px solid var(--color-border);
+  background: linear-gradient(145deg, rgba(20, 27, 45, 0.95) 0%, rgba(15, 20, 32, 0.98) 100%);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-card);
   margin-bottom: 32px;
-  transition: border-color var(--transition-normal);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.case-study-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 50%, var(--color-primary-glow) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  pointer-events: none;
 }
 
 .case-study-card:hover {
   border-color: var(--color-primary);
+  box-shadow: 0 20px 48px rgba(74, 159, 255, 0.12);
+}
+
+.case-study-card:hover::before {
+  opacity: 1;
 }
 
 .case-study-card:nth-child(even) {
@@ -2661,23 +2782,40 @@ textarea {
 }
 
 .plan-card {
-  background: var(--color-dark-card);
-  border: 1px solid var(--color-border);
+  background: linear-gradient(145deg, rgba(20, 27, 45, 0.95) 0%, rgba(15, 20, 32, 0.98) 100%);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-card);
   padding: 40px 32px;
   text-align: center;
-  transition: transform var(--transition-normal), border-color var(--transition-normal);
+  transition: all var(--transition-normal);
   position: relative;
+  overflow: hidden;
+}
+
+.plan-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, var(--color-primary-glow) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  pointer-events: none;
 }
 
 .plan-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
   border-color: var(--color-primary);
+  box-shadow: 0 20px 48px rgba(74, 159, 255, 0.15);
+}
+
+.plan-card:hover::before {
+  opacity: 1;
 }
 
 .plan-card.featured {
   border-color: var(--color-primary);
-  background: linear-gradient(135deg, var(--color-dark-card), rgba(58, 127, 193, 0.08));
+  background: linear-gradient(180deg, rgba(74, 159, 255, 0.1) 0%, linear-gradient(145deg, rgba(20, 27, 45, 0.95) 0%, rgba(15, 20, 32, 0.98) 100%));
+  box-shadow: 0 0 32px rgba(74, 159, 255, 0.1);
 }
 
 .plan-badge {
