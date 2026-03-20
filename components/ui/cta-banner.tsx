@@ -25,12 +25,21 @@ export default function CTABanner({
     <section
       className={`py-20 px-6 md:px-12 ${
         gradient
-          ? "bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border-y border-blue-500/30"
+          ? "relative overflow-hidden bg-gradient-to-r from-blue-600/30 via-purple-600/30 to-pink-600/30 border-y border-blue-500/50"
           : "bg-zinc-900"
       }`}
     >
-      <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+      {gradient && (
+        <>
+          <div className="absolute inset-0 opacity-30 blur-3xl">
+            <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply"></div>
+            <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply"></div>
+            <div className="absolute -bottom-8 left-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply"></div>
+          </div>
+        </>
+      )}
+      <div className="relative z-10 max-w-4xl mx-auto text-center">
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 bg-gradient-text">
           {title}
         </h2>
         {subtitle && (
