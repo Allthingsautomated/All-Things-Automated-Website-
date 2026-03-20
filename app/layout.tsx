@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Header from '@/components/layout/header'
 import Footer from '@/components/layout/footer'
+import ScrollToTop from '@/components/ui/scroll-to-top'
 
 export const metadata: Metadata = {
   title: 'All Things Automated | Smart Home Automation in Sarasota, FL',
@@ -37,6 +38,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <ScrollToTop />
       </body>
     </html>
   )
