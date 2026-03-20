@@ -58,17 +58,23 @@ export default function ServicesGrid({
             return (
               <div
                 key={index}
-                className="p-6 bg-zinc-800/50 border border-zinc-700 rounded-xl hover:border-blue-500/50 transition-all hover:bg-zinc-800"
+                className="group relative overflow-hidden rounded-2xl p-8 backdrop-blur-sm transition-all duration-300 h-full bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-blue-500/30 hover:border-purple-500/60 hover:from-blue-500/20 hover:via-purple-500/20 hover:to-pink-500/20"
               >
-                <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
-                  <IconComponent className="w-6 h-6 text-blue-400" />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 blur-2xl"></div>
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-zinc-400 leading-relaxed">
-                  {service.description}
-                </p>
+                <div className="relative z-10">
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-500/30 to-purple-500/30 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <IconComponent className="w-7 h-7 text-blue-300" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-200 transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-zinc-400 group-hover:text-zinc-300 transition-colors leading-relaxed">
+                    {service.description}
+                  </p>
+                </div>
+                <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-xl -mr-12 -mb-12"></div>
               </div>
             )
           })}

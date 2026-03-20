@@ -8,8 +8,8 @@ export default function Home() {
   return (
     <>
       <HeroSection
-        label="Sarasota's Premier Smart Home Experts"
-        title="Intelligent Automation for Modern Living"
+        label="🚀 Sarasota's Premier Smart Home Experts"
+        title={<span className="bg-gradient-text">Intelligent Automation for Modern Living</span>}
         subtitle="Transform your home with cutting-edge smart technology. From lighting and climate to security and full automation — we design, install, and support it all."
         backgroundImage="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80"
         backgroundImageAlt="Luxury modern home at twilight with warm interior lighting"
