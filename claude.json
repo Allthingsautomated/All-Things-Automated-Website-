@@ -1,0 +1,19 @@
+{
+  "name": "All-Things-Automated-Website",
+  "version": "1.0.0",
+  "description": "Automated website platform with AI-enhanced frontend design",
+  "plugins": [
+    {
+      "id": "frontend-design",
+      "name": "Frontend Design",
+      "version": "latest",
+      "source": "claude-plugins-official",
+      "url": "https://claude.com/plugins/frontend-design",
+      "enabled": true,
+      "description": "AI-powered frontend design plugin for creating and optimizing web interfaces"
+    }
+  ],
+  "claudeCodeConfig": {
+    "version": "1.0"
+  }
+}
