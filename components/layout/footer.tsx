@@ -11,9 +11,22 @@ export default function Footer() {
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    // TODO: Add newsletter subscription logic
-    setEmail("")
-    setIsSubmitting(false)
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      })
+
+      if (response.ok) {
+        setEmail("")
+        // Show success message (could be enhanced with a toast notification)
+      }
+    } catch (error) {
+      console.error("Newsletter subscription error:", error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
