@@ -57,32 +57,7 @@ export default function RootLayout({
         <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
       </head>
       <body>
-        <a
-          className="skip-link"
-          href="#main"
-          style={{
-            position: 'absolute',
-            left: '-9999px',
-            top: '16px',
-            padding: '8px 16px',
-            background: 'var(--color-dark-card)',
-            color: 'var(--color-primary)',
-            border: '1px solid var(--color-primary)',
-            borderRadius: '8px',
-            fontWeight: '600',
-            fontSize: '14px',
-            zIndex: 10000,
-            textDecoration: 'none',
-          }}
-          onFocus={(e) => {
-            ;(e.target as HTMLElement).style.left = '16px'
-          }}
-          onBlur={(e) => {
-            ;(e.target as HTMLElement).style.left = '-9999px'
-          }}
-        >
-          Skip to content
-        </a>
+        <a className="skip-link" href="#main">Skip to content</a>
 
         {/* NAVIGATION */}
         <nav>

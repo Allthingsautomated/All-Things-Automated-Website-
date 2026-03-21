@@ -122,7 +122,7 @@ export default function Home() {
           <div className="section-header center">
             <div className="section-label">Premium Installations</div>
             <h2 className="section-title">Our Installs</h2>
-            <p className="section-subtitle">From lighting design to full-home automation—here's a selection of our recent projects.</p>
+            <p className="section-subtitle">From lighting design to full-home automation—here&apos;s a selection of our recent projects.</p>
           </div>
           <div className="slider-container">
             {portfolioItems.map((item, idx) => (
