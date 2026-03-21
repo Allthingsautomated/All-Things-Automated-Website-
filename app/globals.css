@@ -624,14 +624,20 @@ nav.scrolled::after {
 
 section {
   padding: 100px 48px;
-  opacity: 0;
-  transform: translateY(30px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
+/* JS-driven scroll animations: body.js-ready sections start hidden until observed */
+body.js-ready section:not(.visible) {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
 section.visible {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 .section-dark {
