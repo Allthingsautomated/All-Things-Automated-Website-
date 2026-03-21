@@ -164,7 +164,7 @@ export default function Home() {
             </div>
             <div style={{ position: 'relative' }}>
               <img
-                src="/assets/jorge.png"
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80"
                 alt="Jorge, Founder"
                 className="about-image"
                 style={{
