@@ -1185,6 +1185,34 @@ section.visible {
   color: var(--color-text-light);
 }
 
+.brands-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.brand-item {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: var(--fw-700);
+  color: var(--color-muted);
+  letter-spacing: 1px;
+  padding: 14px 28px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-dark-card);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.brand-item:hover {
+  color: var(--color-text-light);
+  border-color: var(--color-primary);
+}
+
 /* ============================================
    CTA SECTION
    ============================================ */
