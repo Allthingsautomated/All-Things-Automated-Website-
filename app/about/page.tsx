@@ -50,16 +50,16 @@ export default function AboutPage() {
               </div>
             </div>
             <div style={{ paddingLeft: '16px' }}>
-              <div className="section-label">Meet the Founder</div>
-              <h2 style={{ marginBottom: '8px' }}>Hi, I&apos;m Jorge.</h2>
+              <div className="section-label">Our Vision</div>
+              <h2 style={{ marginBottom: '8px' }}>Built on Expertise &amp; Integrity</h2>
               <p style={{ marginBottom: '16px', lineHeight: 1.8, color: 'var(--color-primary)', fontWeight: 500, fontSize: '17px' }}>
-                Founder &amp; Lead Automation Specialist
+                Founded by a Licensed Automation Specialist
               </p>
               <p style={{ marginBottom: '16px', lineHeight: 1.8 }}>
-                I started All Things Automated with one core conviction: technology should simplify your life, not complicate it. Too many smart home companies sell expensive systems and disappear. I&apos;m different. I stay involved, support my clients long-term, and take pride in every single installation.
+                All Things Automated was founded on a simple conviction: technology should simplify your life, not complicate it. Too many smart home companies sell expensive systems and disappear. We&apos;re different. We stay involved, support our clients long-term, and take pride in every single installation.
               </p>
               <p style={{ lineHeight: 1.8, marginBottom: '24px' }}>
-                With years of hands-on experience in smart home automation, electrical work, and customer service, I&apos;m licensed, insured, and hold myself to the highest standards. Whether you&apos;re automating a single room or your entire estate, I treat your home like my own.
+                Backed by years of hands-on experience in smart home automation, electrical work, and customer service, our team is licensed, insured, and holds itself to the highest standards. Whether you&apos;re automating a single room or your entire estate, we treat your home with the care and attention it deserves.
               </p>
               <a href="/contact" className="btn btn-primary" style={{ marginTop: '8px' }}>
                 Request a Consultation
@@ -129,7 +129,7 @@ export default function AboutPage() {
 
               <h3 style={{ color: 'var(--color-primary)', marginBottom: '16px' }}>Long-Term Support</h3>
               <p style={{ lineHeight: 1.8 }}>
-                We don&apos;t disappear after installation. Jorge is available for support, updates, and expansions for years to come.
+                We don&apos;t disappear after installation. Our team is available for support, updates, and expansions for years to come.
               </p>
             </div>
             <div>
@@ -155,8 +155,8 @@ export default function AboutPage() {
       {/* CTA */}
       <section className="cta-section">
         <div className="container">
-          <h2>Ready to Work with Jorge?</h2>
-          <p>Let&apos;s discuss your smart home vision and how we can make it a reality.</p>
+          <h2>Ready to Automate Your Home?</h2>
+          <p>Let&apos;s discuss your smart home vision and how All Things Automated can make it a reality.</p>
           <a href="/contact" className="btn btn-primary btn-lg">
             Schedule a Consultation
           </a>

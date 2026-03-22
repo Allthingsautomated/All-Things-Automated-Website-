@@ -147,16 +147,16 @@ export default function Home() {
         <div className="container">
           <div className="section-grid-2-gap" style={{ alignItems: 'center' }}>
             <div style={{ paddingRight: '16px' }}>
-              <div className="section-label">Meet the Founder</div>
-              <h2 style={{ marginBottom: '8px' }}>Hi, I&apos;m Jorge.</h2>
+              <div className="section-label">Why We Do It</div>
+              <h2 style={{ marginBottom: '8px' }}>Dedicated to Excellence</h2>
               <p style={{ marginBottom: '16px', lineHeight: 1.8, color: 'var(--color-primary)', fontWeight: 500, fontSize: '17px' }}>
-                Founder &amp; Lead Automation Specialist
+                Founded on expertise, built on trust
               </p>
               <p style={{ marginBottom: '16px', lineHeight: 1.8 }}>
-                I started All Things Automated with one core conviction: technology should simplify your life, not complicate it. Too many smart home companies sell expensive systems and disappear. I&apos;m different. I stay involved, support my clients long-term, and take pride in every single installation.
+                All Things Automated was founded with a clear mission: technology should simplify your life, not complicate it. Unlike many smart home companies that sell expensive systems and vanish, we stay involved, support our clients long-term, and take pride in every installation.
               </p>
               <p style={{ lineHeight: 1.8, marginBottom: '24px' }}>
-                With years of hands-on experience in smart home automation, electrical work, and customer service, I&apos;m licensed, insured, and hold myself to the highest standards.
+                Our team brings years of hands-on experience in smart home automation, electrical work, and customer service. We&apos;re licensed, insured, and hold ourselves to the highest standards in every project.
               </p>
               <a href="/contact" className="btn btn-primary" style={{ marginTop: '8px' }}>
                 Request a Consultation
@@ -320,7 +320,7 @@ export default function Home() {
       <section className="cta-section">
         <div className="container">
           <h2>Ready to Transform Your Home?</h2>
-          <p>Let&apos;s discuss your smart home vision. Schedule a free consultation with Jorge today.</p>
+          <p>Let&apos;s discuss your smart home vision. Schedule a free consultation with All Things Automated today.</p>
           <div className="cta-buttons">
             <a href="/contact" className="btn btn-primary btn-lg">
               Schedule a Consultation
