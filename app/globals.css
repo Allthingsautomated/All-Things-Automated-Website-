@@ -1679,18 +1679,19 @@ textarea {
 }
 
 .pricing-card.featured::before {
-  content: 'Most Popular';
-  position: absolute;
-  top: -14px;
-  left: 50%;
-  transform: translateX(-50%);
+  content: none;
+}
+
+.pricing-badge {
+  display: inline-block;
   background: var(--color-primary);
   color: white;
-  padding: 6px 20px;
+  padding: 5px 18px;
   border-radius: 100px;
   font-size: 12px;
   font-weight: var(--fw-600);
   letter-spacing: 0.5px;
+  margin-bottom: 16px;
 }
 
 .pricing-card:hover {
@@ -1710,7 +1711,8 @@ textarea {
   margin-bottom: 8px;
 }
 
-.pricing-card .price {
+.pricing-card .price,
+.pricing-card .pricing-price {
   font-family: var(--font-heading);
   font-size: 44px;
   font-weight: var(--fw-800);
@@ -1718,13 +1720,15 @@ textarea {
   margin: 20px 0;
 }
 
-.pricing-card .price span {
+.pricing-card .price span,
+.pricing-card .pricing-price span {
   font-size: 16px;
   font-weight: var(--fw-400);
   color: var(--color-text);
 }
 
-.pricing-card .price-note {
+.pricing-card .price-note,
+.pricing-card .pricing-description {
   font-size: 13px;
   color: var(--color-text);
   margin-bottom: 32px;
