@@ -3,4 +3,4 @@ pages_build_output_dir = "out"
 
 [[kv_namespaces]]
 binding = "LEADS_KV"
-id = "8efd454c4c364c04af617349ed8f73af"
+id = "f232ee416e7b441c9fe7d31fc2e1eca3"
