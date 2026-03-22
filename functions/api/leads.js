@@ -1,7 +1,5 @@
 // Cloudflare Pages Function — Leads API
-// Uses jsonblob.com as free cloud storage (no KV binding needed)
-
-const BLOB_URL = 'https://jsonblob.com/api/jsonBlob/019cf3c5-01d3-7a02-a103-3278af4373b5';
+// Uses Cloudflare KV for persistent storage (binding: LEADS_KV)
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -9,19 +7,18 @@ const CORS_HEADERS = {
   'Access-Control-Allow-Headers': 'Content-Type',
   'Content-Type': 'application/json'
 };
+
 // Handle CORS preflight
 export async function onRequestOptions() {
   return new Response(null, { status: 204, headers: CORS_HEADERS });
 }
 
 // GET /api/leads — retrieve all leads
-export async function onRequestGet() {
+export async function onRequestGet({ env }) {
   try {
-    const resp = await fetch(BLOB_URL, {
-      headers: { 'Accept': 'application/json' }
-    });
-    const data = await resp.json();
-    return new Response(JSON.stringify({ leads: data.leads || [] }), {
+    const raw = await env.LEADS_KV.get('leads');
+    const leads = raw ? JSON.parse(raw) : [];
+    return new Response(JSON.stringify({ leads }), {
       status: 200, headers: CORS_HEADERS
     });
   } catch (err) {
@@ -30,54 +27,48 @@ export async function onRequestGet() {
     });
   }
 }
+
 // POST /api/leads — save a new lead
-export async function onRequestPost(context) {
+export async function onRequestPost({ request, env }) {
   try {
-    const lead = await context.request.json();
+    const lead = await request.json();
 
     // Add server-side timestamp and ID
     lead.id = Date.now() + '-' + Math.random().toString(36).substr(2, 6);
     lead.received = new Date().toISOString();
+    lead.source = lead.source || 'contact-form';
 
-    // Read current leads
-    const getResp = await fetch(BLOB_URL, {
-      headers: { 'Accept': 'application/json' }
-    });
-    const data = await getResp.json();
-    const leads = data.leads || [];
+    // Read current leads from KV
+    const raw = await env.LEADS_KV.get('leads');
+    const leads = raw ? JSON.parse(raw) : [];
 
-    // Append new lead
+    // Append new lead and write back
     leads.push(lead);
+    await env.LEADS_KV.put('leads', JSON.stringify(leads));
 
-    // Write back
-    await fetch(BLOB_URL, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ leads: leads })
-    });
-
-    // Send email notification (server-side, non-blocking)
+    // Build notification strings
     const tierLabel = (lead.tier || 'NEW').toUpperCase();
-    const sourceLabel = lead.source === 'google-landing' ? 'Landing Page' :
-      lead.source === 'chatbot' ? 'Chatbot' :
-      lead.source === 'contact-form' ? 'Contact Form' :
-      lead.source === 'popup' ? 'Popup' : lead.source || 'Website';
-    const subject = '[' + tierLabel + ' LEAD] ' + (lead.name || 'Unknown') + ' - ' + (lead.service || sourceLabel);
+    const sourceLabel =
+      lead.source === 'google-landing' ? 'Landing Page' :
+      lead.source === 'chatbot'        ? 'Chatbot' :
+      lead.source === 'contact-form'   ? 'Contact Form' :
+      lead.source === 'popup'          ? 'Popup' :
+      lead.source || 'Website';
 
-    // Send instant push notification via ntfy.sh (free, no account needed)
-    // Download ntfy app on phone and subscribe to topic: ata-leads
-    const smsBody = 'NEW LEAD: ' + (lead.name || 'Unknown') + ' | ' + (lead.service || 'General') + ' | ' + (lead.phone || 'No phone') + ' | ' + sourceLabel;
-    fetch('https://ntfy.sh/ata-leads-' + '65a6ab2e', {
+    const subject = '[' + tierLabel + ' LEAD] ' + (lead.name || 'Unknown') + ' - ' + (lead.service || sourceLabel);
+    const smsBody = 'NEW LEAD: ' + (lead.name || 'Unknown') +
+      ' | ' + (lead.service || 'General') +
+      ' | ' + (lead.phone || 'No phone') +
+      ' | ' + sourceLabel;
+
+    // Push notification via ntfy.sh (install ntfy app, subscribe to: ata-leads-65a6ab2e)
+    fetch('https://ntfy.sh/ata-leads-65a6ab2e', {
       method: 'POST',
-      headers: {
-        'Title': subject,
-        'Priority': 'high',
-        'Tags': 'money_with_wings'
-      },
+      headers: { 'Title': subject, 'Priority': 'high', 'Tags': 'money_with_wings' },
       body: smsBody
     }).catch(() => {});
 
-    // Send email notification via FormSubmit
+    // Email notification via FormSubmit
     fetch('https://formsubmit.co/ajax/65a6ab2ee87c151ffec81e39d824f727', {
       method: 'POST',
       headers: {
@@ -88,21 +79,18 @@ export async function onRequestPost(context) {
       },
       body: JSON.stringify({
         _subject: subject,
-        Name: lead.name || 'Not provided',
-        Email: lead.email || 'Not provided',
-        Phone: lead.phone || 'Not provided',
-        Service: lead.service || 'Not specified',
-        Budget: lead.budget || 'N/A',
-        Timeline: lead.timeline || 'N/A',
-        Address: lead.address || 'Not provided',
-        Source: sourceLabel,
-        'Lead Score': lead.score ? (lead.score + '/100 (' + tierLabel + ')') : 'N/A',
-        Message: lead.message || 'None',
+        Name:      lead.name    || 'Not provided',
+        Email:     lead.email   || 'Not provided',
+        Phone:     lead.phone   || 'Not provided',
+        Service:   lead.service || 'Not specified',
+        City:      lead.city    || 'Not provided',
+        Message:   lead.message || 'None',
+        Source:    sourceLabel,
         _template: 'table'
       })
     }).catch(() => {});
 
-    return new Response(JSON.stringify({ success: true, lead: lead }), {
+    return new Response(JSON.stringify({ success: true, lead }), {
       status: 200, headers: CORS_HEADERS
     });
   } catch (err) {
