@@ -28,7 +28,6 @@ export default function AboutPage() {
                   borderRadius: '16px',
                   width: '100%',
                   objectFit: 'cover',
-                  maxHeight: '520px',
                   boxShadow: '0 24px 60px rgba(0,0,0,0.4)',
                 }}
               />
