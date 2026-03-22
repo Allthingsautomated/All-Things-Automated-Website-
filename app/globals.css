@@ -1917,8 +1917,7 @@ textarea {
 
 .about-image {
   border-radius: var(--radius-lg);
-  aspect-ratio: 2 / 3;
-  height: auto;
+  height: 500px;
   object-fit: cover;
   object-position: center top;
   width: 100%;
