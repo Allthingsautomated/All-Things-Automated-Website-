@@ -1908,11 +1908,10 @@ textarea {
 
 .about-image {
   border-radius: var(--radius-lg);
-  height: 520px;
+  height: 400px;
   object-fit: cover;
-  object-position: center 10%;
+  object-position: center 15%;
   width: 100%;
-  max-width: 480px;
 }
 
 .values-card {
