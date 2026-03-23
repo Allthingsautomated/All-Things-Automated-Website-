@@ -14,6 +14,7 @@ const portfolioItems = [
     label: 'Lutron Caséta',
     accent: '#f59e0b',
     bg: 'linear-gradient(135deg, #1a1400 0%, #2d2000 50%, #1a1400 100%)',
+    href: '/schedule?service=74227637',
   },
   {
     title: 'Estate Security System',
@@ -23,6 +24,7 @@ const portfolioItems = [
     label: 'Luma 4K · Ring',
     accent: '#4a9fff',
     bg: 'linear-gradient(135deg, #030d1a 0%, #071828 50%, #030d1a 100%)',
+    href: '/schedule?service=90943626',
   },
   {
     title: 'Multi-Zone Climate',
@@ -32,6 +34,7 @@ const portfolioItems = [
     label: 'Ecobee Premium',
     accent: '#10b981',
     bg: 'linear-gradient(135deg, #001a0f 0%, #002818 50%, #001a0f 100%)',
+    href: '/schedule?service=74227647',
   },
   {
     title: 'Control4 Integration',
@@ -41,6 +44,7 @@ const portfolioItems = [
     label: 'Control4',
     accent: '#8b5cf6',
     bg: 'linear-gradient(135deg, #0d0019 0%, #160026 50%, #0d0019 100%)',
+    href: '/schedule?service=74225838',
   },
   {
     title: 'Smart Home Theater',
@@ -50,6 +54,7 @@ const portfolioItems = [
     label: 'Sonos · 4K Projection',
     accent: '#ef4444',
     bg: 'linear-gradient(135deg, #1a0000 0%, #280000 50%, #1a0000 100%)',
+    href: '/schedule?service=74225838',
   },
   {
     title: 'Commercial Security',
@@ -59,6 +64,7 @@ const portfolioItems = [
     label: 'Luma · Lutron',
     accent: '#64748b',
     bg: 'linear-gradient(135deg, #0a0c10 0%, #111318 50%, #0a0c10 100%)',
+    href: '/schedule?service=90943626',
   },
 ]
 
@@ -138,7 +144,7 @@ export default function Home() {
           </div>
           <div className="slider-container">
             {portfolioItems.map((item, idx) => (
-              <div key={idx} className="portfolio-card">
+              <a key={idx} href={item.href} className="portfolio-card" style={{ textDecoration: 'none', display: 'block' }}>
                 <div className="portfolio-image" style={{ background: item.bg }}>
                   <div style={{
                     height: '100%',
@@ -181,9 +187,12 @@ export default function Home() {
                 <div className="portfolio-content">
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
-                  <span className="portfolio-location">{item.location}</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '4px' }}>
+                    <span className="portfolio-location">{item.location}</span>
+                    <span style={{ fontSize: '12px', color: 'var(--color-primary)', fontWeight: 600 }}>Book this service →</span>
+                  </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>

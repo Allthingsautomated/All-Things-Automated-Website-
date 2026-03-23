@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Metadata } from 'next'
 
 const ACUITY_BASE = 'https://allthingsautomatedcalendar.as.me/schedule/04821538'
@@ -68,6 +68,21 @@ const SERVICES = [
 export default function SchedulePage() {
   const [activeId, setActiveId] = useState<number | null>(null)
   const embedRef = useRef<HTMLDivElement>(null)
+
+  // Pre-select service from URL ?service= param (e.g. from portfolio cards)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const id = params.get('service')
+    if (id) {
+      const matched = SERVICES.find(s => s.id === Number(id))
+      if (matched) {
+        setActiveId(matched.id)
+        setTimeout(() => {
+          embedRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }, 300)
+      }
+    }
+  }, [])
 
   const embedSrc = activeId
     ? `${ACUITY_BASE}?appointmentType=${activeId}&embed=1`
