@@ -75,8 +75,8 @@ export default function RootLayout({
             <a href="/contact" className="nav-contact">
               Contact
             </a>
-            <a href="/contact" className="btn-quote">
-              Get a Quote
+            <a href="/schedule" className="btn-quote">
+              Book Now
             </a>
           </div>
           <div className="hamburger">
@@ -94,8 +94,8 @@ export default function RootLayout({
           <a href="/pricing">Pricing</a>
           <a href="/blog">Blog</a>
           <a href="/contact">Contact</a>
-          <a href="/contact" className="btn-quote">
-            Get a Quote
+          <a href="/schedule" className="btn-quote">
+            Book Now
           </a>
         </div>
 

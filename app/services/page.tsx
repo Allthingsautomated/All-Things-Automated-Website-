@@ -128,8 +128,8 @@ export default function ServicesPage() {
         <div className="container">
           <h2>Ready to Automate Your Home?</h2>
           <p>Let&apos;s discuss which services are right for you.</p>
-          <a href="/contact" className="btn btn-primary btn-lg">
-            Schedule Your Consultation
+          <a href="/schedule" className="btn btn-primary btn-lg">
+            📅 Book Online Now
           </a>
         </div>
       </section>

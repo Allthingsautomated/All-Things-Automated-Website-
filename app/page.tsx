@@ -158,8 +158,8 @@ export default function Home() {
               <p style={{ lineHeight: 1.8, marginBottom: '24px' }}>
                 Our team brings years of hands-on experience in smart home automation, electrical work, and customer service. We&apos;re licensed, insured, and hold ourselves to the highest standards in every project.
               </p>
-              <a href="/contact" className="btn btn-primary" style={{ marginTop: '8px' }}>
-                Request a Consultation
+              <a href="/schedule" className="btn btn-primary" style={{ marginTop: '8px' }}>
+                📅 Book a Consultation
               </a>
             </div>
             <div style={{ position: 'relative' }}>
@@ -321,8 +321,8 @@ export default function Home() {
           <h2>Ready to Transform Your Home?</h2>
           <p>Let&apos;s discuss your smart home vision. Schedule a free consultation with All Things Automated today.</p>
           <div className="cta-buttons">
-            <a href="/contact" className="btn btn-primary btn-lg">
-              Schedule a Consultation
+            <a href="/schedule" className="btn btn-primary btn-lg">
+              📅 Book Online Now
             </a>
             <a href="tel:+19412635325" className="btn btn-outline btn-lg">
               Call (941) 263-5325
