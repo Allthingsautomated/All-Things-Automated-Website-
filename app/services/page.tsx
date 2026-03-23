@@ -129,7 +129,7 @@ export default function ServicesPage() {
           <h2>Ready to Automate Your Home?</h2>
           <p>Let&apos;s discuss which services are right for you.</p>
           <a href="/schedule" className="btn btn-primary btn-lg">
-            📅 Book Online Now
+            Book Online Now
           </a>
         </div>
       </section>

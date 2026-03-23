@@ -64,7 +64,6 @@ export default function ContactPage() {
                 padding: '24px',
                 marginTop: '8px',
               }}>
-                <div style={{ fontSize: '28px', marginBottom: '10px' }}>📅</div>
                 <h4 style={{ color: 'var(--color-white)', marginBottom: '8px', fontSize: '18px' }}>
                   Ready to Book?
                 </h4>
@@ -72,7 +71,7 @@ export default function ContactPage() {
                   Skip the back-and-forth — pick your service and a time that works for you. Online payment confirms your spot.
                 </p>
                 <a href="/schedule" className="btn btn-primary" style={{ display: 'block', textAlign: 'center' }}>
-                  📅 Book Online Now
+                  Book Online Now
                 </a>
                 <p style={{ color: 'var(--color-text)', fontSize: '12px', marginTop: '12px', textAlign: 'center' }}>
                   8 services available · Instant confirmation

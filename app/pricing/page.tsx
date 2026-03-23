@@ -239,7 +239,7 @@ export default function PricingPage() {
           <h2>Let&apos;s Find Your Perfect Package</h2>
           <p>Every home is different. Schedule a consultation to discuss your budget and needs.</p>
           <a href="/schedule" className="btn btn-primary btn-lg">
-            📅 Book a Consultation
+            Book a Consultation
           </a>
         </div>
       </section>

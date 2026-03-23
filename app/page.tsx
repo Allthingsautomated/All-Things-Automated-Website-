@@ -10,43 +10,55 @@ const portfolioItems = [
     title: 'Whole-Home Lighting Design',
     description: 'Lutron Caséta scene control across every room of a 4,200 sq ft waterfront residence.',
     location: 'Siesta Key, FL',
-    image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&q=80',
-    category: 'lighting',
+    category: 'Lighting',
+    label: 'Lutron Caséta',
+    accent: '#f59e0b',
+    bg: 'linear-gradient(135deg, #1a1400 0%, #2d2000 50%, #1a1400 100%)',
   },
   {
     title: 'Estate Security System',
     description: 'Luma 8-camera perimeter system with Ring doorbell and smart locks on a gated property.',
     location: 'Bird Key, FL',
-    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80',
-    category: 'security',
+    category: 'Security',
+    label: 'Luma 4K · Ring',
+    accent: '#4a9fff',
+    bg: 'linear-gradient(135deg, #030d1a 0%, #071828 50%, #030d1a 100%)',
   },
   {
     title: 'Multi-Zone Climate',
     description: 'Ecobee Premium with 6 room sensors across a two-story home for perfect comfort.',
     location: 'Palmer Ranch, FL',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
-    category: 'climate',
+    category: 'Climate',
+    label: 'Ecobee Premium',
+    accent: '#10b981',
+    bg: 'linear-gradient(135deg, #001a0f 0%, #002818 50%, #001a0f 100%)',
   },
   {
     title: 'Control4 Integration',
     description: 'Full Control4 system unifying lighting, security, climate, and entertainment.',
     location: 'Longboat Key, FL',
-    image: 'https://images.unsplash.com/photo-1560448204-603b3fc33ddc?w=600&q=80',
-    category: 'automation',
+    category: 'Automation',
+    label: 'Control4',
+    accent: '#8b5cf6',
+    bg: 'linear-gradient(135deg, #0d0019 0%, #160026 50%, #0d0019 100%)',
   },
   {
     title: 'Smart Home Theater',
     description: 'Sonos surround sound and 4K projector room with one-touch movie mode.',
     location: 'Venice, FL',
-    image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=600&q=80',
-    category: 'theater',
+    category: 'Theater',
+    label: 'Sonos · 4K Projection',
+    accent: '#ef4444',
+    bg: 'linear-gradient(135deg, #1a0000 0%, #280000 50%, #1a0000 100%)',
   },
   {
     title: 'Commercial Security',
     description: 'Luma 4K cameras and Lutron lighting automation for a Sarasota retail location.',
     location: 'Downtown Sarasota, FL',
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80',
-    category: 'commercial',
+    category: 'Commercial',
+    label: 'Luma · Lutron',
+    accent: '#64748b',
+    bg: 'linear-gradient(135deg, #0a0c10 0%, #111318 50%, #0a0c10 100%)',
   },
 ]
 
@@ -127,11 +139,46 @@ export default function Home() {
           <div className="slider-container">
             {portfolioItems.map((item, idx) => (
               <div key={idx} className="portfolio-card">
-                <div className="portfolio-image">
-                  <img src={item.image} alt={item.title} />
+                <div className="portfolio-image" style={{ background: item.bg }}>
+                  <div style={{
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    padding: '24px',
+                  }}>
+                    <span style={{
+                      display: 'inline-block',
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
+                      color: item.accent,
+                      background: `${item.accent}18`,
+                      border: `1px solid ${item.accent}40`,
+                      borderRadius: '4px',
+                      padding: '4px 10px',
+                      alignSelf: 'flex-start',
+                    }}>
+                      {item.category}
+                    </span>
+                    <div style={{
+                      fontSize: '12px',
+                      color: 'rgba(255,255,255,0.3)',
+                      fontWeight: 500,
+                      letterSpacing: '0.05em',
+                    }}>
+                      {item.label}
+                    </div>
+                  </div>
+                  <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: `radial-gradient(circle at 80% 20%, ${item.accent}20 0%, transparent 60%)`,
+                    pointerEvents: 'none',
+                  }} />
                 </div>
                 <div className="portfolio-content">
-                  <span className="portfolio-category">{item.category}</span>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
                   <span className="portfolio-location">{item.location}</span>
@@ -159,7 +206,7 @@ export default function Home() {
                 Our team brings years of hands-on experience in smart home automation, electrical work, and customer service. We&apos;re licensed, insured, and hold ourselves to the highest standards in every project.
               </p>
               <a href="/schedule" className="btn btn-primary" style={{ marginTop: '8px' }}>
-                📅 Book a Consultation
+                Book a Consultation
               </a>
             </div>
             <div style={{ position: 'relative' }}>
@@ -322,7 +369,7 @@ export default function Home() {
           <p>Let&apos;s discuss your smart home vision. Schedule a free consultation with All Things Automated today.</p>
           <div className="cta-buttons">
             <a href="/schedule" className="btn btn-primary btn-lg">
-              📅 Book Online Now
+              Book Online Now
             </a>
             <a href="tel:+19412635325" className="btn btn-outline btn-lg">
               Call (941) 263-5325
