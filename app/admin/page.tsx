@@ -6,6 +6,17 @@ import { useState, useEffect, useCallback } from 'react'
 const ADMIN_PASSWORD = 'ATA2024!'
 // ────────────────────────────────────────────────────────────────────────────
 
+interface BlogPostForm {
+  title: string
+  slug: string
+  category: string
+  image: string
+  excerpt: string
+  content: string
+  status: 'draft' | 'scheduled' | 'published'
+  date: string
+}
+
 interface Lead {
   id: string
   name: string
@@ -69,6 +80,18 @@ export default function AdminPage() {
   const [contacted, setContacted]     = useState<Record<string,boolean>>({})
   const [selected, setSelected]       = useState<Lead|null>(null)
   const [copyMsg, setCopyMsg]         = useState('')
+  const [tab, setTab]                 = useState<'leads'|'blog'>('leads')
+  const [blogForm, setBlogForm]       = useState<BlogPostForm>({
+    title: '',
+    slug: '',
+    category: '',
+    image: '',
+    excerpt: '',
+    content: '',
+    status: 'draft',
+    date: new Date().toISOString().split('T')[0],
+  })
+  const [blogMsg, setBlogMsg]         = useState('')
 
   // Persist auth in session
   useEffect(() => {
@@ -137,6 +160,54 @@ export default function AdminPage() {
       setCopyMsg(email)
       setTimeout(() => setCopyMsg(''), 2000)
     })
+  }
+
+  const submitBlogPost = async () => {
+    if (!blogForm.title || !blogForm.slug || !blogForm.category || !blogForm.image || !blogForm.excerpt || !blogForm.content) {
+      setBlogMsg('❌ Please fill in all fields')
+      return
+    }
+
+    const slug = blogForm.slug.toLowerCase().replace(/\s+/g, '-')
+    const frontmatter = `---
+title: "${blogForm.title.replace(/"/g, '\\"')}"
+slug: "${slug}"
+category: "${blogForm.category}"
+image: "${blogForm.image}"
+excerpt: "${blogForm.excerpt.replace(/"/g, '\\"')}"
+author: "All Things Automated"
+date: "${blogForm.date}"
+status: "${blogForm.status}"
+---`
+
+    const content = frontmatter + '\n\n' + blogForm.content
+
+    try {
+      const res = await fetch('/api/blog', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug, content })
+      })
+      const data = await res.json()
+      if (res.ok) {
+        setBlogMsg(`✓ Post ${blogForm.status === 'published' ? 'published' : 'created'} successfully!`)
+        setBlogForm({
+          title: '',
+          slug: '',
+          category: '',
+          image: '',
+          excerpt: '',
+          content: '',
+          status: 'draft',
+          date: new Date().toISOString().split('T')[0],
+        })
+        setTimeout(() => setBlogMsg(''), 3000)
+      } else {
+        setBlogMsg(`❌ Error: ${data.error || 'Failed to save post'}`)
+      }
+    } catch (e) {
+      setBlogMsg('❌ Error saving post')
+    }
   }
 
   // Stats
@@ -234,15 +305,35 @@ export default function AdminPage() {
         padding: '0 32px', display: 'flex', alignItems: 'center',
         justifyContent: 'space-between', height: '60px', position: 'sticky', top: '72px', zIndex: 50
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <span style={{ fontSize: '20px' }}>⚡</span>
-          <span style={{ fontWeight: 700, fontSize: '16px' }}>ATA Admin</span>
-          <span style={{
-            background: 'rgba(74,159,255,0.15)', color: 'var(--color-primary)',
-            padding: '3px 10px', borderRadius: '100px', fontSize: '12px', fontWeight: 600
-          }}>
-            Dashboard
-          </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <span style={{ fontSize: '20px' }}>⚡</span>
+            <span style={{ fontWeight: 700, fontSize: '16px' }}>ATA Admin</span>
+          </div>
+          <div style={{ display: 'flex', gap: '12px', borderLeft: '1px solid var(--color-border)', paddingLeft: '24px' }}>
+            <button
+              onClick={() => setTab('leads')}
+              style={{
+                padding: '6px 16px', fontSize: '13px', fontWeight: 600,
+                background: tab === 'leads' ? 'rgba(74,159,255,0.15)' : 'transparent',
+                color: tab === 'leads' ? 'var(--color-primary)' : 'var(--color-text)',
+                border: 'none', cursor: 'pointer', borderRadius: '6px'
+              }}
+            >
+              📋 Leads
+            </button>
+            <button
+              onClick={() => setTab('blog')}
+              style={{
+                padding: '6px 16px', fontSize: '13px', fontWeight: 600,
+                background: tab === 'blog' ? 'rgba(74,159,255,0.15)' : 'transparent',
+                color: tab === 'blog' ? 'var(--color-primary)' : 'var(--color-text)',
+                border: 'none', cursor: 'pointer', borderRadius: '6px'
+              }}
+            >
+              📝 Blog
+            </button>
+          </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <button
@@ -284,6 +375,9 @@ export default function AdminPage() {
       </div>
 
       <div style={{ padding: '32px', maxWidth: '1400px', margin: '0 auto' }}>
+
+        {tab === 'leads' && (
+        <>
 
         {/* STAT CARDS */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px', marginBottom: '32px' }}>
@@ -541,6 +635,80 @@ export default function AdminPage() {
             </table>
           )}
         </div>
+        </>
+        )}
+
+        {tab === 'blog' && (
+        <div>
+          <div style={{ background: 'var(--color-dark-card)', border: '1px solid var(--color-border)', borderRadius: '12px', padding: '32px' }}>
+            <h2 style={{ marginTop: 0, marginBottom: '32px' }}>Create Blog Post</h2>
+
+            {blogMsg && (
+              <div style={{ padding: '12px 16px', background: blogMsg.includes('✓') ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.1)', borderRadius: '8px', marginBottom: '24px', fontSize: '14px', color: blogMsg.includes('✓') ? '#10b981' : '#ef4444' }}>
+                {blogMsg}
+              </div>
+            )}
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '6px', color: 'var(--color-text)' }}>Title</label>
+                <input type="text" placeholder="Blog post title" value={blogForm.title} onChange={e => setBlogForm({...blogForm, title: e.target.value, slug: e.target.value.toLowerCase().replace(/\s+/g, '-')})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-dark)', color: 'var(--color-white)', fontSize: '14px', boxSizing: 'border-box' }} />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '6px', color: 'var(--color-text)' }}>Slug</label>
+                <input type="text" placeholder="url-slug" value={blogForm.slug} onChange={e => setBlogForm({...blogForm, slug: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-dark)', color: 'var(--color-white)', fontSize: '14px', boxSizing: 'border-box' }} />
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '6px', color: 'var(--color-text)' }}>Category</label>
+                <input type="text" placeholder="e.g. Smart Lighting, Security, etc" value={blogForm.category} onChange={e => setBlogForm({...blogForm, category: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-dark)', color: 'var(--color-white)', fontSize: '14px', boxSizing: 'border-box' }} />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '6px', color: 'var(--color-text)' }}>Publish Date</label>
+                <input type="date" value={blogForm.date} onChange={e => setBlogForm({...blogForm, date: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-dark)', color: 'var(--color-white)', fontSize: '14px', boxSizing: 'border-box' }} />
+              </div>
+            </div>
+
+            <div style={{ marginBottom: '16px' }}>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '6px', color: 'var(--color-text)' }}>Featured Image URL (Imgur recommended)</label>
+              <input type="url" placeholder="https://i.imgur.com/xxxxx.jpg" value={blogForm.image} onChange={e => setBlogForm({...blogForm, image: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-dark)', color: 'var(--color-white)', fontSize: '14px', boxSizing: 'border-box' }} />
+            </div>
+
+            <div style={{ marginBottom: '16px' }}>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '6px', color: 'var(--color-text)' }}>Excerpt (Short description)</label>
+              <textarea placeholder="Brief summary of the post..." value={blogForm.excerpt} onChange={e => setBlogForm({...blogForm, excerpt: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-dark)', color: 'var(--color-white)', fontSize: '14px', boxSizing: 'border-box', minHeight: '80px', fontFamily: 'inherit', resize: 'vertical' }} />
+            </div>
+
+            <div style={{ marginBottom: '16px' }}>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '6px', color: 'var(--color-text)' }}>Content (Markdown)</label>
+              <textarea placeholder="# Heading&#10;&#10;Paragraph text...&#10;&#10;**Bold text** and *italic text*" value={blogForm.content} onChange={e => setBlogForm({...blogForm, content: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-dark)', color: 'var(--color-white)', fontSize: '13px', boxSizing: 'border-box', minHeight: '300px', fontFamily: 'monospace', resize: 'vertical' }} />
+            </div>
+
+            <div style={{ display: 'flex', gap: '12px', marginBottom: '16px' }}>
+              <button onClick={() => setBlogForm({...blogForm, status: 'draft'})} style={{ flex: 1, padding: '10px', borderRadius: '8px', border: `2px solid ${blogForm.status === 'draft' ? 'var(--color-primary)' : 'var(--color-border)'}`, background: blogForm.status === 'draft' ? 'rgba(74,159,255,0.1)' : 'transparent', color: blogForm.status === 'draft' ? 'var(--color-primary)' : 'var(--color-text)', fontWeight: 600, cursor: 'pointer', fontSize: '14px' }}>📝 Draft</button>
+              <button onClick={() => setBlogForm({...blogForm, status: 'scheduled'})} style={{ flex: 1, padding: '10px', borderRadius: '8px', border: `2px solid ${blogForm.status === 'scheduled' ? 'var(--color-primary)' : 'var(--color-border)'}`, background: blogForm.status === 'scheduled' ? 'rgba(74,159,255,0.1)' : 'transparent', color: blogForm.status === 'scheduled' ? 'var(--color-primary)' : 'var(--color-text)', fontWeight: 600, cursor: 'pointer', fontSize: '14px' }}>📅 Scheduled</button>
+              <button onClick={() => setBlogForm({...blogForm, status: 'published'})} style={{ flex: 1, padding: '10px', borderRadius: '8px', border: `2px solid ${blogForm.status === 'published' ? 'var(--color-primary)' : 'var(--color-border)'}`, background: blogForm.status === 'published' ? 'rgba(74,159,255,0.1)' : 'transparent', color: blogForm.status === 'published' ? 'var(--color-primary)' : 'var(--color-text)', fontWeight: 600, cursor: 'pointer', fontSize: '14px' }}>✓ Published</button>
+            </div>
+
+            <button onClick={submitBlogPost} style={{ width: '100%', padding: '12px', borderRadius: '8px', background: 'var(--color-primary)', color: 'white', border: 'none', fontWeight: 700, fontSize: '15px', cursor: 'pointer' }}>
+              Save Blog Post
+            </button>
+          </div>
+
+          <div style={{ marginTop: '32px', padding: '24px', background: 'rgba(74,159,255,0.05)', border: '1px solid var(--color-border)', borderRadius: '12px', fontSize: '13px', color: 'var(--color-text)' }}>
+            <div style={{ fontWeight: 600, marginBottom: '12px', color: 'var(--color-primary)' }}>💡 Tips for Claude (via Cowork)</div>
+            <ul style={{ margin: 0, paddingLeft: '20px', lineHeight: '1.6' }}>
+              <li>Use the <strong>Render skill</strong> to create featured images for blog posts</li>
+              <li>Upload rendered images to <strong>Imgur.com</strong> and paste the URL above</li>
+              <li>Write content in <strong>Markdown format</strong> (see examples in content)</li>
+              <li>Use <strong>Draft</strong> status for review, <strong>Scheduled</strong> for future posts, <strong>Published</strong> to go live immediately</li>
+              <li>The slug is auto-generated from the title (you can customize it)</li>
+            </ul>
+          </div>
+        </div>
+        )}
       </div>
 
       {/* LEAD DETAIL MODAL */}
