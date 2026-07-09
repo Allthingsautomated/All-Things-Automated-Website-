@@ -183,9 +183,10 @@ export default function Home() {
                     </span>
                     <div style={{
                       fontSize: '12px',
-                      color: 'rgba(255,255,255,0.3)',
-                      fontWeight: 500,
+                      color: 'rgba(255,255,255,0.8)',
+                      fontWeight: 600,
                       letterSpacing: '0.05em',
+                      textShadow: '0 2px 8px rgba(0,0,0,0.5)',
                     }}>
                       {item.label}
                     </div>
