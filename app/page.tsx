@@ -194,7 +194,7 @@ export default function Home() {
                   <div style={{
                     position: 'absolute',
                     inset: 0,
-                    background: `radial-gradient(circle at 80% 20%, ${item.accent}20 0%, transparent 60%)`,
+                    background: `linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%), radial-gradient(circle at 80% 20%, ${item.accent}20 0%, transparent 60%)`,
                     pointerEvents: 'none',
                   }} />
                 </div>
