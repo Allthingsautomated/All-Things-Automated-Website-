@@ -36,8 +36,8 @@ export default function ServicesPage() {
             </div>
             <div>
               <img
-                src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&q=80"
-                alt="Smart Lighting"
+                src="https://i.imgur.com/rpOCs3A.jpg"
+                alt="Smart Lighting Control Installation"
                 style={{ borderRadius: '16px', width: '100%' }}
               />
             </div>
@@ -46,8 +46,8 @@ export default function ServicesPage() {
           <div className="section-grid-2-gap" style={{ alignItems: 'center', marginBottom: '80px' }}>
             <div>
               <img
-                src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80"
-                alt="Security"
+                src="https://i.imgur.com/AaxLroZ.jpg"
+                alt="Security and Cameras Installation"
                 style={{ borderRadius: '16px', width: '100%' }}
               />
             </div>
@@ -88,8 +88,8 @@ export default function ServicesPage() {
             </div>
             <div>
               <img
-                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80"
-                alt="Climate"
+                src="https://i.imgur.com/i8C2UpF.jpg"
+                alt="Climate Control and Thermostat Installation"
                 style={{ borderRadius: '16px', width: '100%' }}
               />
             </div>
@@ -98,8 +98,8 @@ export default function ServicesPage() {
           <div className="section-grid-2-gap" style={{ alignItems: 'center' }}>
             <div>
               <img
-                src="https://images.unsplash.com/photo-1560448204-603b3fc33ddc?w=600&q=80"
-                alt="Automation"
+                src="https://i.imgur.com/uglHRNI.jpg"
+                alt="Complete Home Automation System"
                 style={{ borderRadius: '16px', width: '100%' }}
               />
             </div>
