@@ -14,6 +14,7 @@ const portfolioItems = [
     label: 'Lutron Caséta',
     accent: '#f59e0b',
     bg: 'linear-gradient(135deg, #1a1400 0%, #2d2000 50%, #1a1400 100%)',
+    image: 'https://i.imgur.com/rpOCs3A.jpg',
     href: '/schedule?service=74227637',
   },
   {
@@ -24,6 +25,7 @@ const portfolioItems = [
     label: 'Luma 4K · Ring',
     accent: '#4a9fff',
     bg: 'linear-gradient(135deg, #030d1a 0%, #071828 50%, #030d1a 100%)',
+    image: 'https://i.imgur.com/AaxLroZ.jpg',
     href: '/schedule?service=90943626',
   },
   {
@@ -34,6 +36,7 @@ const portfolioItems = [
     label: 'Ecobee Premium',
     accent: '#10b981',
     bg: 'linear-gradient(135deg, #001a0f 0%, #002818 50%, #001a0f 100%)',
+    image: 'https://i.imgur.com/i8C2UpF.jpg',
     href: '/schedule?service=74227647',
   },
   {
@@ -44,6 +47,7 @@ const portfolioItems = [
     label: 'Control4',
     accent: '#8b5cf6',
     bg: 'linear-gradient(135deg, #0d0019 0%, #160026 50%, #0d0019 100%)',
+    image: 'https://i.imgur.com/uglHRNI.jpg',
     href: '/schedule?service=74225838',
   },
   {
@@ -145,13 +149,20 @@ export default function Home() {
           <div className="slider-container">
             {portfolioItems.map((item, idx) => (
               <a key={idx} href={item.href} className="portfolio-card" style={{ textDecoration: 'none', display: 'block' }}>
-                <div className="portfolio-image" style={{ background: item.bg }}>
+                <div className="portfolio-image" style={{
+                  background: item.bg,
+                  backgroundImage: item.image ? `url(${item.image})` : 'none',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}>
                   <div style={{
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
                     padding: '24px',
+                    position: 'relative',
+                    zIndex: 2,
                   }}>
                     <span style={{
                       display: 'inline-block',
