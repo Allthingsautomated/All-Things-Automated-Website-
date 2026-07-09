@@ -14,7 +14,7 @@ const portfolioItems = [
     label: 'Lutron Caséta',
     accent: '#f59e0b',
     bg: 'linear-gradient(135deg, #1a1400 0%, #2d2000 50%, #1a1400 100%)',
-    image: 'https://i.imgur.com/rpOCs3A.jpg',
+    image: 'https://i.imgur.com/FDZtZ0e.jpg',
     href: '/schedule?service=74227637',
   },
   {
@@ -25,7 +25,7 @@ const portfolioItems = [
     label: 'Luma 4K · Ring',
     accent: '#4a9fff',
     bg: 'linear-gradient(135deg, #030d1a 0%, #071828 50%, #030d1a 100%)',
-    image: 'https://i.imgur.com/AaxLroZ.jpg',
+    image: 'https://i.imgur.com/WToyXTu.jpg',
     href: '/schedule?service=90943626',
   },
   {
@@ -36,7 +36,7 @@ const portfolioItems = [
     label: 'Ecobee Premium',
     accent: '#10b981',
     bg: 'linear-gradient(135deg, #001a0f 0%, #002818 50%, #001a0f 100%)',
-    image: 'https://i.imgur.com/i8C2UpF.jpg',
+    image: 'https://i.imgur.com/oFds1uD.jpg',
     href: '/schedule?service=74227647',
   },
   {
@@ -47,7 +47,7 @@ const portfolioItems = [
     label: 'Control4',
     accent: '#8b5cf6',
     bg: 'linear-gradient(135deg, #0d0019 0%, #160026 50%, #0d0019 100%)',
-    image: 'https://i.imgur.com/uglHRNI.jpg',
+    image: 'https://i.imgur.com/IL9nKs7.jpg',
     href: '/schedule?service=74225838',
   },
   {
@@ -58,6 +58,7 @@ const portfolioItems = [
     label: 'Sonos · 4K Projection',
     accent: '#ef4444',
     bg: 'linear-gradient(135deg, #1a0000 0%, #280000 50%, #1a0000 100%)',
+    image: 'https://i.imgur.com/EK5YWsz.jpg',
     href: '/schedule?service=74225838',
   },
   {
@@ -68,6 +69,7 @@ const portfolioItems = [
     label: 'Luma · Lutron',
     accent: '#64748b',
     bg: 'linear-gradient(135deg, #0a0c10 0%, #111318 50%, #0a0c10 100%)',
+    image: 'https://i.imgur.com/W1zZZCM.jpg',
     href: '/schedule?service=90943626',
   },
 ]
