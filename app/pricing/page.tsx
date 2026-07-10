@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Pricing | All Things Automated',
-  description: 'Smart home packages from $499+. Residential automation, security, and design services with transparent pricing.',
+  description: 'Custom smart home packages. Residential automation, security, and design services tailored to your home and budget.',
 }
 
 export default function PricingPage() {
@@ -10,8 +10,8 @@ export default function PricingPage() {
     <>
       {/* HERO */}
       <section id="main" className="hero-page">
-        <h1>Smart Home Pricing</h1>
-        <p>Transparent pricing for every budget. From smart lighting to complete home automation.</p>
+        <h1>Smart Home Packages</h1>
+        <p>Solutions for every budget, from smart lighting to complete home automation. Get a personalized quote tailored to your home.</p>
       </section>
 
       {/* RESIDENTIAL PACKAGES */}
@@ -24,7 +24,7 @@ export default function PricingPage() {
           <div className="pricing-grid">
             <div className="pricing-card">
               <h3>Smart Start</h3>
-              <div className="pricing-price">$499<span>+</span></div>
+              <div className="pricing-price">Custom Quote</div>
               <p className="pricing-description">Perfect for entry-level automation</p>
               <ul className="pricing-features">
                 <li>✓ Smart thermostat</li>
@@ -37,7 +37,7 @@ export default function PricingPage() {
             <div className="pricing-card featured">
               <div className="pricing-badge">Most Popular</div>
               <h3>Home Essentials</h3>
-              <div className="pricing-price">$2,499<span>+</span></div>
+              <div className="pricing-price">Custom Quote</div>
               <p className="pricing-description">Comprehensive home automation</p>
               <ul className="pricing-features">
                 <li>✓ Whole-home lighting</li>
@@ -51,7 +51,7 @@ export default function PricingPage() {
             </div>
             <div className="pricing-card">
               <h3>Total Home</h3>
-              <div className="pricing-price">Custom</div>
+              <div className="pricing-price">Custom Quote</div>
               <p className="pricing-description">Full-home integration &amp; entertainment</p>
               <ul className="pricing-features">
                 <li>✓ Control4 system</li>
@@ -76,7 +76,7 @@ export default function PricingPage() {
           <div className="pricing-grid">
             <div className="pricing-card">
               <h3>Essential Security</h3>
-              <div className="pricing-price">$899<span>+</span></div>
+              <div className="pricing-price">Custom Quote</div>
               <p className="pricing-description">Basic surveillance coverage</p>
               <ul className="pricing-features">
                 <li>✓ 2-4 HD cameras</li>
@@ -89,7 +89,7 @@ export default function PricingPage() {
             <div className="pricing-card featured">
               <div className="pricing-badge">Recommended</div>
               <h3>Complete Coverage</h3>
-              <div className="pricing-price">$2,500<span>+</span></div>
+              <div className="pricing-price">Custom Quote</div>
               <p className="pricing-description">Professional-grade system</p>
               <ul className="pricing-features">
                 <li>✓ 4-8 4K cameras</li>
@@ -102,7 +102,7 @@ export default function PricingPage() {
             </div>
             <div className="pricing-card">
               <h3>Premium Surveillance</h3>
-              <div className="pricing-price">Custom</div>
+              <div className="pricing-price">Custom Quote</div>
               <p className="pricing-description">Enterprise-level security</p>
               <ul className="pricing-features">
                 <li>✓ 8+ 4K/8K cameras</li>
@@ -126,7 +126,7 @@ export default function PricingPage() {
           <div className="pricing-grid">
             <div className="pricing-card">
               <h3>Lighting Design Plan</h3>
-              <div className="pricing-price">$500<span>+</span></div>
+              <div className="pricing-price">Custom Quote</div>
               <p className="pricing-description">Professional lighting layout</p>
               <ul className="pricing-features">
                 <li>✓ Room-by-room analysis</li>
@@ -139,7 +139,7 @@ export default function PricingPage() {
             <div className="pricing-card featured">
               <div className="pricing-badge">Popular</div>
               <h3>Full Smart Home Blueprint</h3>
-              <div className="pricing-price">$1,500<span>+</span></div>
+              <div className="pricing-price">Custom Quote</div>
               <p className="pricing-description">Complete home automation plan</p>
               <ul className="pricing-features">
                 <li>✓ Full system design</li>
@@ -164,7 +164,7 @@ export default function PricingPage() {
           <div className="pricing-grid">
             <div className="pricing-card">
               <h3>Basic</h3>
-              <div className="pricing-price">$29<span>/mo</span></div>
+              <div className="pricing-price">Custom Quote</div>
               <p className="pricing-description">Essential support</p>
               <ul className="pricing-features">
                 <li>✓ Email support</li>
@@ -176,7 +176,7 @@ export default function PricingPage() {
             <div className="pricing-card featured">
               <div className="pricing-badge">Best Value</div>
               <h3>Priority</h3>
-              <div className="pricing-price">$59<span>/mo</span></div>
+              <div className="pricing-price">Custom Quote</div>
               <p className="pricing-description">Priority support &amp; maintenance</p>
               <ul className="pricing-features">
                 <li>✓ Phone &amp; email support</li>
@@ -188,7 +188,7 @@ export default function PricingPage() {
             </div>
             <div className="pricing-card">
               <h3>Elite</h3>
-              <div className="pricing-price">$99<span>/mo</span></div>
+              <div className="pricing-price">Custom Quote</div>
               <p className="pricing-description">White-glove support</p>
               <ul className="pricing-features">
                 <li>✓ 24/7 phone support</li>
@@ -218,8 +218,8 @@ export default function PricingPage() {
               <p>Yes! We work with financing partners to make smart home projects accessible. Ask about payment plans during consultation.</p>
             </details>
             <details className="faq-item">
-              <summary>Do prices vary by location?</summary>
-              <p>Pricing is consistent across Sarasota, Manatee, and Charlotte Counties. Travel time and project scope may affect final cost.</p>
+              <summary>How is my quote determined?</summary>
+              <p>Because equipment and material costs change frequently, we provide a custom quote for every project. Your quote reflects the equipment you choose, the size and scope of your home, and installation needs. We serve Sarasota, Manatee, and Charlotte Counties.</p>
             </details>
             <details className="faq-item">
               <summary>What if I want to add to my system later?</summary>
