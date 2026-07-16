@@ -514,7 +514,7 @@ function initFooterNewsletter() {
    INITIALIZATION
    ============================================ */
 
-document.addEventListener('DOMContentLoaded', () => {
+function initAll() {
   loadCustomLogo();
   initStickyNav();
   initHamburger();
@@ -527,6 +527,14 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initLeadCapture();
   initFooterNewsletter();
-});
+}
+
+// Run immediately if the DOM is already parsed (e.g. when this script is
+// injected after DOMContentLoaded has already fired), otherwise wait for it.
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initAll);
+} else {
+  initAll();
+}
 
 window.addEventListener('resize', updateSlider);
