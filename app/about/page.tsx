@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'About All Things Automated | Smart Home Experts',
-  description: 'Learn about Jorge and All Things Automated, Sarasota\'s premier smart home company since 2019.',
+  description: 'Learn about All Things Automated, Sarasota\'s premier smart home company since 2019.',
 }
 
 export default function AboutPage() {
@@ -20,8 +20,8 @@ export default function AboutPage() {
           <div className="section-grid-2-gap" style={{ alignItems: 'center' }}>
             <div style={{ position: 'relative' }}>
               <img
-                src="/assets/jorge.jpg"
-                alt="Jorge, Founder of All Things Automated"
+                src="/assets/founder.jpg"
+                alt="The founder of All Things Automated"
                 className="about-image"
                 loading="lazy"
                 style={{
