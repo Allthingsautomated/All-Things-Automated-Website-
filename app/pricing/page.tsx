@@ -60,7 +60,7 @@ export default function PricingPage() {
                 <li>✓ Advanced scenes</li>
                 <li>✓ Premium support</li>
               </ul>
-              <a href="/contact" className="btn btn-outline">Consult with Jorge</a>
+              <a href="/contact" className="btn btn-outline">Consult with Our Team</a>
             </div>
           </div>
         </div>

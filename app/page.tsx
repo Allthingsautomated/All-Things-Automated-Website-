@@ -77,17 +77,17 @@ const portfolioItems = [
 const reviews = [
   {
     name: 'Michael & Sarah T.',
-    text: 'Jorge transformed our home. The lighting system he designed is perfect, and his installation was flawless. Best investment we made.',
+    text: 'The All Things Automated team transformed our home. The lighting system they designed is perfect, and the installation was flawless. Best investment we made.',
     location: 'Longboat Key',
   },
   {
     name: 'David R.',
-    text: 'Professional, knowledgeable, and responsive. He answered every question and the system works exactly as promised.',
+    text: 'Professional, knowledgeable, and responsive. They answered every question and the system works exactly as promised.',
     location: 'Siesta Key',
   },
   {
     name: 'Jennifer L.',
-    text: 'From consultation to installation, everything was seamless. Jorge really knows his stuff and cares about customer satisfaction.',
+    text: 'From consultation to installation, everything was seamless. The team really knows their stuff and cares about customer satisfaction.',
     location: 'Palmer Ranch',
   },
 ]
