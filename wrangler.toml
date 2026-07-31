@@ -1,6 +1,16 @@
 name = "all-things-automated-website"
-pages_build_output_dir = "out"
+main = "worker/index.ts"
+compatibility_date = "2024-11-15"
+compatibility_flags = ["nodejs_compat"]
 
-[[kv_namespaces]]
-binding = "LEADS_KV"
-id = "f232ee416e7b441c9fe7d31fc2e1eca3"
+[env.production]
+name = "all-things-automated-website"
+
+[[d1_databases]]
+binding = "D1"
+database_name = "all-things-automated"
+database_id = "00000000-0000-4000-8000-000000000000"
+
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "all-things-automated"

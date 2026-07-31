@@ -1,0 +1,133 @@
+import type { Article, Service } from "./site";
+
+export const services: Record<string, Service> = {
+  lighting: {
+    eyebrow: "Lutron RadioRA 3",
+    title: "Lighting that changes",
+    italic: "how the home feels.",
+    intro: "Refined dimming, architectural keypads, scenes, schedules, and shades—designed as one dependable whole-home system.",
+    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=2200&q=90",
+    statement: "The best lighting control is felt in every room and barely noticed on the wall.",
+    details: [
+      { title: "Whole-home scenes", copy: "One touch can prepare the home for morning, entertaining, movie night, or bedtime without adjusting individual lights." },
+      { title: "Architectural controls", copy: "Elegant keypads replace banks of switches and give every button a clear, intentional purpose." },
+      { title: "Reliable performance", copy: "RadioRA 3 is built for dependable control throughout the home—not dependent on a collection of Wi-Fi bulbs." },
+      { title: "Shades and schedules", copy: "Natural light, privacy, and energy use can work together through automated shades and time-based routines." },
+    ],
+    ideal: ["New construction and major remodels", "Homes with too many switches", "Clients who value design and simplicity", "Projects needing shades, scenes, or remote access"],
+  },
+  automation: {
+    eyebrow: "Savant home automation",
+    title: "One home.",
+    italic: "One experience.",
+    intro: "Lighting, climate, entertainment, shades, security, and routines brought together through an interface the whole household can understand.",
+    image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2200&q=90",
+    statement: "Automation should remove friction from daily life—not introduce another complicated app.",
+    details: [
+      { title: "Unified control", copy: "Manage the systems that matter through a consistent app, remote, touchscreen, or voice experience." },
+      { title: "Personalized scenes", copy: "Create routines around how the home is actually used, from arrival and entertaining to sleep and travel." },
+      { title: "Entertainment", copy: "Simplify televisions, streaming sources, music, and rooms so enjoying them does not require a lesson." },
+      { title: "Professional support", copy: "The system is designed, programmed, documented, and supported by one accountable team." },
+    ],
+    ideal: ["Whole-home renovations", "Luxury new construction", "Multiple entertainment spaces", "Owners tired of disconnected apps"],
+  },
+  security: {
+    eyebrow: "UniFi Protect",
+    title: "Security that knows",
+    italic: "what it sees.",
+    intro: "Intentional camera coverage, intelligent detection, local recording, and secure remote access without monthly camera licensing fees.",
+    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2200&q=90",
+    statement: "A camera system should help you find the moment that matters—not leave you searching through hours of footage.",
+    details: [
+      { title: "Planned coverage", copy: "Camera locations and lens choices are selected around entrances, approaches, blind spots, and identification goals." },
+      { title: "Smart detection", copy: "Compatible cameras can distinguish people, vehicles, and other events for more useful alerts and faster review." },
+      { title: "Local recording", copy: "Footage remains under your control on dedicated local hardware with secure remote access." },
+      { title: "One ecosystem", copy: "Cameras, door access, networking, and related infrastructure can share one professionally managed platform." },
+    ],
+    ideal: ["Homes needing real perimeter coverage", "Small businesses and offices", "Multi-site properties", "Clients replacing consumer cameras"],
+  },
+  audio: {
+    eyebrow: "Whole-home audio & video",
+    title: "Every room.",
+    italic: "The right atmosphere.",
+    intro: "Discreet speakers, simple television control, and music that moves naturally through the home—inside and out.",
+    image: "https://images.unsplash.com/photo-1558882224-dda166733046?auto=format&fit=crop&w=2200&q=90",
+    statement: "Great audio belongs in the architecture, not scattered across countertops and power outlets.",
+    details: [
+      { title: "Whole-home music", copy: "Play one source everywhere or give each space independent control without visible clutter." },
+      { title: "Outdoor entertainment", copy: "Weather-ready audio and television solutions extend the experience to pools, patios, and lanais." },
+      { title: "Clean television design", copy: "Plan mounting, wiring, equipment location, and control before the wall is finished." },
+      { title: "Simple operation", copy: "A polished system should be easy for family and guests to use without a stack of remotes." },
+    ],
+    ideal: ["Indoor-outdoor Florida living", "Media rooms and gathering spaces", "Clean wall-mounted television installations", "Clients who value music throughout the home"],
+  },
+  networking: {
+    eyebrow: "Professional networking & Wi-Fi",
+    title: "The system behind",
+    italic: "every other system.",
+    intro: "Purpose-built wired and wireless infrastructure for reliable coverage, high device counts, remote work, streaming, cameras, and automation.",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2200&q=90",
+    statement: "Smart-home performance begins with a network designed for the property—not a router hidden in one corner.",
+    details: [
+      { title: "Coverage planning", copy: "Access points are positioned around construction materials, floor plans, outdoor areas, and actual device demand." },
+      { title: "Structured wiring", copy: "CAT6 and fiber pathways create a reliable foundation for televisions, cameras, access points, and future systems." },
+      { title: "Managed equipment", copy: "Professional gateways, switches, power, and monitoring make the network easier to support and expand." },
+      { title: "Secure segmentation", copy: "Separate trusted, guest, camera, and automation traffic when the project requires stronger control." },
+    ],
+    ideal: ["Large or multi-story homes", "New construction prewire", "Properties with outdoor coverage needs", "Homes with cameras and many connected devices"],
+  },
+  climate: {
+    eyebrow: "Climate & energy control",
+    title: "Comfort that follows",
+    italic: "the way you live.",
+    intro: "Thoughtful climate control, schedules, occupancy routines, and automation that improve comfort without constant adjustment.",
+    image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=2200&q=90",
+    statement: "Comfort becomes effortless when climate, shades, lighting, and occupancy work from the same plan.",
+    details: [
+      { title: "Smarter scheduling", copy: "Setbacks and comfort periods can reflect real household routines instead of a rigid weekly timer." },
+      { title: "Room awareness", copy: "Use supported sensors and system logic to understand temperature, occupancy, and changing conditions." },
+      { title: "Integrated scenes", copy: "Away, sleep, arrival, and vacation modes can coordinate climate with lights, shades, and security." },
+      { title: "Remote visibility", copy: "Check and adjust supported systems from anywhere while retaining professional serviceability." },
+    ],
+    ideal: ["Seasonal Florida residences", "Homes with multiple HVAC zones", "Clients focused on comfort and convenience", "Projects already integrating lighting and shades"],
+  },
+};
+
+export const articles: Record<string, Article> = {
+  "smart-bulbs-vs-lighting-system": {
+    category: "Lighting control",
+    title: "Smart bulbs are not a smart-lighting system.",
+    dek: "Both can turn a light on from a phone. That is where the similarity ends.",
+    date: "July 2026", readTime: "6 minute read",
+    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=2200&q=90",
+    sections: [
+      { heading: "The difference is the system", paragraphs: ["A smart bulb is an individual connected product. A professional lighting-control system treats the entire property as one coordinated environment: dimmers, keypads, shades, schedules, scenes, and remote access designed to work together.", "That distinction matters most when the home grows beyond a few lamps. The more rooms, users, and routines involved, the less practical it becomes to manage lighting device by device."] },
+      { heading: "What happens when the switch is turned off?", paragraphs: ["Many smart bulbs lose their connected function when someone uses the traditional wall switch. A professionally designed system keeps control where people naturally expect it—at the wall—while also enabling scenes, schedules, and app control.", "This makes the experience predictable for family, guests, and anyone who simply wants the room to turn on."] },
+      { heading: "Why RadioRA 3 is different", paragraphs: ["Lutron RadioRA 3 uses dedicated lighting-control architecture rather than asking every bulb to behave like a separate Wi-Fi device. The system is planned around load types, keypad locations, scenes, and the way the home is used.", "The result is not technology for its own sake. It is lighting that feels calmer, cleaner, and easier every day."] },
+    ],
+  },
+  "unifi-vs-ring-cameras": {
+    category: "Video security",
+    title: "UniFi Protect vs. Ring: which camera system fits your property?",
+    dek: "The right answer depends less on the camera and more on what you expect the complete system to do.",
+    date: "July 2026", readTime: "7 minute read",
+    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2200&q=90",
+    sections: [
+      { heading: "Consumer convenience vs. planned coverage", paragraphs: ["Ring is designed to make adding individual consumer cameras approachable. UniFi Protect is better suited to a professionally planned system where camera placement, wired infrastructure, recording capacity, network performance, and long-term expansion are considered together.", "For a doorbell and one or two views, convenience may be the priority. For full-property coverage, the design of the system becomes more important than any single camera."] },
+      { heading: "Recording and ownership", paragraphs: ["UniFi Protect records to local UniFi hardware and provides secure remote access. This appeals to owners who want dedicated storage, predictable capacity, and a system that is not built around a per-camera cloud subscription.", "Storage duration still depends on camera count, resolution, recording settings, and drive capacity, so those choices should be calculated during design."] },
+      { heading: "The question to ask first", paragraphs: ["Do you want to see that something happened, or do you need useful footage that helps identify what happened? The second goal requires careful field of view, lighting, mounting height, and approach angles.", "A professional assessment starts with those outcomes and works backward to the camera models and infrastructure."] },
+    ],
+  },
+  "new-construction-smart-home-prewire": {
+    category: "Planning & construction",
+    title: "What should you prewire for a smart home?",
+    dek: "The cheapest time to prepare a home for technology is before the drywall closes.",
+    date: "July 2026", readTime: "8 minute read",
+    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=2200&q=90",
+    sections: [
+      { heading: "Start with systems, not cable counts", paragraphs: ["A strong prewire plan begins with what the home needs to do: reliable Wi-Fi, camera coverage, television locations, whole-home audio, lighting control, shades, access, climate integration, and room for future expansion.", "Cable is then selected and routed to support those outcomes. Pulling random wire without a system plan often creates cost without creating useful capability."] },
+      { heading: "Infrastructure that deserves early decisions", paragraphs: ["Network access points, exterior cameras, door stations, motorized shades, ceiling speakers, wall-mounted televisions, equipment racks, and lighting-control keypads all benefit from coordination before finishes.", "Power, low-voltage pathways, ventilation, service access, blocking, and equipment locations should be considered together—not by separate trades after the fact."] },
+      { heading: "Leave a path for what changes", paragraphs: ["Technology changes faster than the structure of a home. Conduit, accessible pathways, spare capacity, a properly sized equipment location, and accurate documentation create flexibility that a specific cable alone cannot.", "The objective is not to predict every future product. It is to make the home adaptable without opening finished walls."] },
+    ],
+  },
+};
