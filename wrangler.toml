@@ -1,6 +1,0 @@
-name = "all-things-automated-website"
-pages_build_output_dir = "out"
-
-[[kv_namespaces]]
-binding = "LEADS_KV"
-id = "f232ee416e7b441c9fe7d31fc2e1eca3"

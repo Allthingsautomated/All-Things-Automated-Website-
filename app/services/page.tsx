@@ -1,138 +1,39 @@
-import { Metadata } from 'next'
+import { services } from "../content";
+import { Arrow, AssessmentBand, SiteFooter, SiteHeader } from "../site";
 
-export const metadata: Metadata = {
-  title: 'Smart Home Services | All Things Automated',
-  description: 'Smart lighting, security cameras, climate control, and full home automation services in Sarasota, FL.',
-}
+const links: Record<string, string> = {
+  lighting: "/services/lighting",
+  automation: "/services/automation",
+  security: "/services/security",
+  audio: "/services/audio-video",
+  networking: "/services/networking",
+  climate: "/services/climate",
+};
 
-export default function ServicesPage() {
+export default function Services() {
   return (
-    <>
-      {/* HERO */}
-      <section id="main" className="hero-page">
-        <h1>Smart Home Services</h1>
-        <p>Professional installation of cutting-edge automation systems for Sarasota homes and businesses.</p>
+    <main>
+      <SiteHeader />
+      <section className="indexHero shell">
+        <p className="eyebrow">Connected living · professionally designed</p>
+        <h1>One property.<br /><em>Every system considered.</em></h1>
+        <p>We design technology as part of the home: coordinated, serviceable, and simple to live with.</p>
       </section>
-
-      {/* SERVICES DETAIL */}
-      <section style={{ backgroundColor: 'var(--color-dark)' }}>
-        <div className="container">
-          <div className="section-grid-2-gap" style={{ alignItems: 'center', marginBottom: '80px' }}>
+      <section className="serviceIndex shell">
+        {Object.entries(services).map(([slug, service], index) => (
+          <a href={links[slug]} className="serviceIndexCard" key={slug}>
+            <img src={service.image} alt="" />
             <div>
-              <div className="section-label">Lighting Design</div>
-              <h2>Smart Lighting Control</h2>
-              <p style={{ marginBottom: '24px' }}>
-                Transform your home with intelligent lighting that adapts to your lifestyle. We install premium systems from Lutron, Philips Hue, and others, offering scene control, color tuning, daylight harvesting, and seamless integration with voice assistants.
-              </p>
-              <ul style={{ color: 'var(--color-text)', lineHeight: 2 }}>
-                <li>✓ Lutron Caséta dimming and scene control</li>
-                <li>✓ Philips Hue color-tuning systems</li>
-                <li>✓ Automated schedules and daylight syncing</li>
-                <li>✓ Occupancy-based controls</li>
-              </ul>
-              <a href="/contact" className="btn btn-primary" style={{ marginTop: '24px' }}>
-                Get a Lighting Quote
-              </a>
+              <span>0{index + 1}</span>
+              <p>{service.eyebrow}</p>
+              <h2>{service.title} <em>{service.italic}</em></h2>
+              <small>Explore system <Arrow /></small>
             </div>
-            <div>
-              <img
-                src="https://i.imgur.com/rpOCs3A.jpg"
-                alt="Smart Lighting Control Installation"
-                style={{ borderRadius: '16px', width: '100%' }}
-              />
-            </div>
-          </div>
-
-          <div className="section-grid-2-gap" style={{ alignItems: 'center', marginBottom: '80px' }}>
-            <div>
-              <img
-                src="https://i.imgur.com/AaxLroZ.jpg"
-                alt="Security and Cameras Installation"
-                style={{ borderRadius: '16px', width: '100%' }}
-              />
-            </div>
-            <div>
-              <div className="section-label">Security Solutions</div>
-              <h2>Security &amp; Cameras</h2>
-              <p style={{ marginBottom: '24px' }}>
-                Professional-grade security systems designed to protect what matters most. From discreet cameras with AI detection to full perimeter systems, we offer solutions from Ring, Luma, UniFi, and other industry leaders.
-              </p>
-              <ul style={{ color: 'var(--color-text)', lineHeight: 2 }}>
-                <li>✓ 4K/8K camera systems with AI detection</li>
-                <li>✓ Smart door locks and access control</li>
-                <li>✓ 24/7 cloud storage and local backup</li>
-                <li>✓ Mobile alerts and live viewing</li>
-              </ul>
-              <a href="/contact" className="btn btn-primary" style={{ marginTop: '24px' }}>
-                Get a Security Quote
-              </a>
-            </div>
-          </div>
-
-          <div className="section-grid-2-gap" style={{ alignItems: 'center', marginBottom: '80px' }}>
-            <div>
-              <div className="section-label">Climate</div>
-              <h2>Climate Control &amp; Thermostat</h2>
-              <p style={{ marginBottom: '24px' }}>
-                Maintain perfect comfort year-round with intelligent climate control. We design zoned systems with Ecobee, Honeywell, and other premium thermostats that learn your preferences and optimize energy efficiency.
-              </p>
-              <ul style={{ color: 'var(--color-text)', lineHeight: 2 }}>
-                <li>✓ Smart thermostats with learning</li>
-                <li>✓ Multi-zone temperature control</li>
-                <li>✓ Energy usage reports and optimization</li>
-                <li>✓ Voice control and mobile access</li>
-              </ul>
-              <a href="/contact" className="btn btn-primary" style={{ marginTop: '24px' }}>
-                Get a Climate Quote
-              </a>
-            </div>
-            <div>
-              <img
-                src="https://i.imgur.com/i8C2UpF.jpg"
-                alt="Climate Control and Thermostat Installation"
-                style={{ borderRadius: '16px', width: '100%' }}
-              />
-            </div>
-          </div>
-
-          <div className="section-grid-2-gap" style={{ alignItems: 'center' }}>
-            <div>
-              <img
-                src="https://i.imgur.com/uglHRNI.jpg"
-                alt="Complete Home Automation System"
-                style={{ borderRadius: '16px', width: '100%' }}
-              />
-            </div>
-            <div>
-              <div className="section-label">Full Integration</div>
-              <h2>Complete Home Automation</h2>
-              <p style={{ marginBottom: '24px' }}>
-                Unify your entire home with Control4 and custom automation systems. One app controls everything—lighting, security, climate, entertainment, and more. Create scenes, schedules, and automations that work seamlessly together.
-              </p>
-              <ul style={{ color: 'var(--color-text)', lineHeight: 2 }}>
-                <li>✓ Control4 systems and integration</li>
-                <li>✓ Custom scenes and automations</li>
-                <li>✓ Entertainment system control</li>
-                <li>✓ Mobile app and voice control</li>
-              </ul>
-              <a href="/contact" className="btn btn-primary" style={{ marginTop: '24px' }}>
-                Get an Automation Quote
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="cta-section">
-        <div className="container">
-          <h2>Ready to Automate Your Home?</h2>
-          <p>Let&apos;s discuss which services are right for you.</p>
-          <a href="/schedule" className="btn btn-primary btn-lg">
-            Book Online Now
           </a>
-        </div>
+        ))}
       </section>
-    </>
-  )
+      <AssessmentBand />
+      <SiteFooter />
+    </main>
+  );
 }
