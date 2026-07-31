@@ -1,330 +1,165 @@
-import { Metadata } from 'next'
+const systems = [
+  {
+    number: "01",
+    label: "Lutron RadioRA 3",
+    title: "Lighting that changes how the home feels.",
+    copy: "Whole-home scenes, refined dimming, keypads, schedules, and shades—planned as part of the architecture instead of added room by room.",
+    href: "/services/lighting",
+    image:
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=88",
+  },
+  {
+    number: "02",
+    label: "UniFi Protect",
+    title: "Security that knows what it sees.",
+    copy: "Intentional camera coverage, intelligent detection, local recording, and secure remote access without a collection of disconnected devices.",
+    href: "/services/security",
+    image:
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=88",
+  },
+  {
+    number: "03",
+    label: "Savant · Audio · Network",
+    title: "One home. One experience.",
+    copy: "Lighting, climate, entertainment, Wi-Fi, and routines designed to work together through interfaces that feel natural to everyone.",
+    href: "/services/automation",
+    image:
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=88",
+  },
+];
 
-export const metadata: Metadata = {
-  title: 'All Things Automated | Smart Home Experts in Sarasota',
-  description: 'Transform your home with intelligent smart automation. 500+ homes automated. Serving Sarasota, Manatee & Charlotte Counties.',
+const steps = [
+  ["01", "Assess", "We walk the property, listen to the goals, and identify the real opportunities and constraints."],
+  ["02", "Design", "You receive a coordinated system plan built around the property, priorities, and investment level."],
+  ["03", "Install", "Our team handles installation, programming, finish details, and system commissioning."],
+  ["04", "Support", "We teach you the system and remain available as the home and your needs evolve."],
+];
+
+function Arrow() {
+  return <span aria-hidden="true">↗</span>;
 }
 
-const portfolioItems = [
-  {
-    title: 'Whole-Home Lighting Design',
-    description: 'Lutron Caséta scene control across every room of a 4,200 sq ft waterfront residence.',
-    location: 'Siesta Key, FL',
-    category: 'Lighting',
-    label: 'Lutron Caséta',
-    accent: '#f59e0b',
-    bg: 'linear-gradient(135deg, #1a1400 0%, #2d2000 50%, #1a1400 100%)',
-    image: 'https://i.imgur.com/FDZtZ0e.jpg',
-    href: '/schedule?service=74227637',
-  },
-  {
-    title: 'Estate Security System',
-    description: 'Luma 8-camera perimeter system with Ring doorbell and smart locks on a gated property.',
-    location: 'Bird Key, FL',
-    category: 'Security',
-    label: 'Luma 4K · Ring',
-    accent: '#4a9fff',
-    bg: 'linear-gradient(135deg, #030d1a 0%, #071828 50%, #030d1a 100%)',
-    image: 'https://i.imgur.com/WToyXTu.jpg',
-    href: '/schedule?service=90943626',
-  },
-  {
-    title: 'Multi-Zone Climate',
-    description: 'Ecobee Premium with 6 room sensors across a two-story home for perfect comfort.',
-    location: 'Palmer Ranch, FL',
-    category: 'Climate',
-    label: 'Ecobee Premium',
-    accent: '#10b981',
-    bg: 'linear-gradient(135deg, #001a0f 0%, #002818 50%, #001a0f 100%)',
-    image: 'https://i.imgur.com/oFds1uD.jpg',
-    href: '/schedule?service=74227647',
-  },
-  {
-    title: 'Control4 Integration',
-    description: 'Full Control4 system unifying lighting, security, climate, and entertainment.',
-    location: 'Longboat Key, FL',
-    category: 'Automation',
-    label: 'Control4',
-    accent: '#8b5cf6',
-    bg: 'linear-gradient(135deg, #0d0019 0%, #160026 50%, #0d0019 100%)',
-    image: 'https://i.imgur.com/IL9nKs7.jpg',
-    href: '/schedule?service=74225838',
-  },
-  {
-    title: 'Smart Home Theater',
-    description: 'Sonos surround sound and 4K projector room with one-touch movie mode.',
-    location: 'Venice, FL',
-    category: 'Theater',
-    label: 'Sonos · 4K Projection',
-    accent: '#ef4444',
-    bg: 'linear-gradient(135deg, #1a0000 0%, #280000 50%, #1a0000 100%)',
-    image: 'https://i.imgur.com/EK5YWsz.jpg',
-    href: '/schedule?service=74225838',
-  },
-  {
-    title: 'Commercial Security',
-    description: 'Luma 4K cameras and Lutron lighting automation for a Sarasota retail location.',
-    location: 'Downtown Sarasota, FL',
-    category: 'Commercial',
-    label: 'Luma · Lutron',
-    accent: '#64748b',
-    bg: 'linear-gradient(135deg, #0a0c10 0%, #111318 50%, #0a0c10 100%)',
-    image: 'https://i.imgur.com/W1zZZCM.jpg',
-    href: '/schedule?service=90943626',
-  },
-]
-
-const reviews = [
-  {
-    name: 'Michael & Sarah T.',
-    text: 'The All Things Automated team transformed our home. The lighting system they designed is perfect, and the installation was flawless. Best investment we made.',
-    location: 'Longboat Key',
-  },
-  {
-    name: 'David R.',
-    text: 'Professional, knowledgeable, and responsive. They answered every question and the system works exactly as promised.',
-    location: 'Siesta Key',
-  },
-  {
-    name: 'Jennifer L.',
-    text: 'From consultation to installation, everything was seamless. The team really knows their stuff and cares about customer satisfaction.',
-    location: 'Palmer Ranch',
-  },
-]
+function Wordmark() {
+  return (
+    <span className="wordmark">
+      <img
+        src="/brand/all-things-automated-logo.png"
+        alt="All Things Automated"
+      />
+    </span>
+  );
+}
 
 export default function Home() {
   return (
-    <>
-      {/* HERO SECTION */}
-      <section id="main" className="hero">
-        <div className="hero-bg">
-          <img
-            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80"
-            alt="Luxury modern home at twilight with warm interior lighting"
-          />
+    <main>
+      <header className="header">
+        <a href="#top" aria-label="All Things Automated home"><Wordmark /></a>
+        <nav aria-label="Primary navigation">
+          <a href="/services">Systems</a>
+          <a href="/process">Process</a>
+          <a href="/about">About</a>
+          <a href="/blog">Journal</a>
+        </nav>
+        <a className="headerCta" href="#assessment">Start a project <Arrow /></a>
+      </header>
+
+      <section className="hero" id="top">
+        <img
+          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2200&q=90"
+          alt="Modern luxury home at blue hour"
+        />
+        <div className="shade" />
+        <div className="heroCopy">
+          <p className="eyebrow light">Smart home design · Sarasota, Florida</p>
+          <h1>A smarter home<br />should feel <em>effortless.</em></h1>
+          <p className="lead">Lighting, security, climate, sound, and control—designed as one complete system and installed by one accountable team.</p>
+          <div className="actions">
+            <a className="button" href="#assessment">Start your project <Arrow /></a>
+            <a className="under lightLink" href="#systems">Explore our systems ↓</a>
+          </div>
         </div>
-        <div className="hero-content">
-          <div className="hero-label">Sarasota&apos;s Premier Smart Home Experts</div>
-          <h1>
-            Intelligent Automation for <span>Modern Living</span>
-          </h1>
-          <p className="hero-subtitle">
-            Transform your home with cutting-edge smart technology. From lighting and climate to security and full automation — we design, install, and support it all.
-          </p>
-          <div className="hero-buttons">
-            <a href="/contact" className="btn btn-primary btn-lg">
-              Request a Consultation
-            </a>
-            <a href="/services" className="btn btn-outline btn-lg">
-              See Our Work
-            </a>
-          </div>
-          <div className="hero-stats">
-            <div className="hero-stat">
-              <div className="hero-stat-number">500+</div>
-              <div className="hero-stat-label">Homes Automated</div>
-            </div>
-            <div className="hero-stat">
-              <div className="hero-stat-number">5.0</div>
-              <div className="hero-stat-label">Google Rating</div>
-            </div>
-            <div className="hero-stat">
-              <div className="hero-stat-number">6+</div>
-              <div className="hero-stat-label">Years Experience</div>
-            </div>
-            <div className="hero-stat">
-              <div className="hero-stat-number">3</div>
-              <div className="hero-stat-label">Counties Served</div>
-            </div>
-          </div>
+        <div className="proof">
+          <div><strong>500+</strong><span>Homes automated</span></div>
+          <div><strong>5.0</strong><span>Google rating</span></div>
+          <div><strong>Local</strong><span>Sarasota · Bradenton · Venice</span></div>
         </div>
       </section>
 
-      {/* SERVICES */}
-      <section style={{ backgroundColor: 'var(--color-dark-2)' }}>
-        <div className="container">
-          <div className="section-header center">
-            <div className="section-label">What We Do</div>
-            <h2 className="section-title">Smart Home Services</h2>
-          </div>
-          <div className="section-grid-4">
-            <div className="service-card">
-              <div className="service-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="1" />
-                  <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3>Smart Lighting</h3>
-              <p>Scene control, color tuning, and automated dimming with Lutron, Philips Hue, and more.</p>
-            </div>
-            <div className="service-card">
-              <div className="service-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                </svg>
-              </div>
-              <h3>Security &amp; Cameras</h3>
-              <p>Professional-grade surveillance with Ring, Luma, UniFi, and complete integration.</p>
-            </div>
-            <div className="service-card">
-              <div className="service-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
-                </svg>
-              </div>
-              <h3>Climate Control</h3>
-              <p>Smart thermostats, zoning, and automation with Ecobee and Honeywell systems.</p>
-            </div>
-            <div className="service-card">
-              <div className="service-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                </svg>
-              </div>
-              <h3>Full Automation</h3>
-              <p>Complete home integration with Control4 and custom automation scenes.</p>
-            </div>
-          </div>
-          <div className="section-cta" style={{ textAlign: 'center', marginTop: '48px' }}>
-            <a href="/services" className="btn btn-primary btn-lg">
-              Explore All Services
-            </a>
-          </div>
+      <section className="rail">
+        <span>Designed &amp; installed by All Things Automated</span>
+        <div><strong>Lutron RadioRA 3</strong><strong>Savant</strong><strong>UniFi</strong><strong>Whole-home audio</strong></div>
+      </section>
+
+      <section className="intro shell" id="systems">
+        <p className="eyebrow">Connected living, professionally designed</p>
+        <div>
+          <h2>Technology should disappear<br /><em>into the architecture.</em></h2>
+          <p>A real smart-home system is not a pile of apps and individual devices. It is a carefully planned layer of the home—quiet when you do not need it and intuitive when you do.</p>
         </div>
       </section>
 
-      {/* PORTFOLIO SLIDER */}
-      <section style={{ backgroundColor: 'var(--color-dark)' }}>
-        <div className="container">
-          <div className="section-header center">
-            <div className="section-label">Premium Installations</div>
-            <h2 className="section-title">Our Installs</h2>
-            <p className="section-subtitle">From lighting design to full-home automation—here&apos;s a selection of our recent projects.</p>
-          </div>
-          <div className="slider-container">
-            {portfolioItems.slice(0, 3).map((item, idx) => (
-              <a key={idx} href={item.href} className="portfolio-card" style={{ textDecoration: 'none', display: 'block' }}>
-                <div className="portfolio-image" style={{
-                  background: item.bg,
-                  backgroundImage: item.image ? `url(${item.image})` : 'none',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}>
-                  <div style={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    padding: '24px',
-                    position: 'relative',
-                    zIndex: 2,
-                  }}>
-                    <span style={{
-                      display: 'inline-block',
-                      fontSize: '11px',
-                      fontWeight: 700,
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase',
-                      color: item.accent,
-                      background: `${item.accent}18`,
-                      border: `1px solid ${item.accent}40`,
-                      borderRadius: '4px',
-                      padding: '4px 10px',
-                      alignSelf: 'flex-start',
-                    }}>
-                      {item.category}
-                    </span>
-                    <div style={{
-                      fontSize: '12px',
-                      color: 'rgba(255,255,255,0.8)',
-                      fontWeight: 600,
-                      letterSpacing: '0.05em',
-                      textShadow: '0 2px 8px rgba(0,0,0,0.5)',
-                    }}>
-                      {item.label}
-                    </div>
-                  </div>
-                  <div style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: `linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%), radial-gradient(circle at 80% 20%, ${item.accent}20 0%, transparent 60%)`,
-                    pointerEvents: 'none',
-                  }} />
-                </div>
-                <div className="portfolio-content">
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '4px' }}>
-                    <span className="portfolio-location">{item.location}</span>
-                    <span style={{ fontSize: '12px', color: 'var(--color-primary)', fontWeight: 600 }}>Book this service →</span>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-          <div style={{ textAlign: 'center', marginTop: '40px' }}>
-            <a href="/services" className="btn btn-outline">
-              See More of Our Work
-            </a>
-          </div>
+      <section className="systemGrid shell">
+        {systems.map((item, index) => (
+          <article className={index === 0 ? "systemCard featured" : "systemCard"} key={item.number}>
+            <img src={item.image} alt="" />
+            <div className="systemShade" />
+            <div className="systemBody">
+              <div className="meta"><span>{item.number}</span><span>{item.label}</span></div>
+              <h3>{item.title}</h3>
+              <p>{item.copy}</p>
+              <a href={item.href}>Explore this system <Arrow /></a>
+            </div>
+          </article>
+        ))}
+      </section>
+
+      <section className="statement" id="approach">
+        <p className="eyebrow light">The All Things Automated approach</p>
+        <h2>Not more technology.<br /><em>A better experience.</em></h2>
+        <p>We begin with the property and the people using it. Every keypad, camera, speaker, network location, and automation should have a clear reason to exist.</p>
+      </section>
+
+      <section className="process shell">
+        <div className="processHead">
+          <p className="eyebrow">From walk-through to long-term support</p>
+          <h2>Designed around how you live.</h2>
+        </div>
+        <div className="steps">
+          {steps.map(([number, title, copy]) => (
+            <article key={number}><span>{number}</span><h3>{title}</h3><p>{copy}</p></article>
+          ))}
         </div>
       </section>
 
-      {/* REVIEWS */}
-      <section style={{ backgroundColor: 'var(--color-dark)' }}>
-        <div className="container">
-          <div className="section-header center">
-            <div className="section-label">Trusted by 500+ Homes</div>
-            <h2 className="section-title">What Our Clients Say</h2>
+      <section className="assessment shell" id="assessment">
+        <div className="assessmentCard">
+          <div>
+            <p className="eyebrow light">Ready when you are</p>
+            <h2>Your project begins with<br /><em>a professional assessment.</em></h2>
+            <p>We visit the property, understand the goals, and determine the right system before promising a price or solution.</p>
           </div>
-          <div className="section-grid-3">
-            {reviews.map((review, idx) => (
-              <div key={idx} className="review-card">
-                <p>{review.text}</p>
-                <div className="review-author">
-                  <div className="review-name">{review.name}</div>
-                  <div className="review-location">{review.location}, FL</div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <aside>
+            <span>Professional assessment</span>
+            <strong>$100</strong>
+            <p>Applied toward your invoice when the project is accepted.</p>
+            <ul>
+              <li>On-site property walk-through</li>
+              <li>Needs and infrastructure review</li>
+              <li>System recommendation and next-step scope</li>
+            </ul>
+            <a className="button" href="https://itsallthingsautomated.com/schedule/">Book your assessment <Arrow /></a>
+            <a className="phone" href="tel:+19412635325">Or call (941) 263-5325</a>
+          </aside>
         </div>
       </section>
 
-      {/* BRANDS SECTION */}
-      <section style={{ backgroundColor: 'var(--color-dark-2)' }}>
-        <div className="container">
-          <div className="section-header center">
-            <div className="section-label">Our Partners</div>
-            <h2 className="section-title">Trusted Brands</h2>
-          </div>
-          <div className="brands-grid">
-            <div className="brand-item">Lutron</div>
-            <div className="brand-item">Control4</div>
-            <div className="brand-item">Ring</div>
-            <div className="brand-item">Honeywell</div>
-            <div className="brand-item">Ecobee</div>
-            <div className="brand-item">Philips Hue</div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA SECTION */}
-      <section className="cta-section">
-        <div className="container">
-          <h2>Ready to Transform Your Home?</h2>
-          <p>Let&apos;s discuss your smart home vision. Schedule a free consultation with All Things Automated today.</p>
-          <div className="cta-buttons">
-            <a href="/schedule" className="btn btn-primary btn-lg">
-              Book Online Now
-            </a>
-            <a href="tel:+19412635325" className="btn btn-outline btn-lg">
-              Call (941) 263-5325
-            </a>
-          </div>
-        </div>
-      </section>
-    </>
-  )
+      <footer>
+        <div><Wordmark /><p>Professionally designed smart-home systems for Florida&apos;s Gulf Coast.</p></div>
+        <div><span>Explore</span><a href="/services">Systems</a><a href="/process">Our process</a><a href="/blog">Journal</a></div>
+        <div><span>Contact</span><a href="tel:+19412635325">(941) 263-5325</a><a href="mailto:hello@allthingsautomated.com">hello@allthingsautomated.com</a></div>
+        <small>© 2026 All Things Automated · Sarasota · Bradenton · Venice</small>
+      </footer>
+    </main>
+  );
 }

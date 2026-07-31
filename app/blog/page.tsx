@@ -1,59 +1,30 @@
-import { Metadata } from 'next'
-import { getAllBlogPosts } from '@/lib/blog'
+import { articles } from "../content";
+import { Arrow, AssessmentBand, SiteFooter, SiteHeader } from "../site";
 
-export const metadata: Metadata = {
-  title: 'Smart Home Blog | All Things Automated',
-  description: 'Expert insights, guides, and tips about smart home automation, lighting, security, and technology trends.',
-}
+const slugs = ["smart-bulbs-vs-lighting-system", "unifi-vs-ring-cameras", "new-construction-smart-home-prewire"];
 
-export default function BlogPage() {
-  const blogPosts = getAllBlogPosts()
-
+export default function Blog() {
   return (
-    <>
-      {/* HERO */}
-      <section id="main" className="hero-page">
-        <h1>Smart Home Tips &amp; Guides</h1>
-        <p>Expert insights, industry updates, and practical advice to help you make the most of your smart home investment.</p>
+    <main>
+      <SiteHeader />
+      <section className="indexHero journalHero shell">
+        <p className="eyebrow">The ATA Journal</p>
+        <h1>Clear answers for<br /><em>better-connected homes.</em></h1>
+        <p>Practical guidance on lighting, automation, security, networking, and planning—written for homeowners, builders, and designers.</p>
       </section>
-
-      {/* BLOG GRID */}
-      <section style={{ backgroundColor: 'var(--color-dark)' }}>
-        <div className="container">
-          {blogPosts.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--color-text)' }}>
-              <p>No published blog posts yet. Check back soon!</p>
-            </div>
-          ) : (
-            <div className="blog-grid">
-              {blogPosts.map((post) => (
-                <article key={post.slug} className="blog-card">
-                  <div className="blog-card-image">
-                    <img src={post.image} alt={post.title} loading="lazy" />
-                  </div>
-                  <div className="blog-card-content">
-                    <span className="badge-category">{post.category}</span>
-                    <h3>{post.title}</h3>
-                    <p>{post.excerpt}</p>
-                    <a href={`/blog/${post.slug}`}>Read More →</a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          )}
-        </div>
+      <section className="journalGrid shell">
+        {slugs.map((slug, index) => {
+          const article = articles[slug];
+          return (
+            <a className={index === 0 ? "journalCard leadStory" : "journalCard"} href={`/blog/${slug}`} key={slug}>
+              <img src={article.image} alt="" />
+              <div><span>{article.category}</span><h2>{article.title}</h2><p>{article.dek}</p><small>{article.readTime} · Read article <Arrow /></small></div>
+            </a>
+          );
+        })}
       </section>
-
-      {/* CTA */}
-      <section className="cta-section">
-        <div className="container">
-          <h2>Ready to Learn More?</h2>
-          <p>Have questions about smart home technology? Get in touch with our team.</p>
-          <a href="/contact" className="btn btn-primary btn-lg">
-            Contact Us
-          </a>
-        </div>
-      </section>
-    </>
-  )
+      <AssessmentBand />
+      <SiteFooter />
+    </main>
+  );
 }
