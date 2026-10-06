@@ -1,4 +1,4 @@
-// Acuity booking for the $100 On-Site Consultation & Estimate appointment.
+// Acuity booking for the On-Site Consultation & Estimate appointment.
 export const assessmentUrl =
   "https://allthingsautomatedcalendar.as.me/schedule/04821538?appointmentType=74225838";
 
@@ -60,8 +60,8 @@ export function AssessmentBand() {
         </div>
         <aside>
           <span>Professional assessment</span>
-          <strong>$100</strong>
-          <p>Applied toward your invoice when the project is accepted.</p>
+          <strong>On-site</strong>
+          <p>A walk-through of your property with a clear recommendation and next steps.</p>
           <a className="button" href={assessmentUrl}>Book your assessment <Arrow /></a>
           <a className="phone" href="tel:+19412635325">Or call (941) 263-5325</a>
         </aside>
