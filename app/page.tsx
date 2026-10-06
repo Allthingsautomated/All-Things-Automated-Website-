@@ -1,3 +1,5 @@
+import { assessmentUrl } from "./site";
+
 const systems = [
   {
     number: "01",
@@ -148,7 +150,7 @@ export default function Home() {
               <li>Needs and infrastructure review</li>
               <li>System recommendation and next-step scope</li>
             </ul>
-            <a className="button" href="https://itsallthingsautomated.com/schedule/">Book your assessment <Arrow /></a>
+            <a className="button" href={assessmentUrl}>Book your assessment <Arrow /></a>
             <a className="phone" href="tel:+19412635325">Or call (941) 263-5325</a>
           </aside>
         </div>
