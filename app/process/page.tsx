@@ -1,4 +1,10 @@
-import { AssessmentBand, SiteFooter, SiteHeader } from "../site";
+import { AssessmentBand, PageShell, pageMeta } from "../site";
+
+export const metadata = pageMeta({
+  path: "/process",
+  title: "How We Work: Assess, Design, Install, Support | ATA",
+  description: "Our five-step process, from the on-site assessment through design, installation, teaching the household and long-term support.",
+});
 
 const steps = [
   ["01", "Assess", "We walk the property, listen carefully, document the existing conditions, and identify the opportunities and constraints."],
@@ -10,18 +16,16 @@ const steps = [
 
 export default function Process() {
   return (
-    <main>
-      <SiteHeader />
+    <PageShell>
       <section className="indexHero shell">
         <p className="eyebrow">The ATA process</p>
         <h1>Thoughtful before<br /><em>technical.</em></h1>
         <p>The best systems begin with listening. We design around the property, the people using it, and the experience they want every day.</p>
       </section>
       <section className="processList shell">
-        {steps.map(([number, title, copy]) => <article key={number}><span>{number}</span><h2>{title}</h2><p>{copy}</p></article>)}
+        {steps.map(([number, title, copy]) => <article key={number}><span aria-hidden="true">{number}</span><h2>{title}</h2><p>{copy}</p></article>)}
       </section>
       <AssessmentBand />
-      <SiteFooter />
-    </main>
+    </PageShell>
   );
 }

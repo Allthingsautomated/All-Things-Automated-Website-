@@ -1,18 +1,56 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { preload } from "react-dom";
 import "./globals.css";
+import { JsonLd } from "./site";
+import { email, instagramUrl, mainPhone, serviceArea, siteName, siteUrl } from "./site-config";
 
 export const metadata: Metadata = {
-  title: "All Things Automated | Smart Home Systems in Sarasota",
+  metadataBase: new URL(siteUrl),
+  title: "Smart Home Automation & Lutron Lighting | Sarasota, FL",
   description:
-    "Lutron lighting, Savant automation, UniFi security, audio, networking, and smart-home systems serving Sarasota, Bradenton, and Venice.",
+    "Lutron RadioRA 3 lighting, UniFi security, networking and whole-home control designed and installed by one team in Sarasota, Bradenton, Venice and Lakewood Ranch.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#f2efe7",
+};
+
+const business = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "Electrician", "HomeAndConstructionBusiness"],
+  "@id": `${siteUrl}/#business`,
+  name: siteName,
+  url: siteUrl,
+  logo: `${siteUrl}/brand/ata-mark-512.png`,
+  image: `${siteUrl}/brand/og-image.jpg`,
+  telephone: mainPhone.tel,
+  email,
+  foundingDate: "2019",
+  address: { "@type": "PostalAddress", addressLocality: "Sarasota", addressRegion: "FL", addressCountry: "US" },
+  areaServed: serviceArea.map(name => ({ "@type": "City", name })),
+  sameAs: [instagramUrl],
+  knowsAbout: ["Lutron RadioRA 3", "Lutron Caséta", "UniFi Protect", "Home networking", "Landscape lighting", "Tesla Powerwall", "EV charger installation", "Electrical service"],
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  preload("/fonts/newsreader-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <a className="skip" href="#main">Skip to content</a>
+        <JsonLd data={business} />
+        {children}
+      </body>
     </html>
   );
 }
