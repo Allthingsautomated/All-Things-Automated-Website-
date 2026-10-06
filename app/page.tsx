@@ -139,12 +139,12 @@ export default function Home() {
           <div>
             <p className="eyebrow light">Ready when you are</p>
             <h2>Your project begins with<br /><em>a professional assessment.</em></h2>
-            <p>We visit the property, understand the goals, and determine the right system before promising a price or solution.</p>
+            <p>We visit the property, understand the goals, and determine the right system before recommending a solution.</p>
           </div>
           <aside>
             <span>Professional assessment</span>
-            <strong>$100</strong>
-            <p>Applied toward your invoice when the project is accepted.</p>
+            <strong>On-site</strong>
+            <p>A walk-through of your property with a clear recommendation and next steps.</p>
             <ul>
               <li>On-site property walk-through</li>
               <li>Needs and infrastructure review</li>
