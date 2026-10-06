@@ -1,0 +1,11 @@
+{
+  "name": "All Things Automated",
+  "short_name": "ATA",
+  "icons": [
+    { "src": "/brand/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/brand/ata-mark-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#f2efe7",
+  "background_color": "#f2efe7",
+  "display": "browser"
+}

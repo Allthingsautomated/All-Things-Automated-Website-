@@ -1,39 +1,47 @@
-import { services } from "../content";
-import { Arrow, AssessmentBand, SiteFooter, SiteHeader } from "../site";
+import { serviceOrder, services } from "../content";
+import { Arrow, AssessmentBand, PageShell, Photo, pageMeta } from "../site";
 
-const links: Record<string, string> = {
-  lighting: "/services/lighting",
-  automation: "/services/automation",
-  security: "/services/security",
-  audio: "/services/audio-video",
-  networking: "/services/networking",
-  climate: "/services/climate",
-};
+export const metadata = pageMeta({
+  path: "/services",
+  title: "Smart Home Systems We Design & Install | All Things Automated",
+  description: "Lighting control, cameras, networking, audio, climate, landscape lighting, Tesla solar and EV charging—planned as one system for Gulf Coast homes.",
+});
 
 export default function Services() {
   return (
-    <main>
-      <SiteHeader />
+    <PageShell>
       <section className="indexHero shell">
         <p className="eyebrow">Connected living · professionally designed</p>
         <h1>One property.<br /><em>Every system considered.</em></h1>
         <p>We design technology as part of the home: coordinated, serviceable, and simple to live with.</p>
       </section>
       <section className="serviceIndex shell">
-        {Object.entries(services).map(([slug, service], index) => (
-          <a href={links[slug]} className="serviceIndexCard" key={slug}>
-            <img src={service.image} alt="" />
-            <div>
-              <span>0{index + 1}</span>
-              <p>{service.eyebrow}</p>
-              <h2>{service.title} <em>{service.italic}</em></h2>
-              <small>Explore system <Arrow /></small>
-            </div>
-          </a>
-        ))}
+        {serviceOrder.map((key, index) => {
+          const service = services[key];
+          return (
+            <a href={service.path} className={service.image ? "serviceIndexCard" : "serviceIndexCard plain"} key={key}>
+              {service.image && <Photo src={service.image} sizes="(max-width: 900px) 100vw, 50vw" />}
+              <div>
+                <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                <p>{service.eyebrow}</p>
+                <h2>{service.title} <em>{service.italic}</em></h2>
+                <small>Explore system <Arrow /></small>
+              </div>
+            </a>
+          );
+        })}
+      </section>
+      <section className="callout shell">
+        <p className="eyebrow">Electrical services · A separate branch</p>
+        <div>
+          <h2>Need an electrician, not a smart home?</h2>
+          <div>
+            <p>Troubleshooting, new circuits, fixtures, outlets, and dedicated lines—handled by the same team.</p>
+            <a className="under" href="/electrical">Electrical service &amp; repair <Arrow /></a>
+          </div>
+        </div>
       </section>
       <AssessmentBand />
-      <SiteFooter />
-    </main>
+    </PageShell>
   );
 }

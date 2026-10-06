@@ -12,6 +12,7 @@ if (typeof WeakRef === "undefined") {
 
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
+import { securityHeaders } from "./security-headers.mjs";
 
 interface Env {
   ASSETS: Fetcher;
@@ -40,6 +41,13 @@ const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
+    // One canonical host: send www to the apex domain.
+    if (url.hostname.startsWith("www.")) {
+      url.hostname = url.hostname.slice(4);
+      url.protocol = "https:";
+      return Response.redirect(url.toString(), 301);
+    }
+
     if (url.pathname === "/_vinext/image") {
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];
       return handleImageOptimization(request, {
@@ -51,7 +59,10 @@ const worker = {
       }, allowedWidths);
     }
 
-    return handler.fetch(request, env, ctx);
+    const response = await handler.fetch(request, env, ctx);
+    const secured = new Response(response.body, response);
+    for (const [name, value] of Object.entries(securityHeaders)) secured.headers.set(name, value);
+    return secured;
   },
 };
 
