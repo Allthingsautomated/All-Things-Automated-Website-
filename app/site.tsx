@@ -1,4 +1,6 @@
-const assessmentUrl = "https://itsallthingsautomated.com/schedule/";
+// Acuity booking for the $100 On-Site Consultation & Estimate appointment.
+export const assessmentUrl =
+  "https://allthingsautomatedcalendar.as.me/schedule/04821538?appointmentType=74225838";
 
 export function Arrow() {
   return <span aria-hidden="true">↗</span>;

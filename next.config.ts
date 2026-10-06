@@ -1,7 +1,20 @@
 import type { NextConfig } from "next";
 
+const booking =
+  "https://allthingsautomatedcalendar.as.me/schedule/04821538?appointmentType=74225838";
+
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Keep links from the previous version of the site working.
+  async redirects() {
+    return [
+      { source: "/schedule", destination: booking, permanent: false },
+      { source: "/contact", destination: booking, permanent: false },
+      { source: "/pricing", destination: "/services", permanent: true },
+      { source: "/admin", destination: "/", permanent: false },
+      { source: "/blog/5-things-to-know", destination: "/blog", permanent: true },
+      { source: "/blog/ai-smart-home-2025", destination: "/blog", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;
