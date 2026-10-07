@@ -123,3 +123,67 @@ picture{display:contents}.wordmark{display:inline-flex}
 @media(max-width:900px){.formSection{grid-template-columns:1fr}}
 @media(max-width:620px){.leadForm{grid-template-columns:1fr}.stepImage{max-width:none}.inlineImage{padding-left:0;padding-right:0}}
 .contactGrid article>a{overflow-wrap:anywhere}@media(max-width:900px){.contactGrid{grid-template-columns:minmax(0,1fr)}}@media(max-width:620px){.contactGrid article>a:not(.button){font-size:24px}}
+/* ---- CRM (private, /crm) ---- */
+.crm{background:#f6f4ee;color:var(--ink);font-family:var(--sans);font-size:15px;min-height:100vh}
+.crm h1{font-family:var(--serif);font-size:30px;font-weight:400;letter-spacing:-.02em;margin:0}
+.crm h2{font-size:15px;font-weight:700;margin:0 0 10px}
+.crm a{color:var(--ink)}
+.crmTop{align-items:center;background:var(--ink);color:var(--paper);display:flex;gap:18px;padding:10px 20px;position:sticky;top:0;z-index:10}
+.crmTop a{color:var(--paper)}
+.crmBrand{font-weight:800;letter-spacing:.08em}.crmBrand span{font-weight:400;opacity:.7}
+.crmTop nav{display:flex;flex:1;gap:4px;overflow-x:auto}
+.crmTop nav a{border-radius:6px;font-size:14px;padding:10px 12px;white-space:nowrap}
+.crmTop nav a[aria-current=page]{background:rgba(255,255,255,.14)}
+.crmExit{font-size:13px;opacity:.8;white-space:nowrap}
+.crmMain{margin:0 auto;max-width:1180px;padding:22px 20px 80px}
+.crmStack{display:flex;flex-direction:column;gap:16px}
+.crmRow{align-items:center;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+.crmCard{background:white;border:1px solid var(--line);border-radius:10px;padding:16px}
+.crmMuted{color:var(--muted);font-size:13px;font-weight:400}
+.crmEmpty{color:var(--muted);padding:20px 0;text-align:center}
+.crmError{background:#fbe9e7;border-bottom:1px solid #e6b5ae;color:#7a231b;padding:10px 20px}.crmError button{margin-left:10px}
+.crm button,.crmActions a,.crmSeg button{background:white;border:1px solid var(--line);border-radius:6px;color:var(--ink);cursor:pointer;font:inherit;font-size:14px;min-height:40px;padding:8px 14px;text-decoration:none}
+.crm .crmPrimary{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.crm .crmDanger{border-color:#c9776e;color:#8f2a20}
+.crm .crmLink{border:0;min-height:0;padding:4px 8px}
+.crmActions{align-items:center;display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.crmSeg{display:inline-flex}.crmSeg button{border-radius:0;text-transform:capitalize}.crmSeg button:first-child{border-radius:6px 0 0 6px}.crmSeg button:last-child{border-radius:0 6px 6px 0}.crmSeg button+button{margin-left:-1px}
+.crmSeg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.crmTiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+.crmTile{background:white;border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;gap:4px;padding:14px;text-decoration:none}
+.crmTile strong{font-family:var(--serif);font-size:32px;font-weight:400}.crmTile span{color:var(--muted);font-size:13px}
+.crmBadge{background:#e8eef6;border-radius:999px;color:#244a73;font-size:12px;font-weight:700;padding:3px 9px;white-space:nowrap}
+.crmMeta{display:flex;flex-wrap:wrap;gap:6px 16px;margin:6px 0;color:var(--muted);font-size:14px}
+.crmPre{white-space:pre-wrap}
+.crmSearch{border:1px solid var(--line);border-radius:6px;flex:1;font:inherit;font-size:16px;min-height:44px;min-width:220px;padding:8px 12px}
+.crmList{list-style:none;margin:0;padding:0}
+.crmList li a{align-items:center;border-bottom:1px solid var(--line);display:grid;gap:4px 14px;grid-template-columns:minmax(160px,1.2fr) 1.5fr 1fr auto;padding:12px 4px;text-decoration:none}
+.crmList li a span{color:var(--muted);font-size:14px}
+.crmBoard{display:grid;gap:12px;grid-auto-columns:minmax(230px,1fr);grid-auto-flow:column;overflow-x:auto;padding-bottom:8px}
+.crmColumn{background:#ece8de;border-radius:10px;display:flex;flex-direction:column;gap:8px;min-height:120px;padding:10px}
+.crmColumn h2{font-size:13px;margin:2px 4px 4px}
+.crmJob{background:white;border:1px solid var(--line);border-radius:8px;display:flex;flex-direction:column;gap:4px;padding:10px}
+.crmJob span{color:var(--muted);font-size:13px}
+.crm select,.crmForm input,.crmForm textarea,.crmLog input,.crmLog textarea{background:white;border:1px solid var(--line);border-radius:6px;font:inherit;font-size:16px;min-height:40px;padding:6px 10px}
+.crmForm{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-top:12px}
+.crmForm label{display:flex;flex-direction:column;font-size:13px;font-weight:600;gap:4px}
+.crmForm .wide{grid-column:1/-1}
+.crmLog{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}.crmLog textarea,.crmLog input[name=title]{flex:1;min-width:220px}
+.crmFacts{display:grid;gap:6px 16px;grid-template-columns:max-content 1fr;margin:14px 0 0}.crmFacts dt{color:var(--muted);font-size:13px}.crmFacts dd{margin:0}
+.crmJobRow{border-top:1px solid var(--line);padding:12px 0}.crmJobRow:first-of-type{border-top:0;padding-top:0}
+.crmJobRow p{margin:4px 0 0}
+.crmTasks{list-style:none;margin:0 0 10px;padding:0}
+.crmTasks li{align-items:center;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:4px 12px;padding:8px 0}
+.crmTasks label{align-items:center;display:flex;flex:1;gap:10px;min-width:200px}.crmTasks input{height:20px;width:20px}
+.crmTasks li.done label{color:var(--muted);text-decoration:line-through}.crmTasks li.late .crmMuted{color:#a3332b;font-weight:600}
+.crmTimeline{list-style:none;margin:0;padding:0}
+.crmTimeline li{border-bottom:1px solid var(--line);display:flex;gap:12px;padding:10px 0}.crmTimeline p{margin:0 0 4px}
+.crmIcon{background:#ece8de;border-radius:50%;display:grid;flex:0 0 30px;font-size:14px;height:30px;place-items:center}
+.crmBack{font-size:14px}
+.crmCheck{align-items:center;display:flex;gap:8px;font-size:14px}
+@media(max-width:700px){.crmTop{flex-wrap:wrap;padding:8px 12px}.crmTop nav{flex:0 0 100%;order:3}.crmExit{margin-left:auto}.crmMain{padding:16px 12px 80px}
+.crmForm{grid-template-columns:1fr}.crmList li a{grid-template-columns:1fr}.crmBoard{grid-auto-flow:row;grid-auto-columns:auto}}
+.crmTable{border-collapse:collapse;font-size:14px;width:100%}.crmTable th{color:var(--muted);font-size:12px;font-weight:700;text-align:left}
+.crmTable th,.crmTable td{border-bottom:1px solid var(--line);padding:8px 6px}.crmTable tr.late td{color:#a3332b}
+.crmStep{flex:1;min-width:200px}
+@media(max-width:700px){.crmTable{display:block;overflow-x:auto}}

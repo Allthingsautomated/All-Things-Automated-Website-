@@ -9,8 +9,13 @@
 //   LEAD_TO           optional, defaults to inquiry@allthingsautomated.org (must be a verified Email Routing destination)
 //   TURNSTILE_SECRET  optional; when set, every submission must carry a valid Turnstile token
 //   PLANS             optional R2 bucket binding for builder plan uploads
+//   CRM_DB            optional D1 binding; every lead is also saved to the CRM inbox
+
+import { saveWebsiteLead } from "./crm/api";
+import type { D1Like } from "./crm/db";
 
 export interface LeadEnv {
+  CRM_DB?: D1Like;
   SEND_EMAIL?: { send(message: unknown): Promise<void> };
   LEAD_FROM?: string;
   LEAD_TO?: string;
@@ -115,8 +120,6 @@ export async function handleLead(request: Request, env: LeadEnv = {}): Promise<R
     }
   }
 
-  if (!env.SEND_EMAIL || !env.LEAD_FROM) return json({ error: "not_configured" }, 503);
-
   // Optional plan PDF (trade form).
   let planNote = "";
   let planStored = true;
@@ -133,6 +136,10 @@ export async function handleLead(request: Request, env: LeadEnv = {}): Promise<R
       planNote = `Plans: the sender attached "${oneLine(plan.name)}" but file storage is not set up; ask them to email it.`;
     }
   }
+
+  // Save to the CRM first; the lead counts as received if either the CRM or the email has it.
+  const saved = await saveWebsiteLead(env.CRM_DB, String(data.get("form")), values, planNote);
+  if (!env.SEND_EMAIL || !env.LEAD_FROM) return saved ? json({ ok: true, planStored }) : json({ error: "not_configured" }, 503);
 
   const to = env.LEAD_TO || "inquiry@allthingsautomated.org";
   const subject = headerText(`${form.subject}: ${values.name}${values.company ? ` (${values.company})` : ""}`);
@@ -160,7 +167,7 @@ export async function handleLead(request: Request, env: LeadEnv = {}): Promise<R
     await env.SEND_EMAIL.send(new EmailMessage(env.LEAD_FROM, to, raw));
   } catch {
     console.error("lead email failed");
-    return json({ error: "send_failed" }, 502);
+    if (!saved) return json({ error: "send_failed" }, 502);
   }
   return json({ ok: true, planStored });
 }

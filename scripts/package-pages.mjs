@@ -50,7 +50,8 @@ const pages = [];
 async function findPages(dir) {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
     const path = resolve(dir, entry.name);
-    if (entry.isDirectory()) await findPages(path);
+    // The CRM is private and stays out of the sitemap.
+    if (entry.isDirectory()) { if (entry.name !== "crm") await findPages(path); }
     else if (entry.name === "page.tsx") pages.push(path);
   }
 }
