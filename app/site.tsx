@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Picture, type SlotName, hasImage, imageUrl } from "./images";
 import { MobileMenu } from "./mobile-menu";
 import {
-  assessmentPrice,
   bookPath,
   email,
   hours,
@@ -142,8 +141,8 @@ export function AssessmentBand({ id }: { id?: string }) {
         </div>
         <aside>
           <span>Professional assessment</span>
-          <strong>{assessmentPrice}</strong>
-          <p>Credited to your project when you move forward. Paid when you book.</p>
+          <strong>On-site</strong>
+          <p>A walk-through of your property with a clear recommendation and next steps.</p>
           <ul>
             <li>On-site property walk-through</li>
             <li>Needs and infrastructure review</li>

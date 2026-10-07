@@ -1,6 +1,6 @@
 import { LeadForm } from "../lead-form";
 import { Arrow, PageShell, PhoneLink, pageMeta } from "../site";
-import { assessmentPrice, bookPath, email, emergencyLine, instagramUrl, lutronPhone, mainPhone, serviceAreaLine, teslaPhone, turnstileSiteKey } from "../site-config";
+import { bookPath, email, instagramUrl, lutronPhone, mainPhone, serviceAreaLine, teslaPhone, turnstileSiteKey } from "../site-config";
 
 export const metadata = pageMeta({
   path: "/contact",
@@ -34,9 +34,8 @@ export default function Contact() {
         <article className="contactBook">
           <p className="eyebrow light">Start a project</p>
           <h2>Book an on-site assessment.</h2>
-          <p>{assessmentPrice}, credited to your project when you move forward. Pick a time that works and we will walk the property with you.</p>
+          <p>Pick a time that works and we will walk the property with you.</p>
           <a className="button" href={bookPath}>Book assessment <Arrow /></a>
-          <p className="emergency">{emergencyLine}</p>
         </article>
         {lines.map(line => (
           <article key={line.phone.tel}>
