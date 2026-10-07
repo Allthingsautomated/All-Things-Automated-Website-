@@ -1,5 +1,6 @@
 import { serviceOrder, services } from "../content";
-import { Arrow, AssessmentBand, PageShell, Photo, pageMeta } from "../site";
+import { Picture, hasImage } from "../images";
+import { Arrow, AssessmentBand, PageShell, pageMeta } from "../site";
 
 export const metadata = pageMeta({
   path: "/services",
@@ -19,8 +20,8 @@ export default function Services() {
         {serviceOrder.map((key, index) => {
           const service = services[key];
           return (
-            <a href={service.path} className={service.image ? "serviceIndexCard" : "serviceIndexCard plain"} key={key}>
-              {service.image && <Photo src={service.image} sizes="(max-width: 900px) 100vw, 50vw" />}
+            <a href={service.path} className={service.image && hasImage(service.image) ? "serviceIndexCard" : "serviceIndexCard plain"} key={key}>
+              {service.image && <Picture slot={service.image} sizes="(max-width: 900px) 100vw, 50vw" />}
               <div>
                 <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
                 <p>{service.eyebrow}</p>

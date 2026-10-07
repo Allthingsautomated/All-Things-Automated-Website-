@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { preload } from "react-dom";
 import "./globals.css";
+import { ClickEvents } from "./analytics";
 import { JsonLd } from "./site";
-import { email, instagramUrl, mainPhone, serviceArea, siteName, siteUrl } from "./site-config";
+import { email, instagramUrl, mainPhone, plausibleDomain, serviceArea, siteName, siteUrl } from "./site-config";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -38,18 +39,26 @@ const business = {
   areaServed: serviceArea.map(name => ({ "@type": "City", name })),
   sameAs: [instagramUrl],
   knowsAbout: ["Lutron RadioRA 3", "Lutron Caséta", "UniFi Protect", "Home networking", "Landscape lighting", "Tesla Powerwall", "EV charger installation", "Electrical service"],
+  makesOffer: [{ "@type": "Offer", name: "Professional Assessment", price: "100", priceCurrency: "USD" }],
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   preload("/fonts/newsreader-latin-wght-normal.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
+  preload("/fonts/newsreader-latin-wght-italic.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
   return (
     <html lang="en">
       <body>
         <a className="skip" href="#main">Skip to content</a>
         <JsonLd data={business} />
         {children}
+        {plausibleDomain && (
+          <>
+            <script defer data-domain={plausibleDomain} src="https://plausible.io/js/script.js" />
+            <ClickEvents />
+          </>
+        )}
       </body>
     </html>
   );

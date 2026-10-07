@@ -7,13 +7,13 @@ export const securityHeaders = {
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
   "Content-Security-Policy": [
     "default-src 'self'",
-    "img-src 'self' data: https://images.unsplash.com",
+    "img-src 'self' data:",
     "font-src 'self'",
     // vinext inlines small bootstrap scripts, so inline scripts must be allowed.
-    "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com",
+    "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://challenges.cloudflare.com https://plausible.io",
     "style-src 'self' 'unsafe-inline'",
-    "frame-src https://*.as.me https://*.acuityscheduling.com",
-    "connect-src 'self' https://cloudflareinsights.com",
+    "frame-src https://*.as.me https://*.acuityscheduling.com https://challenges.cloudflare.com",
+    "connect-src 'self' https://cloudflareinsights.com https://plausible.io",
     "frame-ancestors 'self'",
     "base-uri 'self'",
     "form-action 'self'",

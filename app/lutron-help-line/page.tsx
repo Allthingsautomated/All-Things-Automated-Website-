@@ -1,4 +1,4 @@
-import { Arrow, JsonLd, PageShell, PhoneLink, pageMeta } from "../site";
+import { Arrow, JsonLd, PageHero, PageShell, PhoneLink, pageMeta } from "../site";
 import { bookPath, lutronPhone, siteUrl } from "../site-config";
 
 export const metadata = pageMeta({
@@ -30,16 +30,9 @@ export default function HelpLine() {
         provider: { "@id": `${siteUrl}/#business` },
         hoursAvailable: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "00:00", closes: "23:59" },
       }} />
-      <section className="pageHero textHero">
-        <div className="pageHeroCopy">
-          <p className="eyebrow light">Lutron Help Line · 24/7</p>
-          <h1>Lutron help,<br /><em>any hour.</em></h1>
-          <p>Phone support for any Lutron system—no matter who installed it. If the fix needs a visit, we schedule a service call.</p>
-          <div className="heroActions">
-            <PhoneLink className="button" phone={lutronPhone} prefix="Call " />
-          </div>
-        </div>
-      </section>
+      <PageHero slot="help-line-hero" eyebrow="Lutron Help Line · 24/7" title="Lutron help," italic="any hour." intro="Phone support for any Lutron system—no matter who installed it. If the fix needs a visit, we schedule a service call.">
+        <PhoneLink className="button" phone={lutronPhone} prefix="Call " />
+      </PageHero>
       <section className="detailGrid shell helpSteps">
         <article><span aria-hidden="true">01</span><h3>Call the line</h3><p>Call {lutronPhone.display} any time, day or night.</p></article>
         <article><span aria-hidden="true">02</span><h3>Tell us what changed</h3><p>We walk through what the system is doing and what you expect it to do.</p></article>

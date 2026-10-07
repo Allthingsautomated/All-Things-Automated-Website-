@@ -1,4 +1,4 @@
-import type { Article, Service } from "./site";
+import type { Service } from "./site";
 import { lutronPhone, teslaPhone } from "./site-config";
 
 const helpLineCallout = {
@@ -18,8 +18,7 @@ export const services: Record<string, Service> = {
     title: "Lighting that changes",
     italic: "how the home feels.",
     intro: "Refined dimming, architectural keypads, scenes, schedules, and shades—designed as one dependable whole-home system by a Lutron RadioRA 3 dealer.",
-    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=2200&q=90",
-    imageAlt: "Living room with layered, dimmed architectural lighting",
+    image: "svc-lighting-hero",
     statement: "The best lighting control is felt in every room and barely noticed on the wall.",
     details: [
       { title: "Whole-home scenes", copy: "One touch can prepare the home for morning, entertaining, movie night, or bedtime without adjusting individual lights." },
@@ -30,6 +29,13 @@ export const services: Record<string, Service> = {
     ideal: ["New construction and major remodels", "Homes with too many switches", "Clients who value design and simplicity", "Projects needing shades, scenes, or remote access"],
     phone: lutronPhone,
     callout: helpLineCallout,
+    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
+    faqs: [
+      { q: "Do I need to rewire for RadioRA 3?", a: "" },
+      { q: "Can it control my existing fans and shades?", a: "" },
+      { q: "What's the difference from Caséta?", a: "" },
+      { q: "Can I add rooms later?", a: "" },
+    ],
   },
   automation: {
     path: "/services/automation",
@@ -39,8 +45,7 @@ export const services: Record<string, Service> = {
     title: "One home.",
     italic: "One experience.",
     intro: "Lighting, shades, climate, entertainment, and security brought together—built on Lutron RadioRA 3 and an interface the whole household can understand.",
-    image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2200&q=90",
-    imageAlt: "Open-plan living space with integrated lighting and media",
+    image: "svc-automation-hero",
     statement: "Automation should remove friction from daily life—not introduce another complicated app.",
     details: [
       { title: "Unified control", copy: "Manage the systems that matter from keypads, an app, or voice—with the wall controls still working the way people expect." },
@@ -59,8 +64,7 @@ export const services: Record<string, Service> = {
     title: "Security that knows",
     italic: "what it sees.",
     intro: "Intentional camera coverage, intelligent detection, local recording, and secure remote access without monthly camera licensing fees.",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2200&q=90",
-    imageAlt: "Home exterior with entry and driveway approaches",
+    image: "svc-security-hero",
     statement: "A camera system should help you find the moment that matters—not leave you searching through hours of footage.",
     details: [
       { title: "Planned coverage", copy: "Camera locations and lens choices are selected around entrances, approaches, blind spots, and identification goals." },
@@ -69,6 +73,13 @@ export const services: Record<string, Service> = {
       { title: "One ecosystem", copy: "Cameras, door access, networking, and related infrastructure can share one professionally managed platform." },
     ],
     ideal: ["Homes needing real perimeter coverage", "Small businesses and offices", "Multi-site properties", "Clients replacing consumer cameras"],
+    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
+    faqs: [
+      { q: "Do UniFi cameras have monthly fees?", a: "" },
+      { q: "How long is footage kept?", a: "" },
+      { q: "Can I see cameras from my phone?", a: "" },
+      { q: "Can you replace my Ring cameras?", a: "" },
+    ],
   },
   audio: {
     path: "/services/audio-video",
@@ -78,8 +89,7 @@ export const services: Record<string, Service> = {
     title: "Every room.",
     italic: "The right atmosphere.",
     intro: "Discreet speakers, simple television control, and music that moves naturally through the home—inside and out.",
-    image: "https://images.unsplash.com/photo-1558882224-dda166733046?auto=format&fit=crop&w=2200&q=90",
-    imageAlt: "Living room with a wall-mounted television and discreet speakers",
+    image: "svc-audio-video-hero",
     statement: "Great audio belongs in the architecture, not scattered across countertops and power outlets.",
     details: [
       { title: "Whole-home music", copy: "Play one source everywhere or give each space independent control without visible clutter." },
@@ -88,6 +98,13 @@ export const services: Record<string, Service> = {
       { title: "Simple operation", copy: "A polished system should be easy for family and guests to use without a stack of remotes." },
     ],
     ideal: ["Indoor-outdoor Florida living", "Media rooms and gathering spaces", "Clean wall-mounted television installations", "Clients who value music throughout the home"],
+    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
+    faqs: [
+      { q: "Can speakers be weatherproof on the lanai?", a: "" },
+      { q: "Can each room play something different?", a: "" },
+      { q: "Do you hide the equipment?", a: "" },
+      { q: "Will my guests be able to use it?", a: "" },
+    ],
   },
   networking: {
     path: "/services/networking",
@@ -97,8 +114,7 @@ export const services: Record<string, Service> = {
     title: "The system behind",
     italic: "every other system.",
     intro: "Purpose-built wired and wireless infrastructure for reliable coverage, high device counts, remote work, streaming, cameras, and automation.",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2200&q=90",
-    imageAlt: "Network rack with neatly patched cabling",
+    image: "svc-networking-hero",
     statement: "Smart-home performance begins with a network designed for the property—not a router hidden in one corner.",
     details: [
       { title: "Coverage planning", copy: "Access points are positioned around construction materials, floor plans, outdoor areas, and actual device demand." },
@@ -107,6 +123,13 @@ export const services: Record<string, Service> = {
       { title: "Secure segmentation", copy: "Separate trusted, guest, camera, and automation traffic when the project requires stronger control." },
     ],
     ideal: ["Large or multi-story homes", "New construction prewire", "Properties with outdoor coverage needs", "Homes with cameras and many connected devices"],
+    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
+    faqs: [
+      { q: "Why is my Wi-Fi bad in the lanai?", a: "" },
+      { q: "Do I need wired access points?", a: "" },
+      { q: "Can you separate guest and camera networks?", a: "" },
+      { q: "Do you work with my ISP's modem?", a: "" },
+    ],
   },
   climate: {
     path: "/services/climate",
@@ -116,8 +139,7 @@ export const services: Record<string, Service> = {
     title: "Comfort that follows",
     italic: "the way you live.",
     intro: "Thoughtful climate control, schedules, occupancy routines, and automation that improve comfort without constant adjustment.",
-    image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=2200&q=90",
-    imageAlt: "Bright interior with shaded windows",
+    image: "svc-climate-hero",
     statement: "Comfort becomes effortless when climate, shades, lighting, and occupancy work from the same plan.",
     details: [
       { title: "Smarter scheduling", copy: "Setbacks and comfort periods can reflect real household routines instead of a rigid weekly timer." },
@@ -126,12 +148,21 @@ export const services: Record<string, Service> = {
       { title: "Remote visibility", copy: "Check and adjust supported systems from anywhere while retaining professional serviceability." },
     ],
     ideal: ["Seasonal Florida residences", "Homes with multiple HVAC zones", "Clients focused on comfort and convenience", "Projects already integrating lighting and shades"],
+    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
+    faqs: [
+      { q: "Which thermostats do you integrate?", a: "" },
+      { q: "Can shades and AC work together?", a: "" },
+      { q: "Does it help with humidity when we're away?", a: "" },
+      { q: "Can I control it remotely?", a: "" },
+    ],
   },
   landscape: {
     path: "/services/landscape-lighting",
     metaTitle: "Landscape & Architectural Lighting | Sarasota",
     metaDescription: "Landscape, facade and outdoor living lighting for Sarasota, Bradenton and Venice homes—designed, installed and tied into whole-home lighting control.",
     eyebrow: "Landscape & architectural lighting",
+    image: "svc-landscape-hero",
+    secondImage: "svc-landscape-pool",
     title: "The home after dark,",
     italic: "designed on purpose.",
     intro: "Facade, landscape, pathway, pool, and lanai lighting planned as one composition—and connected to the same scenes and schedules as the inside of the home.",
@@ -143,12 +174,20 @@ export const services: Record<string, Service> = {
       { title: "Integrated control", copy: "Outdoor lighting can follow sunset schedules and join whole-home scenes instead of running on separate timers." },
     ],
     ideal: ["New landscapes and renovations", "Homes with pools, lanais, or docks", "Properties with architectural facades", "Owners replacing failing low-voltage systems"],
+    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
+    faqs: [
+      { q: "Will it work with my existing transformer?", a: "" },
+      { q: "How long do LED fixtures last in salt air?", a: "" },
+      { q: "Can it follow sunset automatically?", a: "" },
+      { q: "Do you light pools and docks?", a: "" },
+    ],
   },
   solar: {
     path: "/services/solar-tesla",
     metaTitle: "Tesla Solar, Powerwall & Solar Roof | Sarasota",
     metaDescription: "Tesla solar panels, Solar Roof, Powerwall and Wall Connector installation from All Things Automated Solar, serving Sarasota and the Gulf Coast.",
     eyebrow: "All Things Automated Solar · Tesla Energy",
+    image: "svc-solar-hero",
     title: "Your own power,",
     italic: "stored for when you need it.",
     intro: "Tesla solar panels, Solar Roof, Powerwall, and Wall Connector—planned around your roof, your electrical service, and how your home uses energy.",
@@ -162,12 +201,20 @@ export const services: Record<string, Service> = {
     ideal: ["Homes planning a roof replacement", "Owners who want backup power for storm season", "Households with an EV or planning one", "Properties with good sun exposure"],
     idealHeading: "Planned around the roof, the panel, and the way you use power.",
     phone: teslaPhone,
+    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
+    faqs: [
+      { q: "Does Powerwall run the whole house in an outage?", a: "" },
+      { q: "Solar Roof or panels?", a: "" },
+      { q: "What about hurricane season?", a: "" },
+      { q: "Do you handle permits and FPL interconnection?", a: "" },
+    ],
   },
   ev: {
     path: "/services/ev-chargers",
     metaTitle: "EV Charger Installation | Sarasota & Bradenton",
     metaDescription: "Home EV charger installation in Sarasota and Bradenton: hardwired wall chargers or a 240V plug-in outlet, sized to your electrical panel.",
     eyebrow: "EV charger installation",
+    image: "svc-ev-hero",
     title: "Charge at home,",
     italic: "the right way.",
     intro: "A hardwired wall charger or a 240V plug-in outlet—installed to fit your vehicle, your garage, and your electrical panel.",
@@ -180,12 +227,20 @@ export const services: Record<string, Service> = {
     ],
     ideal: ["New EV owners", "Two-EV households", "Garages that need a dedicated circuit", "Homes adding solar or Powerwall"],
     idealHeading: "Sized to your car, your garage, and your panel.",
+    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
+    faqs: [
+      { q: "Hardwired charger or 240V outlet?", a: "" },
+      { q: "Will my panel handle it?", a: "" },
+      { q: "How long does an install take?", a: "" },
+      { q: "Do you install Tesla Wall Connectors?", a: "" },
+    ],
   },
   electrical: {
     path: "/electrical",
     metaTitle: "Electrical Service & Repair | Sarasota",
     metaDescription: "Electrical service and repair in Sarasota, Bradenton and Venice: troubleshooting, new circuits, fixtures, outlets and dedicated lines.",
     eyebrow: "Electrical services · A separate branch",
+    image: "electrical-hero",
     title: "Electrical service",
     italic: "and repair.",
     intro: "Alongside our automation work, we handle electrical service calls: troubleshooting, new circuits, fixtures, outlets, and dedicated lines.",
@@ -198,68 +253,17 @@ export const services: Record<string, Service> = {
     ],
     ideal: ["Homeowners with an electrical problem", "Remodels and additions", "New appliance or equipment circuits", "Projects pairing electrical with lighting control"],
     idealHeading: "Straightforward electrical work, done carefully.",
+    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
+    faqs: [
+      { q: "Do you do small jobs?", a: "" },
+      { q: "Is the $100 visit credited to the repair?", a: "" },
+      { q: "Are you licensed and insured?", a: "" },
+      { q: "Do you pull permits?", a: "" },
+    ],
   },
 };
 
 // Order of the systems on the /services index.
-export const serviceOrder = ["lighting", "automation", "security", "audio", "networking", "climate", "landscape", "solar", "ev"];
+export const serviceOrder = ["lighting", "landscape", "automation", "security", "networking", "audio", "climate", "ev", "solar"];
 
-export const articles: Record<string, Article> = {
-  "smart-bulbs-vs-lighting-system": {
-    slug: "smart-bulbs-vs-lighting-system",
-    category: "Lighting control",
-    title: "Smart bulbs are not a smart-lighting system.",
-    dek: "Both can turn a light on from a phone. That is where the similarity ends.",
-    date: "July 2026", datePublished: "2026-07",
-    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=2200&q=90",
-    imageAlt: "Living room with layered, dimmed architectural lighting",
-    sections: [
-      { heading: "The difference is the system", paragraphs: ["A smart bulb is an individual connected product. A professional lighting-control system treats the entire property as one coordinated environment: dimmers, keypads, shades, schedules, scenes, and remote access designed to work together.", "That distinction matters most when the home grows beyond a few lamps. The more rooms, users, and routines involved, the less practical it becomes to manage lighting device by device."] },
-      { heading: "What happens when the switch is turned off?", paragraphs: ["Many smart bulbs lose their connected function when someone uses the traditional wall switch. A professionally designed system keeps control where people naturally expect it—at the wall—while also enabling scenes, schedules, and app control.", "This makes the experience predictable for family, guests, and anyone who simply wants the room to turn on."] },
-      { heading: "Why RadioRA 3 is different", paragraphs: ["Lutron RadioRA 3 uses dedicated lighting-control architecture rather than asking every bulb to behave like a separate Wi-Fi device. The system is planned around load types, keypad locations, scenes, and the way the home is used.", "The result is not technology for its own sake. It is lighting that feels calmer, cleaner, and easier every day."] },
-    ],
-    related: [
-      { href: "/services/lighting", label: "Lutron RadioRA 3 lighting control" },
-      { href: "/lutron-help-line", label: "Lutron Help Line (24/7)" },
-    ],
-  },
-  "unifi-vs-ring-cameras": {
-    slug: "unifi-vs-ring-cameras",
-    category: "Video security",
-    title: "UniFi Protect vs. Ring: which camera system fits your property?",
-    dek: "The right answer depends less on the camera and more on what you expect the complete system to do.",
-    date: "July 2026", datePublished: "2026-07",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2200&q=90",
-    imageAlt: "Home exterior with entry and driveway approaches",
-    sections: [
-      { heading: "Consumer convenience vs. planned coverage", paragraphs: ["Ring is designed to make adding individual consumer cameras approachable. UniFi Protect is better suited to a professionally planned system where camera placement, wired infrastructure, recording capacity, network performance, and long-term expansion are considered together.", "For a doorbell and one or two views, convenience may be the priority. For full-property coverage, the design of the system becomes more important than any single camera."] },
-      { heading: "Recording and ownership", paragraphs: ["UniFi Protect records to local UniFi hardware and provides secure remote access. This appeals to owners who want dedicated storage, predictable capacity, and a system that is not built around a per-camera cloud subscription.", "Storage duration still depends on camera count, resolution, recording settings, and drive capacity, so those choices should be calculated during design."] },
-      { heading: "The question to ask first", paragraphs: ["Do you want to see that something happened, or do you need useful footage that helps identify what happened? The second goal requires careful field of view, lighting, mounting height, and approach angles.", "A professional assessment starts with those outcomes and works backward to the camera models and infrastructure."] },
-    ],
-    related: [
-      { href: "/services/security", label: "UniFi Protect camera systems" },
-      { href: "/services/networking", label: "Home networking & Wi-Fi" },
-    ],
-  },
-  "new-construction-smart-home-prewire": {
-    slug: "new-construction-smart-home-prewire",
-    category: "Planning & construction",
-    title: "What should you prewire for a smart home?",
-    dek: "The cheapest time to prepare a home for technology is before the drywall closes.",
-    date: "July 2026", datePublished: "2026-07",
-    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=2200&q=90",
-    imageAlt: "Home under construction with open stud walls",
-    sections: [
-      { heading: "Start with systems, not cable counts", paragraphs: ["A strong prewire plan begins with what the home needs to do: reliable Wi-Fi, camera coverage, television locations, whole-home audio, lighting control, shades, access, climate integration, and room for future expansion.", "Cable is then selected and routed to support those outcomes. Pulling random wire without a system plan often creates cost without creating useful capability."] },
-      { heading: "Infrastructure that deserves early decisions", paragraphs: ["Network access points, exterior cameras, door stations, motorized shades, ceiling speakers, wall-mounted televisions, equipment racks, and lighting-control keypads all benefit from coordination before finishes.", "Power, low-voltage pathways, ventilation, service access, blocking, and equipment locations should be considered together—not by separate trades after the fact."] },
-      { heading: "Leave a path for what changes", paragraphs: ["Technology changes faster than the structure of a home. Conduit, accessible pathways, spare capacity, a properly sized equipment location, and accurate documentation create flexibility that a specific cable alone cannot.", "The objective is not to predict every future product. It is to make the home adaptable without opening finished walls."] },
-    ],
-    related: [
-      { href: "/for-builders", label: "For builders & designers" },
-      { href: "/services/networking", label: "Structured wiring & networking" },
-      { href: "/services/lighting", label: "Lutron RadioRA 3 lighting control" },
-    ],
-  },
-};
-
-export const articleOrder = ["smart-bulbs-vs-lighting-system", "unifi-vs-ring-cameras", "new-construction-smart-home-prewire"];
+export { articleOrder, articles } from "./articles";

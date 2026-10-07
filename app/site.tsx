@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
+import { Picture, type SlotName, hasImage, imageUrl } from "./images";
 import { MobileMenu } from "./mobile-menu";
 import {
+  assessmentPrice,
   bookPath,
   email,
+  hours,
   instagramUrl,
+  licenseNumber,
   mainPhone,
-  lutronPhone,
   type PhoneLine,
   serviceArea,
+  serviceAreaFull,
   siteName,
   siteUrl,
 } from "./site-config";
@@ -38,44 +42,12 @@ export function JsonLd({ data }: { data: object }) {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} />;
 }
 
-// Responsive Unsplash image: the CDN resizes on the fly, so emit a srcset instead of one 2200px file.
-const widths = [640, 960, 1440, 2200];
-function unsplashAt(src: string, width: number) {
-  const url = new URL(src);
-  url.searchParams.set("w", String(width));
-  url.searchParams.set("q", "80");
-  url.searchParams.set("auto", "format");
-  return url.toString();
-}
-
-export function Photo({ src, alt = "", sizes = "100vw", priority = false, className }: {
-  src: string;
-  alt?: string;
-  sizes?: string;
-  priority?: boolean;
-  className?: string;
-}) {
-  const responsive = src.startsWith("https://images.unsplash.com/");
-  return (
-    <img
-      className={className}
-      src={responsive ? unsplashAt(src, 1440) : src}
-      srcSet={responsive ? widths.map(width => `${unsplashAt(src, width)} ${width}w`).join(", ") : undefined}
-      sizes={responsive ? sizes : undefined}
-      alt={alt}
-      loading={priority ? "eager" : "lazy"}
-      fetchPriority={priority ? "high" : undefined}
-      decoding="async"
-    />
-  );
-}
-
 export function Wordmark({ lazy = false }: { lazy?: boolean }) {
   return (
     <picture className="wordmark">
-      <source media="(max-width: 620px)" srcSet="/brand/ata-logo-compact.webp" type="image/webp" />
+      <source media="(max-width: 620px)" srcSet="/brand/ata-logo-compact.webp 2x, /brand/ata-logo-compact@3x.webp 3x" type="image/webp" />
       <source media="(max-width: 620px)" srcSet="/brand/ata-logo-compact.png" />
-      <source srcSet="/brand/ata-logo.webp" type="image/webp" />
+      <source srcSet="/brand/ata-logo.webp 2x, /brand/ata-logo@3x.webp 3x" type="image/webp" />
       <img src="/brand/ata-logo.png" width={410} height={107} alt="All Things Automated" loading={lazy ? "lazy" : undefined} />
     </picture>
   );
@@ -128,17 +100,22 @@ export function SiteFooter() {
         <a href="/lutron-help-line">Lutron Help Line</a>
         <a href="/for-builders">For builders &amp; designers</a>
         <a href="/process">Our process</a>
+        <a href="/service-area">Service area</a>
         <a href="/blog">Journal</a>
       </div>
       <div>
         <span>Contact</span>
         <PhoneLink phone={mainPhone} />
-        <PhoneLink phone={lutronPhone} prefix="Lutron 24/7 · " />
         <a href={`mailto:${email}`}>{email}</a>
         <a href="/contact">All contact options</a>
-        <a href={instagramUrl} rel="noopener" target="_blank">Instagram</a>
+        <a href={instagramUrl} rel="noopener" target="_blank">Instagram @allthingsautomated8</a>
+        {hours && <p className="footNote">{hours}</p>}
       </div>
-      <small>© {new Date().getFullYear()} All Things Automated · Serving {serviceArea.join(" · ")}</small>
+      <div className="footerLegal">
+        <p>Serving {serviceAreaFull}.{licenseNumber && <> Licensed &amp; insured — FL Lic. #{licenseNumber}.</>}</p>
+        <nav aria-label="Legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav>
+      </div>
+      <small>© {new Date().getFullYear()} All Things Automated · Sarasota, Florida</small>
     </footer>
   );
 }
@@ -153,7 +130,8 @@ export function PageShell({ children, overlayHeader = false }: { children: React
   );
 }
 
-export function AssessmentBand({ phone = mainPhone, id }: { phone?: PhoneLine; id?: string }) {
+// The assessment is booked through the main line; service-specific lines appear elsewhere on the page.
+export function AssessmentBand({ id }: { id?: string }) {
   return (
     <section className="assessment shell interiorAssessment" id={id}>
       <div className="assessmentCard">
@@ -164,16 +142,40 @@ export function AssessmentBand({ phone = mainPhone, id }: { phone?: PhoneLine; i
         </div>
         <aside>
           <span>Professional assessment</span>
-          <strong>On-site</strong>
-          <p>A walk-through of your property with a clear recommendation and next steps.</p>
+          <strong>{assessmentPrice}</strong>
+          <p>Credited to your project when you move forward. Paid when you book.</p>
           <ul>
             <li>On-site property walk-through</li>
             <li>Needs and infrastructure review</li>
             <li>System recommendation and next-step scope</li>
           </ul>
           <a className="button" href={bookPath}>Book your assessment <Arrow /></a>
-          <PhoneLink className="phone" phone={phone} prefix="Or call " />
+          <PhoneLink className="phone" phone={mainPhone} prefix="Or call " />
         </aside>
+      </div>
+    </section>
+  );
+}
+
+// Interior page hero: full-bleed photo when the slot's files exist, dark text panel otherwise.
+export function PageHero({ slot, eyebrow, title, italic, intro, children }: {
+  slot?: SlotName;
+  eyebrow: string;
+  title: string;
+  italic: string;
+  intro: string;
+  children?: React.ReactNode;
+}) {
+  const photo = slot && hasImage(slot);
+  return (
+    <section className={photo ? "pageHero" : "pageHero textHero"}>
+      {photo && <Picture slot={slot} loading="eager" />}
+      {photo && <div className="pageHeroShade" />}
+      <div className="pageHeroCopy">
+        <p className="eyebrow light">{eyebrow}</p>
+        <h1>{title}<br /><em>{italic}</em></h1>
+        <p>{intro}</p>
+        {children && <div className="heroActions">{children}</div>}
       </div>
     </section>
   );
@@ -187,16 +189,39 @@ export type Service = {
   title: string;
   italic: string;
   intro: string;
-  image?: string;
-  imageAlt?: string;
+  image?: SlotName;
+  secondImage?: SlotName;
   statement: string;
   details: { title: string; copy: string }[];
   ideal: string[];
   idealHeading?: string;
   phone?: PhoneLine;
   callout?: { eyebrow: string; heading: string; copy: string; href: string; link: string };
+  // Questions ship without answers until Jorge approves them; unanswered ones are not published.
   faqs?: { q: string; a: string }[];
 };
+
+export function answered(faqs: { q: string; a: string }[] = []) {
+  return faqs.filter(faq => faq.a.trim());
+}
+
+export function FaqSection({ faqs }: { faqs: { q: string; a: string }[] }) {
+  const list = answered(faqs);
+  if (!list.length) return null;
+  return (
+    <>
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: list.map(faq => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } })),
+      }} />
+      <section className="faq shell">
+        <p className="eyebrow">Common questions</p>
+        <dl>{list.map(faq => <div key={faq.q}><dt>{faq.q}</dt><dd>{faq.a}</dd></div>)}</dl>
+      </section>
+    </>
+  );
+}
 
 export function serviceMeta(service: Service) {
   return pageMeta({ path: service.path, title: service.metaTitle, description: service.metaDescription });
@@ -215,37 +240,10 @@ export function ServicePage({ service }: { service: Service }) {
         provider: { "@id": `${siteUrl}/#business` },
         areaServed: serviceArea.map(name => ({ "@type": "City", name })),
       }} />
-      {service.faqs && (
-        <JsonLd data={{
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: service.faqs.map(faq => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } })),
-        }} />
-      )}
-      {service.image ? (
-        <section className="pageHero">
-          <Photo src={service.image} alt={service.imageAlt ?? ""} priority />
-          <div className="pageHeroShade" />
-          <div className="pageHeroCopy">
-            <p className="eyebrow light">{service.eyebrow}</p>
-            <h1>{service.title}<br /><em>{service.italic}</em></h1>
-            <p>{service.intro}</p>
-            <a className="button" href={bookPath}>Discuss your project <Arrow /></a>
-          </div>
-        </section>
-      ) : (
-        <section className="pageHero textHero">
-          <div className="pageHeroCopy">
-            <p className="eyebrow light">{service.eyebrow}</p>
-            <h1>{service.title}<br /><em>{service.italic}</em></h1>
-            <p>{service.intro}</p>
-            <div className="heroActions">
-              <a className="button" href={bookPath}>Discuss your project <Arrow /></a>
-              <PhoneLink className="lightLink under" phone={phone} prefix="Call " />
-            </div>
-          </div>
-        </section>
-      )}
+      <PageHero slot={service.image} eyebrow={service.eyebrow} title={service.title} italic={service.italic} intro={service.intro}>
+        <a className="button" href={bookPath}>Discuss your project <Arrow /></a>
+        <PhoneLink className="lightLink under" phone={phone} prefix="Call " />
+      </PageHero>
       <section className="serviceIntro shell">
         <p className="eyebrow">Designed as a complete system</p>
         <h2>{service.statement}</h2>
@@ -259,6 +257,11 @@ export function ServicePage({ service }: { service: Service }) {
           </article>
         ))}
       </section>
+      {service.secondImage && hasImage(service.secondImage) && (
+        <section className="inlineImage shell">
+          <Picture slot={service.secondImage} sizes="(max-width: 900px) 100vw, 1200px" />
+        </section>
+      )}
       <section className="ideal shell">
         <div>
           <p className="eyebrow light">A strong fit for</p>
@@ -278,17 +281,8 @@ export function ServicePage({ service }: { service: Service }) {
           </div>
         </section>
       )}
-      {service.faqs && (
-        <section className="faq shell">
-          <p className="eyebrow">Common questions</p>
-          <dl>
-            {service.faqs.map(faq => (
-              <div key={faq.q}><dt>{faq.q}</dt><dd>{faq.a}</dd></div>
-            ))}
-          </dl>
-        </section>
-      )}
-      <AssessmentBand phone={phone} />
+      {service.faqs && <FaqSection faqs={service.faqs} />}
+      <AssessmentBand />
     </PageShell>
   );
 }
@@ -300,14 +294,18 @@ export type Article = {
   dek: string;
   date: string;
   datePublished: string;
-  image: string;
-  imageAlt: string;
+  image: SlotName;
   sections: { heading: string; paragraphs: string[] }[];
+  faqs?: { q: string; a: string }[];
   related: { href: string; label: string }[];
 };
 
 export function readTime(article: Article) {
-  const text = [article.dek, ...article.sections.flatMap(section => [section.heading, ...section.paragraphs])].join(" ");
+  const text = [
+    article.dek,
+    ...article.sections.flatMap(section => [section.heading, ...section.paragraphs]),
+    ...answered(article.faqs).flatMap(faq => [faq.q, faq.a]),
+  ].join(" ");
   const words = text.split(/\s+/).filter(Boolean).length;
   return `${Math.max(1, Math.ceil(words / 225))} minute read`;
 }
@@ -325,7 +323,7 @@ export function ArticlePage({ article }: { article: Article }) {
         headline: article.title,
         description: article.dek,
         datePublished: article.datePublished,
-        image: article.image,
+        image: imageUrl(article.image) && `${siteUrl}${imageUrl(article.image)}`,
         url: `${siteUrl}/blog/${article.slug}`,
         author: { "@type": "Organization", name: siteName, url: siteUrl },
         publisher: { "@id": `${siteUrl}/#business` },
@@ -337,7 +335,7 @@ export function ArticlePage({ article }: { article: Article }) {
           <p className="articleDek">{article.dek}</p>
           <div className="articleMeta"><time dateTime={article.datePublished}>{article.date}</time><span>{readTime(article)}</span><span>All Things Automated</span></div>
         </header>
-        <Photo className="articleImage" src={article.image} alt={article.imageAlt} priority />
+        <Picture className="articleImage" slot={article.image} loading="eager" />
         <div className="articleBody">
           {article.sections.map(section => (
             <section key={section.heading}>
@@ -345,6 +343,17 @@ export function ArticlePage({ article }: { article: Article }) {
               {section.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
             </section>
           ))}
+          {article.faqs && answered(article.faqs).length > 0 && (
+            <section className="articleFaq">
+              <JsonLd data={{
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: answered(article.faqs).map(faq => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } })),
+              }} />
+              <h2>Common questions</h2>
+              <dl>{answered(article.faqs).map(faq => <div key={faq.q}><dt>{faq.q}</dt><dd>{faq.a}</dd></div>)}</dl>
+            </section>
+          )}
           <nav className="related" aria-label="Related systems">
             <p className="eyebrow">Related</p>
             {article.related.map(link => <a key={link.href} href={link.href}>{link.label} <Arrow /></a>)}

@@ -12,9 +12,10 @@ if (typeof WeakRef === "undefined") {
 
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
+import { handleLead, type LeadEnv } from "./lead";
 import { securityHeaders } from "./security-headers.mjs";
 
-interface Env {
+interface Env extends LeadEnv {
   ASSETS: Fetcher;
   DB: D1Database;
   IMAGES: {
@@ -37,6 +38,12 @@ interface ExecutionContext {
 // dangerouslyAllowSVG: true in next.config.js and uncomment below:
 // const imageConfig: ImageConfig = { dangerouslyAllowSVG: true };
 
+function withSecurityHeaders(response: Response) {
+  const secured = new Response(response.body, response);
+  for (const [name, value] of Object.entries(securityHeaders)) secured.headers.set(name, value);
+  return secured;
+}
+
 const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
@@ -46,6 +53,10 @@ const worker = {
       url.hostname = url.hostname.slice(4);
       url.protocol = "https:";
       return Response.redirect(url.toString(), 301);
+    }
+
+    if (url.pathname === "/api/lead") {
+      return withSecurityHeaders(await handleLead(request, env ?? {}));
     }
 
     if (url.pathname === "/_vinext/image") {
@@ -59,10 +70,7 @@ const worker = {
       }, allowedWidths);
     }
 
-    const response = await handler.fetch(request, env, ctx);
-    const secured = new Response(response.body, response);
-    for (const [name, value] of Object.entries(securityHeaders)) secured.headers.set(name, value);
-    return secured;
+    return withSecurityHeaders(await handler.fetch(request, env, ctx));
   },
 };
 

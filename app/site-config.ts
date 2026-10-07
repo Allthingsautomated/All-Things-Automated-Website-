@@ -25,3 +25,21 @@ export const serviceAreaLine = `${serviceArea.join(" · ")} & surrounding areas`
 export const acuityUrl =
   "https://allthingsautomatedcalendar.as.me/schedule/04821538?appointmentType=74225838";
 export const bookPath = "/book";
+
+// Paid up front and credited to the project. Shown on every assessment card.
+export const assessmentPrice = "$100";
+export const emergencyLine = "Same-day or emergency visit: $250, paid before dispatch — call the main line.";
+
+// Leave empty until confirmed; the footer hides anything blank.
+export const hours = "";
+export const licenseNumber = ""; // e.g. "EC13000000" → "Licensed & insured — FL Lic. #EC13000000"
+
+// Google Business Profile rating. The About page shows it only once reviewCount >= 5.
+export const googleReviews = { rating: 5.0, reviewCount: 0, url: "" };
+
+// Cloudflare Turnstile site key for the lead forms (public). Empty = widget not shown.
+export const turnstileSiteKey = "";
+
+// Plausible analytics domain. Empty = no analytics script.
+export const plausibleDomain = "";
+export const serviceAreaFull = "Sarasota, Lakewood Ranch, Bradenton, Venice, Tampa, and Longboat, Siesta & Casey Key";

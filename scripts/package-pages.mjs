@@ -34,7 +34,7 @@ await build({
   format: "esm",
   platform: "neutral",
   target: "es2022",
-  external: ["node:*"],
+  external: ["node:*", "cloudflare:*"],
   logLevel: "warning",
 });
 
