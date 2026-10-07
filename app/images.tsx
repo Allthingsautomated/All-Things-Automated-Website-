@@ -26,7 +26,6 @@ export const slots = {
   "svc-landscape-pool": { ...card, alt: "Pool and screened lanai at night with underwater lights and warm downlights" },
   "svc-ev-hero": { ...wide, alt: "Wall-mounted home EV charger with a tidy conduit run and an electric SUV plugged in" },
   "svc-solar-hero": { ...wide, alt: "Barrel-tile roof with an all-black solar array and a wall-mounted battery at golden hour" },
-  "electrical-hero": { ...wide, alt: "Freshly finished electrical panel with straight breakers, dressed conductors and a printed directory" },
   "help-line-hero": { ...wide, alt: "White Lutron keypad beside a side table with a phone showing a lighting app" },
   "builders-hero": { ...wide, alt: "Lighting plans, tape measure and keypad samples on a worktable with labeled low-voltage prewire behind" },
   "process-01-assess": { ...step, alt: "Technician with a tablet assessing a living room and lanai" },

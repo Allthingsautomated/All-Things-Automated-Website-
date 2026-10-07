@@ -26,7 +26,7 @@ export const viewport: Viewport = {
 
 const business = {
   "@context": "https://schema.org",
-  "@type": ["LocalBusiness", "Electrician", "HomeAndConstructionBusiness"],
+  "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
   "@id": `${siteUrl}/#business`,
   name: siteName,
   url: siteUrl,
@@ -38,7 +38,7 @@ const business = {
   address: { "@type": "PostalAddress", addressLocality: "Sarasota", addressRegion: "FL", addressCountry: "US" },
   areaServed: serviceArea.map(name => ({ "@type": "City", name })),
   sameAs: [instagramUrl],
-  knowsAbout: ["Lutron RadioRA 3", "Lutron Caséta", "UniFi Protect", "Home networking", "Landscape lighting", "Tesla Powerwall", "EV charger installation", "Electrical service"],
+  knowsAbout: ["Lutron RadioRA 3", "Lutron Caséta", "UniFi Protect", "Home networking", "Landscape lighting", "Tesla Powerwall", "EV charger installation"],
 };
 
 export default function RootLayout({

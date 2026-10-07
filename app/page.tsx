@@ -42,7 +42,6 @@ const moreServices = [
   { href: "/services/landscape-lighting", label: "Landscape & architectural lighting" },
   { href: "/services/solar-tesla", label: "Tesla solar, Solar Roof & Powerwall" },
   { href: "/services/ev-chargers", label: "EV charger installation" },
-  { href: "/electrical", label: "Electrical service & repair" },
 ];
 
 const steps = [

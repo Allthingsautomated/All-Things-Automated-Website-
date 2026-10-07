@@ -32,16 +32,6 @@ export default function Services() {
           );
         })}
       </section>
-      <section className="callout shell">
-        <p className="eyebrow">Electrical services · A separate branch</p>
-        <div>
-          <h2>Need an electrician, not a smart home?</h2>
-          <div>
-            <p>Troubleshooting, new circuits, fixtures, outlets, and dedicated lines—handled by the same team.</p>
-            <a className="under" href="/electrical">Electrical service &amp; repair <Arrow /></a>
-          </div>
-        </div>
-      </section>
       <AssessmentBand />
     </PageShell>
   );

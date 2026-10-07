@@ -58,7 +58,6 @@ export function PhoneLink({ phone, prefix = "", className }: { phone: PhoneLine;
 
 const primaryLinks = [
   { href: "/services", label: "Systems" },
-  { href: "/electrical", label: "Electrical" },
   { href: "/lutron-help-line", label: "Lutron Help" },
   { href: "/for-builders", label: "Builders" },
   { href: "/about", label: "About" },
@@ -90,12 +89,11 @@ export function SiteFooter() {
     <footer>
       <div>
         <Wordmark lazy />
-        <p>Lighting control, automation, security, energy, and electrical work for Florida&apos;s Gulf Coast. Founded in Sarasota in 2019.</p>
+        <p>Lighting control, automation, security, and energy systems for Florida&apos;s Gulf Coast. Founded in Sarasota in 2019.</p>
       </div>
       <div>
         <span>Explore</span>
         <a href="/services">Systems</a>
-        <a href="/electrical">Electrical services</a>
         <a href="/lutron-help-line">Lutron Help Line</a>
         <a href="/for-builders">For builders &amp; designers</a>
         <a href="/process">Our process</a>

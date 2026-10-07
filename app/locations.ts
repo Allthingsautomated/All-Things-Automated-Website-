@@ -15,7 +15,7 @@ export const locations: Record<string, Location> = {
     city: "Sarasota",
     county: "Sarasota County",
     metaTitle: "Smart Home & Lutron Lighting in Sarasota, FL | ATA",
-    metaDescription: "Lutron RadioRA 3 lighting, UniFi cameras, networking and electrical work for Sarasota homes, from downtown condos to Siesta Key and the barrier islands.",
+    metaDescription: "Lutron RadioRA 3 lighting, UniFi cameras, networking and landscape lighting for Sarasota homes, from downtown condos to Siesta Key and the barrier islands.",
     intro: "Sarasota is home base. We started here in 2019, and most of our week is spent in Sarasota homes—downtown condos, mid-century houses near the bay, new builds east of I-75, and the barrier islands.",
     sections: [
       {
@@ -35,7 +35,7 @@ export const locations: Record<string, Location> = {
       {
         heading: "What we do most in Sarasota",
         paragraphs: [
-          "Lutron RadioRA 3 lighting control in renovations and new construction, UniFi camera systems and networks that cover the whole property including the pool and dock, landscape lighting that shows off the house and the palms after dark, and electrical service calls for everything from a dead circuit to a new EV charger in the garage.",
+          "Lutron RadioRA 3 lighting control in renovations and new construction, UniFi camera systems and networks that cover the whole property including the pool and dock, landscape lighting that shows off the house and the palms after dark, and EV chargers in the garage.",
         ],
       },
     ],
@@ -85,15 +85,15 @@ export const locations: Record<string, Location> = {
     slug: "bradenton",
     city: "Bradenton",
     county: "Manatee County",
-    metaTitle: "Smart Home, Cameras & Electrical in Bradenton, FL | ATA",
-    metaDescription: "Lutron lighting control, UniFi cameras, Wi-Fi, EV chargers and electrical service for Bradenton homes along the Manatee River and out to the islands.",
-    intro: "From established neighborhoods along the Manatee River to newer communities east of town and homes near Anna Maria Island, Bradenton homeowners call us for lighting control, cameras, networks, and electrical work.",
+    metaTitle: "Smart Home, Cameras & Lighting in Bradenton, FL | ATA",
+    metaDescription: "Lutron lighting control, UniFi cameras, Wi-Fi and EV chargers for Bradenton homes along the Manatee River and out to the islands.",
+    intro: "From established neighborhoods along the Manatee River to newer communities east of town and homes near Anna Maria Island, Bradenton homeowners call us for lighting control, cameras, networks, and EV chargers.",
     sections: [
       {
         heading: "Older homes, newer expectations",
         paragraphs: [
           "Much of west Bradenton was built decades ago: block homes with original panels, limited outlets, and attic space that is tight or hot. These houses can absolutely support modern lighting control and a reliable network, but they need a plan that respects the existing wiring. Wireless Lutron devices, carefully placed access points, and an honest look at the electrical panel come first.",
-          "When the panel is the limiting factor—common when adding an EV charger, a pool heater, or a workshop—we handle the electrical work ourselves and coordinate it with the rest of the system, so the new circuit, the charger, and any lighting or network changes are planned together instead of by three different trades.",
+          "When the panel is the limiting factor—common when adding an EV charger—we check its capacity before recommending anything, so the charger, any lighting control, and network changes are planned together instead of piecemeal.",
         ],
       },
       {
@@ -105,14 +105,14 @@ export const locations: Record<string, Location> = {
       {
         heading: "Common Bradenton projects",
         paragraphs: [
-          "Not every project is large. Plenty of Bradenton calls start with one problem—a camera system that stopped recording, a room with no Wi-Fi, a dimmer that buzzes, an outlet that went dead—and grow from there once the owner sees what a planned system can do. Small jobs are welcome, and we will tell you honestly whether a bigger change is worth it.",
-          "UniFi camera systems that replace aging consumer cameras, whole-home Wi-Fi that reaches docks and detached garages, Lutron RadioRA 3 and Caséta lighting control in remodels, landscape lighting for palms and facades, EV charger installs, and electrical service calls. If you already have a Lutron system and something stopped working, our Lutron help line answers around the clock, whoever installed it.",
+          "Not every project is large. Plenty of Bradenton calls start with one problem—a camera system that stopped recording, a room with no Wi-Fi, a dimmer that buzzes, a keypad that stopped responding—and grow from there once the owner sees what a planned system can do. Small jobs are welcome, and we will tell you honestly whether a bigger change is worth it.",
+          "UniFi camera systems that replace aging consumer cameras, whole-home Wi-Fi that reaches docks and detached garages, Lutron RadioRA 3 and Caséta lighting control in remodels, landscape lighting for palms and facades, and EV charger installs. If you already have a Lutron system and something stopped working, our Lutron help line answers around the clock, whoever installed it.",
         ],
       },
     ],
     links: [
       { href: "/services/security", label: "UniFi Protect camera systems" },
-      { href: "/electrical", label: "Electrical service & repair" },
+      { href: "/services/ev-chargers", label: "EV charger installation" },
       { href: "/lutron-help-line", label: "Lutron Help Line (24/7)" },
     ],
   },
@@ -142,7 +142,7 @@ export const locations: Record<string, Location> = {
         paragraphs: [
           "Close to the beaches and Venice Island, salt air and storms are part of the design. We choose exterior cameras and landscape fixtures that hold up, and recommend surge protection and battery backup for the equipment that matters most.",
           "If you are buying a home in Venice, the period before you move in is a good time to make changes: rooms are empty, furniture is not in the way, and work can be scheduled without anyone living around it. We can walk the house with you before closing or right after to plan what is worth doing first.",
-          "Common Venice projects include remote monitoring for seasonal homes, lanai and pool audio, Lutron lighting and shade control, landscape lighting, Tesla Powerwall for outages, and electrical repairs.",
+          "Common Venice projects include remote monitoring for seasonal homes, lanai and pool audio, Lutron lighting and shade control, landscape lighting, and Tesla Powerwall for outages.",
         ],
       },
     ],
