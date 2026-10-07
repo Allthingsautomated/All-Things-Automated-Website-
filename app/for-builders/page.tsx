@@ -1,5 +1,6 @@
-import { Arrow, PageShell, PhoneLink, pageMeta } from "../site";
-import { email, lutronPhone } from "../site-config";
+import { Arrow, PageHero, PageShell, PhoneLink, pageMeta } from "../site";
+import { LeadForm } from "../lead-form";
+import { email, lutronPhone, turnstileSiteKey } from "../site-config";
 
 export const metadata = pageMeta({
   path: "/for-builders",
@@ -18,28 +19,29 @@ export default function ForBuilders() {
   const subject = encodeURIComponent("Lutron RA3 quote request");
   return (
     <PageShell>
-      <section className="pageHero textHero">
-        <div className="pageHeroCopy">
-          <p className="eyebrow light">For builders, remodelers &amp; designers</p>
-          <h1>Free Lutron RadioRA 3<br /><em>quotes for the trade.</em></h1>
-          <p>Send the plans. We return a lighting-control design and quote your client can review before the walls close.</p>
-          <div className="heroActions">
-            <a className="button" href={`mailto:${email}?subject=${subject}`}>Send plans by email <Arrow /></a>
-            <PhoneLink className="lightLink under" phone={lutronPhone} prefix="Call " />
-          </div>
-        </div>
-      </section>
+      <PageHero slot="builders-hero" eyebrow="For builders, remodelers & designers" title="Free Lutron RadioRA 3" italic="quotes for the trade." intro="Send the plans. We return a lighting-control design and quote your client can review before the walls close.">
+        <a className="button" href="#trade-form">Request a quote <Arrow /></a>
+        <PhoneLink className="lightLink under" phone={lutronPhone} prefix="Call " />
+      </PageHero>
       <section className="detailGrid shell">
         {audiences.map((item, index) => (
           <article key={item.title}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><h3>{item.title}</h3><p>{item.copy}</p></article>
         ))}
       </section>
-      <section className="callout shell">
-        <p className="eyebrow">What to send</p>
-        <div>
+      <section className="formSection shell" id="trade-form">
+        <div className="formIntro">
+          <p className="eyebrow">Request a trade quote</p>
           <h2>Plans, the lighting layout, and a timeline.</h2>
+          <p>Upload electrical or lighting plans (PDF is fine), tell us the client&apos;s priorities if you know them, and when rough-in is scheduled. We will follow up with questions and a quote.</p>
+        </div>
+        <LeadForm kind="trade" turnstileSiteKey={turnstileSiteKey} email={email} phone={lutronPhone} />
+      </section>
+      <section className="callout shell">
+        <p className="eyebrow">Prefer email?</p>
+        <div>
+          <h2>Send plans straight to our inbox.</h2>
           <div>
-            <p>Electrical or lighting plans (PDF is fine), the client&apos;s priorities if you know them, and when rough-in is scheduled. We will follow up with questions and a quote.</p>
+            <p>Large plan sets or several files are easier by email.</p>
             <a className="under" href={`mailto:${email}?subject=${subject}`}>{email} <Arrow /></a>
           </div>
         </div>

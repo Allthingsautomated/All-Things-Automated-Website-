@@ -1,4 +1,5 @@
-import { Arrow, AssessmentBand, PageShell, Photo, PhoneLink, pageMeta } from "./site";
+import { Picture, type SlotName } from "./images";
+import { Arrow, AssessmentBand, PageShell, PhoneLink, pageMeta } from "./site";
 import { bookPath, lutronPhone } from "./site-config";
 
 export const metadata = pageMeta({
@@ -14,8 +15,8 @@ const systems = [
     title: "Lighting that changes how the home feels.",
     copy: "Whole-home scenes, refined dimming, keypads, schedules, and shades—planned as part of the architecture instead of added room by room.",
     href: "/services/lighting",
-    image:
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=88",
+    image: "home-card-lutron-keypad" as SlotName,
+    sizes: "(max-width: 900px) 100vw, 66vw",
   },
   {
     number: "02",
@@ -23,8 +24,8 @@ const systems = [
     title: "Security that knows what it sees.",
     copy: "Intentional camera coverage, intelligent detection, local recording, and secure remote access without a collection of disconnected devices.",
     href: "/services/security",
-    image:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=88",
+    image: "home-card-unifi-camera" as SlotName,
+    sizes: "(max-width: 900px) 100vw, 33vw",
   },
   {
     number: "03",
@@ -32,8 +33,8 @@ const systems = [
     title: "One home. One experience.",
     copy: "Lighting, climate, entertainment, Wi-Fi, and routines designed to work together through interfaces that feel natural to everyone.",
     href: "/services/automation",
-    image:
-      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=88",
+    image: "home-card-whole-home" as SlotName,
+    sizes: "(max-width: 900px) 100vw, 33vw",
   },
 ];
 
@@ -55,11 +56,7 @@ export default function Home() {
   return (
     <PageShell overlayHeader>
       <section className="hero" id="top">
-        <Photo
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2200&q=90"
-          alt="Modern home at blue hour with warm interior and landscape lighting"
-          priority
-        />
+        <Picture slot="home-hero-blue-hour" loading="lcp" />
         <div className="shade" />
         <div className="heroCopy">
           <p className="eyebrow light">Smart home design · Sarasota, Florida</p>
@@ -93,7 +90,7 @@ export default function Home() {
       <section className="systemGrid shell">
         {systems.map((item, index) => (
           <article className={index === 0 ? "systemCard featured" : "systemCard"} key={item.number}>
-            <Photo src={item.image} sizes={index === 0 ? "100vw" : "(max-width: 900px) 100vw, 50vw"} />
+            <Picture slot={item.image} sizes={item.sizes} />
             <div className="systemShade" />
             <div className="systemBody">
               <div className="meta"><span aria-hidden="true">{item.number}</span><span>{item.label}</span></div>

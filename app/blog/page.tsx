@@ -1,5 +1,6 @@
 import { articleOrder, articles } from "../content";
-import { Arrow, AssessmentBand, PageShell, Photo, pageMeta, readTime } from "../site";
+import { Picture } from "../images";
+import { Arrow, AssessmentBand, PageShell, pageMeta, readTime } from "../site";
 
 export const metadata = pageMeta({
   path: "/blog",
@@ -20,7 +21,7 @@ export default function Blog() {
           const article = articles[slug];
           return (
             <a className={index === 0 ? "journalCard leadStory" : "journalCard"} href={`/blog/${slug}`} key={slug}>
-              <Photo src={article.image} sizes={index === 0 ? "(max-width: 900px) 100vw, 70vw" : "(max-width: 900px) 100vw, 50vw"} />
+              <Picture slot={article.image} sizes={index === 0 ? "(max-width: 900px) 100vw, 50vw" : "(max-width: 900px) 100vw, 33vw"} />
               <div><span>{article.category}</span><h2>{article.title}</h2><p>{article.dek}</p><small>{readTime(article)} · Read article <Arrow /></small></div>
             </a>
           );
