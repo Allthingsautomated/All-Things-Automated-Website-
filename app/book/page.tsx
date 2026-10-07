@@ -1,5 +1,5 @@
 import { PageShell, PhoneLink, pageMeta } from "../site";
-import { acuityUrl, assessmentPrice, emergencyLine, mainPhone } from "../site-config";
+import { acuityUrl, mainPhone } from "../site-config";
 
 export const metadata = pageMeta({
   path: "/book",
@@ -13,11 +13,10 @@ export default function Book() {
       <section className="indexHero bookHero shell">
         <p className="eyebrow">Professional assessment</p>
         <h1>Book your<br /><em>on-site assessment.</em></h1>
-        <p>{assessmentPrice}, paid when you book and credited to your project when you move forward. Choose a time below. Prefer to talk first? Call <PhoneLink className="inline" phone={mainPhone} />.</p>
+        <p>Choose a time below. Prefer to talk first? Call <PhoneLink className="inline" phone={mainPhone} />.</p>
       </section>
       <section className="bookFrame shell">
         <iframe src={acuityUrl} title="Schedule an on-site assessment" loading="lazy" />
-        <p className="emergency">{emergencyLine}</p>
         <p>Calendar not loading? <a className="inline" href={acuityUrl} target="_blank" rel="noopener">Open the booking calendar in a new tab</a>.</p>
       </section>
     </PageShell>

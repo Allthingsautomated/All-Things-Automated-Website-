@@ -39,7 +39,6 @@ const business = {
   areaServed: serviceArea.map(name => ({ "@type": "City", name })),
   sameAs: [instagramUrl],
   knowsAbout: ["Lutron RadioRA 3", "Lutron Caséta", "UniFi Protect", "Home networking", "Landscape lighting", "Tesla Powerwall", "EV charger installation", "Electrical service"],
-  makesOffer: [{ "@type": "Offer", name: "Professional Assessment", price: "100", priceCurrency: "USD" }],
 };
 
 export default function RootLayout({

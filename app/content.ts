@@ -256,7 +256,7 @@ export const services: Record<string, Service> = {
     // Answers pending Jorge's approval; a question is published only once its answer is filled in.
     faqs: [
       { q: "Do you do small jobs?", a: "" },
-      { q: "Is the $100 visit credited to the repair?", a: "" },
+      { q: "Can you come out the same day?", a: "" },
       { q: "Are you licensed and insured?", a: "" },
       { q: "Do you pull permits?", a: "" },
     ],

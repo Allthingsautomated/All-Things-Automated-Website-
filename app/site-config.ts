@@ -26,9 +26,7 @@ export const acuityUrl =
   "https://allthingsautomatedcalendar.as.me/schedule/04821538?appointmentType=74225838";
 export const bookPath = "/book";
 
-// Paid up front and credited to the project. Shown on every assessment card.
-export const assessmentPrice = "$100";
-export const emergencyLine = "Same-day or emergency visit: $250, paid before dispatch — call the main line.";
+// No prices anywhere on the site (Jorge's rule). Pricing is discussed on the phone or at the visit.
 
 // Leave empty until confirmed; the footer hides anything blank.
 export const hours = "";

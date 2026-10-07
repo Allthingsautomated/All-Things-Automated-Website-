@@ -26,7 +26,7 @@ export default function Terms() {
         <p>Photographs on the site illustrate the kinds of systems we design and install. Unless a photo is identified as one of our projects, it should not be taken as an image of our completed work.</p>
 
         <h2>Assessments and bookings</h2>
-        <p>The on-site assessment fee is paid when you book and is credited to your project if you move forward with us. Emergency or same-day visits are charged at the posted emergency rate and are paid before dispatch. Rescheduling and cancellation follow the policy shown in the booking calendar. Any work beyond an assessment is governed by the written estimate or contract for that work, which takes precedence over anything on this site.</p>
+        <p>Assessments are scheduled through our booking calendar. Rescheduling and cancellation follow the policy shown in the booking calendar. Any work beyond an assessment is governed by the written estimate or contract for that work, which takes precedence over anything on this site.</p>
 
         <h2>Forms and uploads</h2>
         <p>When you submit a form or upload plans, you confirm that the information is accurate and that you have the right to share any files you send. We use submissions only to respond to you and to prepare quotes, as described in our <a className="inline" href="/privacy">Privacy Policy</a>.</p>

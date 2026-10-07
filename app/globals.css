@@ -87,8 +87,6 @@ picture{display:contents}.wordmark{display:inline-flex}
 .footerLegal p{color:var(--soft);font-size:13px;margin:0}
 .footerLegal nav{display:flex;gap:24px}.footerLegal a{font-size:13px;padding:12px 0;text-decoration:underline;text-underline-offset:4px}
 .footNote{color:var(--soft);font-size:13px;margin:8px 0 0}
-.emergency{color:var(--soft);font-size:14px;line-height:1.5}
-.contactBook .emergency{color:rgba(255,255,255,.72);margin-top:16px}
 .formSection{border-top:1px solid var(--line);display:grid;gap:clamp(40px,6vw,90px);grid-template-columns:.8fr 1.2fr;padding-bottom:110px;padding-top:90px}
 .formIntro h2{font-family:var(--serif);font-size:clamp(38px,4.4vw,60px);font-weight:400;letter-spacing:-.04em;line-height:1;margin:30px 0 20px}
 .formIntro p:not(.eyebrow){color:var(--soft);font-family:var(--serif);font-size:19px;line-height:1.55}
