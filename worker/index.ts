@@ -12,10 +12,13 @@ if (typeof WeakRef === "undefined") {
 
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
+import { handleBesideHook, handleCrmApi } from "./crm/api";
+import { type AuthEnv, authenticate, deniedResponse, isCrmPath } from "./crm/auth";
 import { handleLead, type LeadEnv } from "./lead";
 import { securityHeaders } from "./security-headers.mjs";
 
-interface Env extends LeadEnv {
+interface Env extends LeadEnv, AuthEnv {
+  BESIDE_WEBHOOK_TOKEN?: string;
   ASSETS: Fetcher;
   DB: D1Database;
   IMAGES: {
@@ -53,6 +56,23 @@ const worker = {
       url.hostname = url.hostname.slice(4);
       url.protocol = "https:";
       return Response.redirect(url.toString(), 301);
+    }
+
+    // CRM: Cloudflare Access (Google sign-in) in front, token verified here as well.
+    if (isCrmPath(url.pathname)) {
+      const auth = await authenticate(request, env ?? {});
+      if (!auth.ok) return withSecurityHeaders(deniedResponse(auth, url.pathname));
+      const response = url.pathname.startsWith("/api/crm/")
+        ? await handleCrmApi(request, env?.CRM_DB)
+        : await handler.fetch(request, env, ctx);
+      const secured = withSecurityHeaders(response);
+      secured.headers.set("x-robots-tag", "noindex, nofollow");
+      secured.headers.set("cache-control", "private, no-store");
+      return secured;
+    }
+
+    if (url.pathname === "/api/hooks/beside") {
+      return withSecurityHeaders(await handleBesideHook(request, env?.CRM_DB, env?.BESIDE_WEBHOOK_TOKEN));
     }
 
     if (url.pathname === "/api/lead") {
