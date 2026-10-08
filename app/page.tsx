@@ -75,7 +75,7 @@ export default function Home() {
 
       <section className="rail">
         <span>Designed &amp; installed by All Things Automated</span>
-        <div><strong>Lutron RadioRA 3</strong><strong>Lutron Caséta</strong><strong>UniFi</strong><strong>Tesla Energy</strong></div>
+        <div><strong>Lutron RadioRA 3</strong><strong>Lutron Caséta</strong><strong>Leviton Pro certified</strong><strong>UniFi</strong><strong>Tesla Energy</strong></div>
       </section>
 
       <section className="intro shell" id="systems">
