@@ -1,6 +1,4 @@
-// Data access for the ata-crm D1 database. The core tables (customers, jobs, activity, estimates,
-// invoices, properties) already exist and are shared with the separate "ata-crm" Worker, so this
-// code only reads/writes their existing columns. New tables: see migrations/0001_website_crm.sql.
+// Data access for the CRM's own D1 database (ata-website-crm). Schema: migrations/0001_crm_schema.sql.
 
 // Minimal slice of the D1 API the CRM uses (lets tests run against node:sqlite).
 export interface D1Result<T = Record<string, unknown>> {
@@ -18,7 +16,6 @@ export interface D1Like {
   batch(statements: D1Statement[]): Promise<D1Result[]>;
 }
 
-// Same stage keys as the existing ata-crm Worker, so both apps agree.
 export const STAGES = ["lead", "estimate_sent", "won", "scheduled", "in_progress", "complete", "invoiced", "paid", "lost"] as const;
 export type Stage = (typeof STAGES)[number];
 export const STAGE_LABEL: Record<Stage, string> = {

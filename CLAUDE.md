@@ -7,4 +7,4 @@ These come from the owner, Jorge. Follow them even when a task document or audit
 - No fabricated reviews, stats, or projects. The images in `public/img/` are illustrative and must never appear on `/work` or be presented as ATA's completed work.
 - Phone lines are set in `app/site-config.ts`: main line everywhere; Lutron line only on Lutron pages (lighting, help line, builders, contact); Tesla line only on the solar page and Contact.
 - `main` auto-deploys to the live site. Work on a branch and open a PR for Jorge to approve.
-- The CRM (`/crm`, `worker/crm/`) uses the shared `ata-crm` D1 database that also holds the QuickBooks import and the separate `ata-crm` Worker's tables. Only add tables or columns; never drop, rename or rewrite existing tables or data. Schema snapshot: `migrations/0000_existing_schema.sql`.
+- The CRM (`/crm`, `worker/crm/`) has its own D1 database, `ata-website-crm` (started empty, Oct 2026). Schema changes go in new numbered files in `migrations/`. Never touch the separate `ata-crm` database.

@@ -28,8 +28,7 @@ async function freshDb() {
   const sqlite = new DatabaseSync(":memory:");
   sqlite.exec("PRAGMA foreign_keys = ON;");
   // The real production layout (existing tables) plus the additive website-CRM migration.
-  sqlite.exec(await readFile(join(root, "migrations/0000_existing_schema.sql"), "utf8"));
-  sqlite.exec(await readFile(join(root, "migrations/0001_website_crm.sql"), "utf8"));
+  sqlite.exec(await readFile(join(root, "migrations/0001_crm_schema.sql"), "utf8"));
   // A customer imported from QuickBooks, with billing history.
   sqlite.exec(`INSERT INTO customers (name, company, email, phone, city, type, source, qb_id) VALUES ('Pat Kim', NULL, 'pat@example.com', '(941) 555-0103', 'Venice', 'residential', 'QuickBooks', '58');
     INSERT INTO jobs (customer_id, title, stage, value) VALUES (1, 'RA3 whole home', 'estimate_sent', 18500);

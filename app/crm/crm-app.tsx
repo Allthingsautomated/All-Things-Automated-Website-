@@ -2,8 +2,8 @@
 
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 
-// Private CRM for the owner. Data lives in the ata-crm D1 database (customers, jobs, estimates and
-// invoices imported from QuickBooks, plus website leads and follow-ups).
+// Private CRM for the owner. Data lives in its own D1 database, ata-website-crm (customers, jobs,
+// website leads and follow-ups; estimates and invoices show only when present).
 
 // ---- Types --------------------------------------------------------------------------------
 type Customer = {
@@ -24,7 +24,6 @@ type Estimate = { id: number; number: string | null; date: string | null; amount
 type Invoice = Estimate & { due_date: string | null; balance: number };
 type Property = { id: number; label: string | null; address: string | null; city: string | null; state: string | null; zip: string | null };
 
-// Same stage keys as the existing ata-crm app.
 const STAGES = [
   ["lead", "Lead"], ["estimate_sent", "Estimate sent"], ["won", "Won"], ["scheduled", "Scheduled"], ["in_progress", "In progress"],
   ["complete", "Complete"], ["invoiced", "Invoiced"], ["paid", "Paid"], ["lost", "Lost"],
