@@ -11,7 +11,7 @@ export type Project = {
   year: number;
 };
 
-export const filters = ["Lighting", "Landscape", "Security", "Networking", "A/V", "EV", "Solar", "Electrical"];
+export const filters = ["Lighting", "Landscape", "Security", "Networking", "A/V", "EV", "Solar"];
 
 export function WorkGrid({ projects }: { projects: Project[] }) {
   const [active, setActive] = useState<string | null>(null);

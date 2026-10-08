@@ -14,7 +14,7 @@ export function LocationPage({ slug }: { slug: string }) {
       <JsonLd data={{
         "@context": "https://schema.org",
         "@type": "Service",
-        name: `Smart home, lighting control & electrical in ${location.city}`,
+        name: `Smart home, lighting control & security in ${location.city}`,
         url,
         provider: { "@id": `${siteUrl}/#business`, "@type": "LocalBusiness", name: siteName, areaServed: { "@type": "City", name: location.city } },
         areaServed: { "@type": "City", name: location.city, containedInPlace: { "@type": "State", name: "Florida" } },

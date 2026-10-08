@@ -235,32 +235,6 @@ export const services: Record<string, Service> = {
       { q: "Do you install Tesla Wall Connectors?", a: "" },
     ],
   },
-  electrical: {
-    path: "/electrical",
-    metaTitle: "Electrical Service & Repair | Sarasota",
-    metaDescription: "Electrical service and repair in Sarasota, Bradenton and Venice: troubleshooting, new circuits, fixtures, outlets and dedicated lines.",
-    eyebrow: "Electrical services · A separate branch",
-    image: "electrical-hero",
-    title: "Electrical service",
-    italic: "and repair.",
-    intro: "Alongside our automation work, we handle electrical service calls: troubleshooting, new circuits, fixtures, outlets, and dedicated lines.",
-    statement: "Every system we install depends on clean, safe electrical work—so we do that work ourselves.",
-    details: [
-      { title: "Troubleshooting", copy: "Tripping breakers, dead outlets, flickering lights, and circuits that stopped working." },
-      { title: "New circuits", copy: "Dedicated lines for appliances, equipment, workshops, and EV charging." },
-      { title: "Fixtures and devices", copy: "Light fixtures, ceiling fans, outlets, switches, and dimmers installed and replaced." },
-      { title: "Remodel wiring", copy: "Electrical work for kitchens, baths, and additions, coordinated with any lighting control or low-voltage plans." },
-    ],
-    ideal: ["Homeowners with an electrical problem", "Remodels and additions", "New appliance or equipment circuits", "Projects pairing electrical with lighting control"],
-    idealHeading: "Straightforward electrical work, done carefully.",
-    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
-    faqs: [
-      { q: "Do you do small jobs?", a: "" },
-      { q: "Can you come out the same day?", a: "" },
-      { q: "Are you licensed and insured?", a: "" },
-      { q: "Do you pull permits?", a: "" },
-    ],
-  },
 };
 
 // Order of the systems on the /services index.

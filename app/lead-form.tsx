@@ -6,7 +6,7 @@ type Kind = "contact" | "trade";
 type Status = { state: "idle" | "sending" | "sent" | "error"; message?: string; fields?: string[] };
 
 const cities = ["Sarasota", "Lakewood Ranch", "Bradenton", "Venice", "Longboat / Siesta / Casey Key", "Tampa", "Other"];
-const planning = ["Lighting control", "Cameras / network", "Landscape lighting", "Whole-home control", "EV charger", "Solar / Tesla", "Electrical", "Lutron support", "Not sure"];
+const planning = ["Lighting control", "Cameras / network", "Landscape lighting", "Whole-home control", "EV charger", "Solar / Tesla", "Lutron support", "Not sure"];
 const timelines = ["Now", "1–3 months", "Planning"];
 const roles = ["Builder", "Remodeler", "Designer / Architect", "Showroom"];
 

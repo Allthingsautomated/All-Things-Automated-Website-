@@ -9,7 +9,7 @@ export const metadata = pageMeta({
 });
 
 const lines = [
-  { phone: mainPhone, copy: "Smart home, lighting, cameras, networking, and electrical." },
+  { phone: mainPhone, copy: "Smart home, lighting, cameras, networking, and EV charging." },
   { phone: lutronPhone, copy: "24/7 help for any Lutron system, plus new Lutron design and installation." },
   { phone: teslaPhone, copy: "Tesla solar, Solar Roof, Powerwall, and Wall Connector." },
 ];

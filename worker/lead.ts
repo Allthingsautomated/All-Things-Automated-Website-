@@ -6,7 +6,7 @@
 //   SEND_EMAIL        send_email binding (Email Routing must be on for itsallthingsautomated.com,
 //                     and LEAD_TO must be a verified destination address)
 //   LEAD_FROM         sender on the routed domain, e.g. website@itsallthingsautomated.com
-//   LEAD_TO           optional, defaults to hello@itsallthingsautomated.com
+//   LEAD_TO           optional, defaults to inquiry@allthingsautomated.org (must be a verified Email Routing destination)
 //   TURNSTILE_SECRET  optional; when set, every submission must carry a valid Turnstile token
 //   PLANS             optional R2 bucket binding for builder plan uploads
 
@@ -134,7 +134,7 @@ export async function handleLead(request: Request, env: LeadEnv = {}): Promise<R
     }
   }
 
-  const to = env.LEAD_TO || "hello@itsallthingsautomated.com";
+  const to = env.LEAD_TO || "inquiry@allthingsautomated.org";
   const subject = headerText(`${form.subject}: ${values.name}${values.company ? ` (${values.company})` : ""}`);
   const lines = form.fields.map(field => `${field.label}: ${values[field.name] || "—"}`);
   if (planNote) lines.push(planNote);

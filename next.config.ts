@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     return [
       { source: "/schedule", destination: "/book", permanent: true },
       { source: "/pricing", destination: "/services", permanent: true },
+      { source: "/electrical", destination: "/services", permanent: true },
       { source: "/admin", destination: "/", permanent: false },
       { source: "/blog/5-things-to-know", destination: "/blog", permanent: true },
       { source: "/blog/ai-smart-home-2025", destination: "/blog", permanent: true },

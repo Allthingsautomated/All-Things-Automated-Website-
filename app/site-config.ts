@@ -13,8 +13,8 @@ export const lutronPhone: PhoneLine = { label: "Lutron line", display: "(201) 58
 // Tesla Energy products only. Solar page only.
 export const teslaPhone: PhoneLine = { label: "Tesla & solar line", display: "(941) 263-5325", tel: "+19412635325" };
 
-// Requires a Cloudflare Email Routing rule for hello@itsallthingsautomated.com.
-export const email = "hello@itsallthingsautomated.com";
+// Public business email (Jorge, Oct 2026). Website form leads are also sent here.
+export const email = "inquiry@allthingsautomated.org";
 
 export const instagramUrl = "https://www.instagram.com/allthingsautomated8";
 
