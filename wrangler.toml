@@ -5,11 +5,8 @@ pages_build_output_dir = "out"
 compatibility_date = "2024-11-15"
 compatibility_flags = ["nodejs_compat"]
 
-# CRM database: the website CRM's own D1 database (schema: migrations/0001_crm_schema.sql).
-[[d1_databases]]
-binding = "CRM_DB"
-database_name = "ata-website-crm"
-database_id = "b6a41513-f622-41cb-ae6f-0a940e028c82"
+# CRM database: bind a D1 database as CRM_DB in Pages → Settings → Bindings
+# (schema: migrations/0001_crm_schema.sql). Without it, /crm says "not connected".
 
 [vars]
 # Google accounts allowed into /crm (comma-separated). Cloudflare Access must allow them too.
