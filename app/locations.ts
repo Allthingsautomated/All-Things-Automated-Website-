@@ -1,3 +1,5 @@
+import type { SlotName } from "./images";
+
 export type Location = {
   slug: string;
   city: string;
@@ -5,6 +7,7 @@ export type Location = {
   metaTitle: string;
   metaDescription: string;
   intro: string;
+  image: SlotName;
   sections: { heading: string; paragraphs: string[] }[];
   links: { href: string; label: string }[];
 };
@@ -12,6 +15,7 @@ export type Location = {
 export const locations: Record<string, Location> = {
   sarasota: {
     slug: "sarasota",
+    image: "home-hero-daylight",
     city: "Sarasota",
     county: "Sarasota County",
     metaTitle: "Smart Home & Lutron Lighting in Sarasota, FL | ATA",
@@ -47,6 +51,7 @@ export const locations: Record<string, Location> = {
   },
   "lakewood-ranch": {
     slug: "lakewood-ranch",
+    image: "journal-prewire",
     city: "Lakewood Ranch",
     county: "Manatee & Sarasota Counties",
     metaTitle: "Smart Home Prewire & Lutron in Lakewood Ranch | ATA",
@@ -83,6 +88,7 @@ export const locations: Record<string, Location> = {
   },
   bradenton: {
     slug: "bradenton",
+    image: "home-card-unifi-camera",
     city: "Bradenton",
     county: "Manatee County",
     metaTitle: "Smart Home, Cameras & Lighting in Bradenton, FL | ATA",
@@ -118,6 +124,7 @@ export const locations: Record<string, Location> = {
   },
   venice: {
     slug: "venice",
+    image: "svc-landscape-pool",
     city: "Venice",
     county: "Sarasota County",
     metaTitle: "Smart Home & Lighting Control in Venice, FL | ATA",

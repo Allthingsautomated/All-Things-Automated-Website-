@@ -1,7 +1,7 @@
 import { Picture, type SlotName } from "./images";
 import { partnerRail } from "./credentials";
-import { Arrow, AssessmentBand, PageShell, PartnerRail, PhoneLink, pageMeta } from "./site";
-import { bookPath, lutronPhone } from "./site-config";
+import { Arrow, AssessmentBand, PageShell, PartnerRail, pageMeta } from "./site";
+import { bookPath } from "./site-config";
 
 export const metadata = pageMeta({
   path: "/",
@@ -118,7 +118,6 @@ export default function Home() {
           <h2>Have a Lutron system? Call us any time—no matter who installed it.</h2>
           <div>
             <p>Keypads not responding, scenes that stopped working, an app that lost the system. Our Lutron line answers around the clock, and if the fix needs a visit we schedule a service call.</p>
-            <PhoneLink className="under" phone={lutronPhone} prefix="Call " />
             <a className="under" href="/lutron-help-line">How the help line works <Arrow /></a>
           </div>
         </div>

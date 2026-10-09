@@ -24,6 +24,7 @@ export const slots = {
   "svc-climate-hero": { ...wide, alt: "Bright bedroom with a motorized shade partly lowered and a slim smart thermostat on the wall" },
   "svc-landscape-hero": { ...wide, alt: "Landscape lighting at blue hour: uplit sabal palms, facade grazing and low path lights" },
   "svc-landscape-pool": { ...card, alt: "Pool and screened lanai at night with underwater lights and warm downlights" },
+  "electrical-hero": { ...wide, alt: "Open residential electrical panel with neatly dressed breakers and wiring on a garage wall" },
   "svc-ev-hero": { ...wide, alt: "Wall-mounted home EV charger with a tidy conduit run and an electric SUV plugged in" },
   "svc-solar-hero": { ...wide, alt: "Barrel-tile roof with an all-black solar array and a wall-mounted battery at golden hour" },
   "help-line-hero": { ...wide, alt: "White Lutron keypad beside a side table with a phone showing a lighting app" },
