@@ -1,6 +1,6 @@
 import { credentialLabel } from "./credentials";
 import { type BrandPage, brandOrder, brandPages } from "./partners";
-import { Arrow, AssessmentBand, JsonLd, PageHero, PageShell, PhoneLink, pageMeta } from "./site";
+import { Arrow, AssessmentBand, JsonLd, PageHero, PageShell, PhoneLink, breadcrumbData, pageMeta } from "./site";
 import { bookPath, mainPhone, siteUrl } from "./site-config";
 
 export function brandMeta(brand: BrandPage) {
@@ -25,6 +25,7 @@ export function BrandPageView({ brand }: { brand: BrandPage }) {
         about: { "@type": "Brand", name: brand.name },
         provider: { "@id": `${siteUrl}/#business` },
       }} />
+      <JsonLd data={breadcrumbData([["Systems", "/services"], [brand.name, `/partners/${brand.id}`]])} />
       <PageHero eyebrow={credentialLabel(brand.id)} title={brand.title} italic={brand.italic} intro={brand.intro}>
         <a className="button" href={bookPath}>Discuss your project <Arrow /></a>
         <PhoneLink className="lightLink under" phone={mainPhone} prefix="Call " />

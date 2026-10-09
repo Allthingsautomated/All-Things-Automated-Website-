@@ -38,5 +38,9 @@ export const googleReviews = { rating: 5.0, reviewCount: 0, url: "" };
 // Cloudflare Turnstile site key for the lead forms (public). Empty = widget not shown.
 export const turnstileSiteKey = "";
 
+// Google Search Console HTML-tag verification code (the content="..." value). Empty = no tag.
+// Not needed if the site is verified as a Domain property through Cloudflare DNS.
+export const googleSiteVerification = "";
+
 // Plausible analytics domain. Empty = no analytics script.
 export const plausibleDomain = "";

@@ -152,6 +152,40 @@ export const locations: Record<string, Location> = {
       { href: "/services/audio-video", label: "Whole-home & lanai audio" },
     ],
   },
+  tampa: {
+    slug: "tampa",
+    city: "Tampa",
+    county: "Hillsborough County",
+    metaTitle: "Lutron RadioRA 3 Lighting Control in Tampa, FL | ATA",
+    metaDescription: "Lutron RadioRA 3 lighting control design, installation and 24/7 Lutron support for Tampa homes, from a Sarasota-based Lutron dealer.",
+    intro: "We are based in Sarasota and take on Tampa projects, particularly Lutron RadioRA 3 lighting control and support for existing Lutron systems.",
+    sections: [
+      {
+        heading: "Lutron lighting control",
+        paragraphs: [
+          "Most of our Tampa work is Lutron: RadioRA 3 whole-home lighting control in remodels and new construction, keypads that replace banks of switches, and shades that work with the lighting. Every project starts with a walkthrough so the design fits how the home is actually used.",
+          "If you are building, the best time to plan is before the walls close. We can review the plans with your builder or electrician and mark where keypads, dimmers and the main equipment belong.",
+        ],
+      },
+      {
+        heading: "Support for existing Lutron systems",
+        paragraphs: [
+          "If you already have a Lutron system and something stopped working, our Lutron help line answers around the clock, whoever installed it. Many issues can be sorted out on the phone; if the fix needs a visit, we schedule a service call.",
+        ],
+      },
+      {
+        heading: "Is your project a fit?",
+        paragraphs: [
+          "Because Tampa is outside our home base, we focus on lighting control and Lutron projects there. Call to talk through the scope and schedule, and we will tell you plainly whether we are the right team for it.",
+        ],
+      },
+    ],
+    links: [
+      { href: "/services/lighting", label: "Lutron RadioRA 3 lighting control" },
+      { href: "/lutron-help-line", label: "Lutron Help Line (24/7)" },
+      { href: "/for-builders", label: "For builders & designers" },
+    ],
+  },
 };
 
-export const locationOrder = ["sarasota", "lakewood-ranch", "bradenton", "venice"];
+export const locationOrder = ["sarasota", "lakewood-ranch", "bradenton", "venice", "tampa"];
