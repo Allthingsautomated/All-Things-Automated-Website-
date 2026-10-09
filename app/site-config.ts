@@ -32,8 +32,14 @@ export const bookPath = "/book";
 export const hours = "";
 export const licenseNumber = ""; // e.g. "EC13000000" → "Licensed & insured — FL Lic. #EC13000000"
 
-// Google Business Profile rating. The About page shows it only once reviewCount >= 5.
-export const googleReviews = { rating: 5.0, reviewCount: 0, url: "" };
+// Google Business Profile. The reviews section (home and About) appears once `url` or `reviewLink` is set.
+//   url         the profile on Google Maps ("Share" → copy link)
+//   reviewLink  the "Ask for reviews" link from the Business Profile (e.g. https://g.page/r/.../review)
+//   rating, reviewCount  copy from the profile; shown only once reviewCount >= 5
+export const googleReviews = { rating: 5.0, reviewCount: 0, url: "", reviewLink: "" };
+
+// Real Google reviews, copied word for word with the reviewer's name as shown on Google. Never edit or invent one.
+export const googleReviewQuotes: { name: string; text: string }[] = [];
 
 // Cloudflare Turnstile site key for the lead forms (public). Empty = widget not shown.
 export const turnstileSiteKey = "";
