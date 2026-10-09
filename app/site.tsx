@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { type Credential, credentialLine, footerCredentials, founded, insured, partnerLogo } from "./credentials";
 import { Picture, type SlotName, hasImage, imageUrl } from "./images";
+import { locationOrder, locations } from "./locations";
 import { MobileMenu } from "./mobile-menu";
 import {
   bookPath,
@@ -36,6 +37,15 @@ export function pageMeta({ path, title, description, image = "/brand/og-image.jp
     alternates: { canonical: path },
     openGraph: { title, description, url: path, siteName, type, locale: "en_US", images },
     twitter: { card: "summary_large_image", title, description, images: [image] },
+  };
+}
+
+// BreadcrumbList for search results. Each item is [name, path]; Home is added first.
+export function breadcrumbData(items: [string, string][]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [["Home", "/"], ...items].map(([name, path], index) => ({ "@type": "ListItem", position: index + 1, name, item: `${siteUrl}${path}` })),
   };
 }
 
@@ -101,6 +111,10 @@ export function SiteFooter() {
         <a href="/process">Our process</a>
         <a href="/service-area">Service area</a>
         <a href="/blog">Journal</a>
+      </div>
+      <div>
+        <span>Areas</span>
+        {locationOrder.map(slug => <a key={slug} href={`/${slug}`}>{locations[slug].city}</a>)}
       </div>
       <div>
         <span>Contact</span>
@@ -266,6 +280,7 @@ export function ServicePage({ service }: { service: Service }) {
         provider: { "@id": `${siteUrl}/#business` },
         areaServed: serviceArea.map(name => ({ "@type": "City", name })),
       }} />
+      <JsonLd data={breadcrumbData([["Systems", "/services"], [service.metaTitle.split(" | ")[0], service.path]])} />
       <PageHero slot={service.image} eyebrow={service.eyebrow} title={service.title} italic={service.italic} intro={service.intro} cred={credentialLine(service.path)}>
         <a className="button" href={bookPath}>Discuss your project <Arrow /></a>
         <PhoneLink className="lightLink under" phone={phone} prefix="Call " />
@@ -337,7 +352,10 @@ export function readTime(article: Article) {
 }
 
 export function articleMeta(article: Article) {
-  return pageMeta({ path: `/blog/${article.slug}`, title: `${article.title} | All Things Automated`, description: article.dek, type: "article" });
+  const base = article.title.replace(/\.$/, "");
+  // Search results cut titles around 60 characters, so the brand suffix shortens or drops on long headlines.
+  const title = [`${base} | All Things Automated`, `${base} | ATA`].find(t => t.length <= 60) ?? base;
+  return pageMeta({ path: `/blog/${article.slug}`, title, description: article.dek, type: "article" });
 }
 
 export function ArticlePage({ article }: { article: Article }) {

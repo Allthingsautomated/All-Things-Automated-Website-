@@ -5,7 +5,7 @@ import { mainPhone } from "../site-config";
 export const metadata = pageMeta({
   path: "/service-area",
   title: "Service Area: Sarasota to Tampa | All Things Automated",
-  description: "We serve Sarasota, Lakewood Ranch, Bradenton, Venice, Tampa and the keys—Longboat, Siesta and Casey Key—with lighting control, cameras, networking and smart-home systems.",
+  description: "Serving Sarasota, Lakewood Ranch, Bradenton, Venice, Tampa and Longboat, Siesta and Casey Key with lighting control, cameras, networking and smart homes.",
 });
 
 export default function ServiceArea() {

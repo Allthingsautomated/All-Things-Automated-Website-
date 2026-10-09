@@ -3,7 +3,8 @@ import { preload } from "react-dom";
 import "./globals.css";
 import { ClickEvents } from "./analytics";
 import { JsonLd } from "./site";
-import { email, instagramUrl, mainPhone, plausibleDomain, serviceArea, siteName, siteUrl } from "./site-config";
+import { certifications } from "./credentials";
+import { email, googleReviews, googleSiteVerification, instagramUrl, mainPhone, plausibleDomain, serviceArea, siteName, siteUrl } from "./site-config";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: "/site.webmanifest",
+  ...(googleSiteVerification && { verification: { google: googleSiteVerification } }),
 };
 
 export const viewport: Viewport = {
@@ -37,8 +39,9 @@ const business = {
   foundingDate: "2019",
   address: { "@type": "PostalAddress", addressLocality: "Sarasota", addressRegion: "FL", addressCountry: "US" },
   areaServed: serviceArea.map(name => ({ "@type": "City", name })),
-  sameAs: [instagramUrl],
-  knowsAbout: ["Lutron RadioRA 3", "Lutron Caséta", "UniFi Protect", "Home networking", "Landscape lighting", "Tesla Powerwall", "EV charger installation"],
+  sameAs: [instagramUrl, googleReviews.url].filter(Boolean),
+  knowsAbout: ["Lutron RadioRA 3", "Lutron Caséta", "UniFi Protect", "Home networking", "Landscape lighting", "Tesla Powerwall", "EV charger installation", "Home theater", "Whole-home audio"],
+  hasCredential: certifications.map(c => ({ "@type": "EducationalOccupationalCredential", name: c.label })),
 };
 
 export default function RootLayout({
