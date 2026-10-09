@@ -1,10 +1,11 @@
+import { credentialLine } from "../credentials";
 import { Arrow, JsonLd, PageHero, PageShell, PhoneLink, pageMeta } from "../site";
 import { bookPath, lutronPhone, siteUrl } from "../site-config";
 
 export const metadata = pageMeta({
   path: "/lutron-help-line",
   title: "Lutron Help Line, 24/7 | Sarasota & Gulf Coast",
-  description: `Phone help for any Lutron RadioRA, HomeWorks or Caséta system, around the clock, no matter who installed it. Call ${lutronPhone.display}.`,
+  description: `Phone help for any Lutron RadioRA or Caséta system, around the clock, no matter who installed it. Call ${lutronPhone.display}.`,
 });
 
 const faqs = [
@@ -30,7 +31,7 @@ export default function HelpLine() {
         provider: { "@id": `${siteUrl}/#business` },
         hoursAvailable: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "00:00", closes: "23:59" },
       }} />
-      <PageHero slot="help-line-hero" eyebrow="Lutron Help Line · 24/7" title="Lutron help," italic="any hour." intro="Phone support for any Lutron system—no matter who installed it. If the fix needs a visit, we schedule a service call.">
+      <PageHero slot="help-line-hero" eyebrow="Lutron Help Line · 24/7" title="Lutron help," italic="any hour." intro="Phone support for any Lutron system—no matter who installed it. If the fix needs a visit, we schedule a service call." cred={credentialLine("/lutron-help-line")}>
         <PhoneLink className="button" phone={lutronPhone} prefix="Call " />
       </PageHero>
       <section className="detailGrid shell helpSteps">

@@ -1,5 +1,6 @@
 import { Picture } from "../images";
-import { AssessmentBand, PageShell, pageMeta } from "../site";
+import { partnerRail } from "../credentials";
+import { AssessmentBand, PageShell, PartnerRail, pageMeta } from "../site";
 import { localFiles } from "../image-manifest.generated";
 import { googleReviews } from "../site-config";
 
@@ -47,6 +48,14 @@ export default function About() {
           </a>
         )}
       </section>
+      <section className="credentials shell">
+        <p className="eyebrow">Partners &amp; credentials</p>
+        <div>
+          <h2>Dealer programs &amp; certifications</h2>
+          <p>All Things Automated is a Lutron RadioRA 3 dealer and holds pro-program accounts with Savant, Sonos, Google Nest, eero, Ring, Lorex and Leviton. For home theater we are Epson Certified. Jorge completed the NCCER Electrical program (Levels 1–4) at Manatee Technical College before founding ATA in 2019.</p>
+        </div>
+      </section>
+      <PartnerRail id="about-partners-h" heading="Authorized dealer & pro programs" items={partnerRail} />
       <AssessmentBand />
     </PageShell>
   );
