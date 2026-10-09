@@ -16,6 +16,20 @@ export default function ServiceArea() {
         <h1>Sarasota and<br /><em>the Gulf Coast.</em></h1>
         <p>Based in Sarasota since 2019, we work across Sarasota and Manatee counties and up to Tampa.</p>
       </section>
+      <section className="areaMap shell">
+        <iframe
+          src="https://www.google.com/maps?q=Sarasota%2C+FL&z=9&output=embed"
+          title="Map of the All Things Automated service area, from Tampa to Venice"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          allowFullScreen
+        />
+        <p>
+          <span>Tampa to Venice, centered on Sarasota</span>
+          <a className="under" href="https://www.google.com/maps/search/?api=1&query=Sarasota%2C+FL" target="_blank" rel="noopener">Google Maps</a>
+          <a className="under" href="https://maps.apple.com/?q=Sarasota%2C+FL&z=9" target="_blank" rel="noopener">Apple Maps</a>
+        </p>
+      </section>
       <section className="moreServices shell">
         <p className="eyebrow">Cities</p>
         <ul>
