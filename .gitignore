@@ -34,3 +34,6 @@ yarn-error.log*
 *~
 .wrangler/
 dist/
+
+# Local tool caches created by scripts/sites-env.sh and scripts/install-ci.sh
+/.sites-runtime/

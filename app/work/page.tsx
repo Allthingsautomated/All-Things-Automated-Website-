@@ -2,13 +2,18 @@ import { AssessmentBand, PageShell, pageMeta } from "../site";
 import projectData from "./projects.json";
 import { type Project, WorkGrid } from "./work-grid";
 
-export const metadata = pageMeta({
-  path: "/work",
-  title: "Our Work | All Things Automated",
-  description: "Lighting control, landscape lighting, security, networking, EV and solar projects by All Things Automated across Sarasota and the Gulf Coast.",
-});
-
 const projects = projectData as Project[];
+
+// Until real project photos exist the page is thin, so it stays out of search results (and the sitemap —
+// see scripts/package-pages.mjs). Both switch on automatically once projects.json has an entry.
+export const metadata = {
+  ...pageMeta({
+    path: "/work",
+    title: "Our Work | All Things Automated",
+    description: "Lighting control, landscape lighting, security, networking, EV and solar projects by All Things Automated across Sarasota and the Gulf Coast.",
+  }),
+  ...(projects.length === 0 && { robots: { index: false, follow: true } }),
+};
 
 export default function Work() {
   return (

@@ -3,8 +3,8 @@
 // single `_worker.js`, and `_routes.json` so static files skip the worker.
 import { build } from "esbuild";
 import { execFileSync } from "node:child_process";
-import { appendFile, cp, readdir, rm, writeFile } from "node:fs/promises";
-import { relative, resolve } from "node:path";
+import { appendFile, cp, readdir, readFile, rm, writeFile } from "node:fs/promises";
+import { relative, resolve, sep } from "node:path";
 import { securityHeaders } from "../worker/security-headers.mjs";
 
 const root = resolve(import.meta.dirname, "..");
@@ -56,6 +56,12 @@ async function findPages(dir) {
   }
 }
 await findPages(resolve(root, "app"));
+// /work is noindex while app/work/projects.json is empty (see app/work/page.tsx), so keep it out of the sitemap too.
+const projects = JSON.parse(await readFile(resolve(root, "app", "work", "projects.json"), "utf8"));
+if (projects.length === 0) {
+  const i = pages.findIndex((p) => p.endsWith(`${sep}work${sep}page.tsx`));
+  if (i !== -1) pages.splice(i, 1);
+}
 const today = new Date().toISOString().slice(0, 10);
 function lastModified(file) {
   try {

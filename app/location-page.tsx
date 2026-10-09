@@ -4,7 +4,7 @@ import { Arrow, AssessmentBand, JsonLd, PageShell, PhoneLink, pageMeta } from ".
 import { mainPhone, siteName, siteUrl } from "./site-config";
 
 export function locationMeta(location: Location) {
-  return pageMeta({ path: `/${location.slug}`, title: location.metaTitle, description: location.metaDescription });
+  return pageMeta({ path: `/${location.slug}`, title: location.metaTitle, description: location.metaDescription, image: location.image });
 }
 
 export function LocationPage({ slug }: { slug: string }) {
@@ -35,9 +35,11 @@ export function LocationPage({ slug }: { slug: string }) {
         <h1>Smart homes in<br /><em>{location.city}.</em></h1>
         <p>{location.intro}</p>
       </section>
-      <section className="inlineImage shell">
-        <Picture slot={location.image} sizes="(max-width: 900px) 100vw, 1200px" />
-      </section>
+      {location.image && (
+        <section className="inlineImage shell">
+          <Picture slot={location.image} sizes="(max-width: 900px) 100vw, 1200px" />
+        </section>
+      )}
       <article className="legal shell locationBody">
         {location.sections.map(section => (
           <section key={section.heading}>

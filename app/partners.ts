@@ -4,6 +4,8 @@
 // Showcase: add real, completed ATA projects to a brand's `projects` list and the page shows them.
 // Never put the illustrative images from public/img/ here, and never invent a project.
 
+import type { SlotName } from "./images";
+
 export type BrandProject = { title: string; city: string; summary: string; image?: string };
 
 export type BrandPage = {
@@ -13,6 +15,8 @@ export type BrandPage = {
   italic: string;
   intro: string;
   metaDescription: string;
+  // Editorial hero photo from public/img (illustrative — never captioned as a project). Omit for the text hero.
+  image?: SlotName;
   offer: { title: string; copy: string }[];
   related: { label: string; href: string }[];
   projects: BrandProject[];
@@ -21,6 +25,7 @@ export type BrandPage = {
 export const brandPages: Record<string, BrandPage> = {
   lutron: {
     id: "lutron",
+    image: "home-card-lutron-keypad",
     name: "Lutron",
     title: "Lutron lighting control,",
     italic: "designed and installed locally.",
@@ -41,6 +46,7 @@ export const brandPages: Record<string, BrandPage> = {
   },
   savant: {
     id: "savant",
+    image: "svc-automation-hero",
     name: "Savant",
     title: "Savant whole-home",
     italic: "control in one app.",
@@ -57,6 +63,7 @@ export const brandPages: Record<string, BrandPage> = {
   },
   sonos: {
     id: "sonos",
+    image: "svc-audio-video-hero",
     name: "Sonos",
     title: "Sonos audio,",
     italic: "room by room.",
@@ -76,6 +83,7 @@ export const brandPages: Record<string, BrandPage> = {
   },
   epson: {
     id: "epson",
+    image: "partner-epson-hero",
     name: "Epson",
     title: "Epson home theater,",
     italic: "properly installed.",
@@ -92,6 +100,7 @@ export const brandPages: Record<string, BrandPage> = {
   },
   nest: {
     id: "nest",
+    image: "svc-climate-hero",
     name: "Google Nest",
     title: "Google Nest,",
     italic: "set up the right way.",
@@ -111,6 +120,7 @@ export const brandPages: Record<string, BrandPage> = {
   },
   eero: {
     id: "eero",
+    image: "svc-networking-hero",
     name: "eero",
     title: "eero Wi-Fi",
     italic: "that reaches every room.",
@@ -127,6 +137,7 @@ export const brandPages: Record<string, BrandPage> = {
   },
   ring: {
     id: "ring",
+    image: "svc-security-hero",
     name: "Ring",
     title: "Ring doorbells",
     italic: "and cameras, installed.",
@@ -143,6 +154,7 @@ export const brandPages: Record<string, BrandPage> = {
   },
   lorex: {
     id: "lorex",
+    image: "journal-unifi-vs-ring",
     name: "Lorex",
     title: "Lorex camera systems",
     italic: "with local recording.",
@@ -159,6 +171,7 @@ export const brandPages: Record<string, BrandPage> = {
   },
   leviton: {
     id: "leviton",
+    image: "journal-smart-bulbs",
     name: "Leviton",
     title: "Leviton smart",
     italic: "switches and dimmers.",

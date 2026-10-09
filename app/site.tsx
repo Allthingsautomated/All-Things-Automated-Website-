@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { type Credential, credentialLine, footerCredentials, founded, insured, partnerLogo } from "./credentials";
-import { Picture, type SlotName, hasImage, imageUrl } from "./images";
+import { Picture, type SlotName, hasImage, imageUrl, ogImage } from "./images";
 import { locationOrder, locations } from "./locations";
 import { MobileMenu } from "./mobile-menu";
 import {
@@ -25,20 +25,22 @@ export function Arrow() {
 }
 
 // Builds per-page title, description, canonical URL and share-card tags.
-export function pageMeta({ path, title, description, image = "/brand/og-image.jpg", type = "website" }: {
+// `image` is a photo slot; its 1200×630 share image (public/og) is used when built, else the site default.
+export function pageMeta({ path, title, description, image, type = "website" }: {
   path: string;
   title: string;
   description: string;
-  image?: string;
+  image?: SlotName;
   type?: "website" | "article";
 }): Metadata {
-  const images = [{ url: image, width: 1200, height: 630, alt: siteName }];
+  const share = ogImage(image) ?? { url: "/brand/og-image.jpg", alt: siteName };
+  const images = [{ url: share.url, width: 1200, height: 630, alt: share.alt }];
   return {
     title: { absolute: title },
     description,
     alternates: { canonical: path },
     openGraph: { title, description, url: path, siteName, type, locale: "en_US", images },
-    twitter: { card: "summary_large_image", title, description, images: [image] },
+    twitter: { card: "summary_large_image", title, description, images: [share.url] },
   };
 }
 
@@ -267,6 +269,8 @@ export type Service = {
   callout?: { eyebrow: string; heading: string; copy: string; href: string; link: string };
   // Questions ship without answers until Jorge approves them; unanswered ones are not published.
   faqs?: { q: string; a: string }[];
+  // Journal posts and pages worth reading next; rendered as "Related reading".
+  reading?: { href: string; label: string }[];
 };
 
 export function answered(faqs: { q: string; a: string }[] = []) {
@@ -292,7 +296,7 @@ export function FaqSection({ faqs }: { faqs: { q: string; a: string }[] }) {
 }
 
 export function serviceMeta(service: Service) {
-  return pageMeta({ path: service.path, title: service.metaTitle, description: service.metaDescription });
+  return pageMeta({ path: service.path, title: service.metaTitle, description: service.metaDescription, image: service.image });
 }
 
 export function ServicePage({ service }: { service: Service }) {
@@ -351,6 +355,12 @@ export function ServicePage({ service }: { service: Service }) {
         </section>
       )}
       {service.faqs && <FaqSection faqs={service.faqs} />}
+      {service.reading && service.reading.length > 0 && (
+        <section className="moreServices shell">
+          <p className="eyebrow">Related reading</p>
+          <ul>{service.reading.map(link => <li key={link.href}><a href={link.href}>{link.label} <Arrow /></a></li>)}</ul>
+        </section>
+      )}
       <AssessmentBand />
     </PageShell>
   );
@@ -361,8 +371,12 @@ export type Article = {
   category: string;
   title: string;
   dek: string;
+  // Search-result title (≤ 60 chars) and description (140–155 chars); the headline and dek stay editorial.
+  seoTitle?: string;
+  seoDescription?: string;
   date: string;
-  datePublished: string;
+  datePublished: string; // YYYY-MM-DD
+  dateModified?: string; // YYYY-MM-DD, set when the body is rewritten
   image: SlotName;
   sections: { heading: string; paragraphs: string[] }[];
   faqs?: { q: string; a: string }[];
@@ -382,8 +396,8 @@ export function readTime(article: Article) {
 export function articleMeta(article: Article) {
   const base = article.title.replace(/\.$/, "");
   // Search results cut titles around 60 characters, so the brand suffix shortens or drops on long headlines.
-  const title = [`${base} | All Things Automated`, `${base} | ATA`].find(t => t.length <= 60) ?? base;
-  return pageMeta({ path: `/blog/${article.slug}`, title, description: article.dek, type: "article" });
+  const title = article.seoTitle ?? ([`${base} | All Things Automated`, `${base} | ATA`].find(t => t.length <= 60) ?? base);
+  return pageMeta({ path: `/blog/${article.slug}`, title, description: article.seoDescription ?? article.dek, image: article.image, type: "article" });
 }
 
 export function ArticlePage({ article }: { article: Article }) {
@@ -395,6 +409,7 @@ export function ArticlePage({ article }: { article: Article }) {
         headline: article.title,
         description: article.dek,
         datePublished: article.datePublished,
+        dateModified: article.dateModified ?? article.datePublished,
         image: imageUrl(article.image) && `${siteUrl}${imageUrl(article.image)}`,
         url: `${siteUrl}/blog/${article.slug}`,
         author: { "@type": "Organization", name: siteName, url: siteUrl },

@@ -3,10 +3,12 @@ import type { Article } from "./site";
 export const articles: Record<string, Article> = {
   "smart-bulbs-vs-lighting-system": {
     slug: "smart-bulbs-vs-lighting-system",
+    seoTitle: "Smart Bulbs vs. a Lighting Control System | Sarasota",
+    seoDescription: "Why smart bulbs stop at a few lamps while a Lutron lighting-control system runs the whole house: wall control, dimming quality, scenes and shades.",
     category: "Lighting control",
     title: "Smart bulbs are not a smart-lighting system.",
     dek: "Both can turn a light on from a phone. That is where the similarity ends.",
-    date: "July 2026", datePublished: "2026-07",
+    date: "July 2026", datePublished: "2026-07-31", dateModified: "2026-10-07",
     image: "journal-smart-bulbs",
     sections: [
       { heading: "The difference is the system", paragraphs: [
@@ -60,10 +62,12 @@ export const articles: Record<string, Article> = {
   },
   "unifi-vs-ring-cameras": {
     slug: "unifi-vs-ring-cameras",
+    seoTitle: "UniFi Protect vs. Ring Cameras: Which Fits Your Home?",
+    seoDescription: "UniFi Protect or Ring for a Gulf Coast home? Wired vs. battery cameras, local vs. cloud recording, monthly fees, storm-season reliability and privacy.",
     category: "Video security",
     title: "UniFi Protect vs. Ring: which camera system fits your property?",
     dek: "The right answer depends less on the camera and more on what you expect the complete system to do.",
-    date: "July 2026", datePublished: "2026-07",
+    date: "July 2026", datePublished: "2026-07-31", dateModified: "2026-10-07",
     image: "journal-unifi-vs-ring",
     sections: [
       { heading: "Consumer convenience vs. planned coverage", paragraphs: [
@@ -120,10 +124,12 @@ export const articles: Record<string, Article> = {
   },
   "new-construction-smart-home-prewire": {
     slug: "new-construction-smart-home-prewire",
+    seoTitle: "What to Prewire for a Smart Home | New Construction FL",
+    seoDescription: "A prewire checklist for new Sarasota and Lakewood Ranch homes: ceiling access points, camera cable, TV and audio runs, lighting control and shades.",
     category: "Planning & construction",
     title: "What should you prewire for a smart home?",
     dek: "The cheapest time to prepare a home for technology is before the drywall closes.",
-    date: "July 2026", datePublished: "2026-07",
+    date: "July 2026", datePublished: "2026-07-31", dateModified: "2026-10-07",
     image: "journal-prewire",
     sections: [
       { heading: "Start with systems, not cable counts", paragraphs: [
