@@ -12,30 +12,32 @@ export type Credential = {
   id: string;
   label: string; // exact wording for the site
   rail?: string; // short brand name for the partner rail
-  href?: string; // ATA's own page for that system, never the brand's site
+  href?: string; // ATA's own page for that brand (/partners/<id>), never the brand's site
   logo?: string; // badge file stem in public/img/partners/, shown only once Jorge drops in the dealer-portal artwork
 };
 
 export const certifications: Credential[] = [
-  { id: "epson", label: "Epson Certified", rail: "Epson", href: "/services/audio-video", logo: "epson-certified" },
+  { id: "epson", label: "Epson Certified", rail: "Epson", href: "/partners/epson", logo: "epson-certified" },
   { id: "nccer", label: "NCCER-trained (Electrical Levels 1–4)" },
 ];
 
 // Rail order is deliberate: control platforms, audio/video, security/network, electrical.
 export const programs: Credential[] = [
-  { id: "lutron", label: "Lutron RadioRA 3 Dealer", rail: "Lutron", href: "/services/lighting", logo: "lutron-ra3-dealer" },
+  { id: "lutron", label: "Lutron RadioRA 3 Dealer", rail: "Lutron", href: "/partners/lutron", logo: "lutron-ra3-dealer" },
   // Savant tier unconfirmed: plain "Savant" only, never "Authorized Dealer" or "Certified" until Jorge confirms.
-  { id: "savant", label: "Savant", rail: "Savant", href: "/services/automation", logo: "savant" },
-  { id: "sonos", label: "Sonos Pro", rail: "Sonos", href: "/services/audio-video", logo: "sonos-pro" },
-  { id: "nest", label: "Google Nest Pro", rail: "Google Nest", href: "/services/climate", logo: "google-nest-pro" },
-  { id: "eero", label: "eero Pro Installer", rail: "eero", href: "/services/networking", logo: "eero-pro" },
-  { id: "ring", label: "Ring Pro Installer", rail: "Ring", href: "/services/security", logo: "ring-pro" },
-  { id: "lorex", label: "Lorex Pro", rail: "Lorex", href: "/services/security", logo: "lorex-pro" },
-  { id: "leviton", label: "Leviton Pro", rail: "Leviton", href: "/services/lighting", logo: "leviton-pro" },
+  { id: "savant", label: "Savant", rail: "Savant", href: "/partners/savant", logo: "savant" },
+  { id: "sonos", label: "Sonos Pro", rail: "Sonos", href: "/partners/sonos", logo: "sonos-pro" },
+  { id: "nest", label: "Google Nest Pro", rail: "Google Nest", href: "/partners/nest", logo: "google-nest-pro" },
+  { id: "eero", label: "eero Pro Installer", rail: "eero", href: "/partners/eero", logo: "eero-pro" },
+  { id: "ring", label: "Ring Pro Installer", rail: "Ring", href: "/partners/ring", logo: "ring-pro" },
+  { id: "lorex", label: "Lorex Pro", rail: "Lorex", href: "/partners/lorex", logo: "lorex-pro" },
+  { id: "leviton", label: "Leviton Pro", rail: "Leviton", href: "/partners/leviton", logo: "leviton-pro" },
 ];
 
 const all = [...certifications, ...programs];
 const byId = Object.fromEntries(all.map(c => [c.id, c]));
+
+export const credentialLabel = (id: string) => byId[id]?.label ?? "";
 
 // Partner rail: programs in order with Epson after Sonos.
 export const partnerRail: Credential[] = ["lutron", "savant", "sonos", "epson", "nest", "eero", "ring", "lorex", "leviton"].map(id => byId[id]);
