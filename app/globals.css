@@ -195,3 +195,4 @@ picture{display:contents}.wordmark{display:inline-flex}
 @media(max-width:900px){.partners{align-items:flex-start;flex-direction:column}.partners__rail{justify-content:flex-start}.credentials>div{gap:28px;grid-template-columns:1fr}}
 @media(max-width:620px){.partners__rail img{height:22px}.proof span{letter-spacing:.1em}}
 .footerLegal>div{display:flex;flex-direction:column;gap:6px}
+.areaMap{padding-bottom:90px}.areaMap iframe{aspect-ratio:16/9;border:0;display:block;filter:grayscale(.35);max-height:620px;min-height:420px;width:100%}.areaMap p{align-items:center;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:12px 28px;margin:0;padding:18px 0}.areaMap span{color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.14em;margin-right:auto;text-transform:uppercase}.areaMap a{font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}

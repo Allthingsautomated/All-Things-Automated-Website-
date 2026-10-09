@@ -12,7 +12,7 @@ export const securityHeaders = {
     // vinext inlines small bootstrap scripts, so inline scripts must be allowed.
     "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://challenges.cloudflare.com https://plausible.io",
     "style-src 'self' 'unsafe-inline'",
-    "frame-src https://*.as.me https://*.acuityscheduling.com https://challenges.cloudflare.com",
+    "frame-src https://*.as.me https://*.acuityscheduling.com https://challenges.cloudflare.com https://www.google.com",
     "connect-src 'self' https://cloudflareinsights.com https://plausible.io",
     "frame-ancestors 'self'",
     "base-uri 'self'",

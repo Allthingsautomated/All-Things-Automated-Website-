@@ -41,6 +41,7 @@ export default function About() {
         <div><strong>2019</strong><span>Founded in Sarasota</span></div>
         <div><strong>RA3</strong><span>Lutron RadioRA 3 dealer</span></div>
         <div><strong>24/7</strong><span>Lutron help line</span></div>
+        <div><strong>Pro</strong><span>Leviton Pro</span></div>
         {googleReviews.reviewCount >= 5 && googleReviews.url && (
           <a href={googleReviews.url} rel="noopener" target="_blank">
             <strong>★ {googleReviews.rating.toFixed(1)}</strong>
