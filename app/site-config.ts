@@ -40,4 +40,3 @@ export const turnstileSiteKey = "";
 
 // Plausible analytics domain. Empty = no analytics script.
 export const plausibleDomain = "";
-export const serviceAreaFull = "Sarasota, Lakewood Ranch, Bradenton, Venice, Tampa, and Longboat, Siesta & Casey Key";

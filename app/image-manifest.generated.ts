@@ -254,3 +254,4 @@ export const localFiles: ReadonlySet<string> = new Set([
   "svc-solar-hero-960.webp",
   "svc-solar-hero.jpg"
 ]);
+export const partnerFiles: ReadonlySet<string> = new Set([]);

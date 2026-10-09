@@ -40,11 +40,11 @@ export const services: Record<string, Service> = {
   automation: {
     path: "/services/automation",
     metaTitle: "Whole-Home Control & Automation | Sarasota",
-    metaDescription: "One simple way to run lighting, shades, climate, audio and security—built on Lutron RadioRA 3 and planned as one system for Gulf Coast homes.",
+    metaDescription: "One simple way to run lighting, shades, climate, audio and security—built on Lutron RadioRA 3, with Savant, Sonos and Google Nest, planned as one system for Gulf Coast homes.",
     eyebrow: "Whole-home control",
     title: "One home.",
     italic: "One experience.",
-    intro: "Lighting, shades, climate, entertainment, and security brought together—built on Lutron RadioRA 3 and an interface the whole household can understand.",
+    intro: "Lighting, shades, climate, entertainment, and security brought together—built on Lutron RadioRA 3, with Savant, Sonos, UniFi and Google Nest integrated, and an interface the whole household can understand.",
     image: "svc-automation-hero",
     statement: "Automation should remove friction from daily life—not introduce another complicated app.",
     details: [
@@ -83,7 +83,7 @@ export const services: Record<string, Service> = {
   },
   audio: {
     path: "/services/audio-video",
-    metaTitle: "Whole-Home Audio & TV Installation | Sarasota",
+    metaTitle: "Home Theater & Whole-Home Audio | Epson Certified · Sonos Pro | Sarasota",
     metaDescription: "Discreet speakers, outdoor audio and clean TV installs for indoor-outdoor Florida living, planned and installed by one Sarasota team.",
     eyebrow: "Whole-home audio & video",
     title: "Every room.",

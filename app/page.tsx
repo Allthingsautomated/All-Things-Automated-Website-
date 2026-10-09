@@ -1,5 +1,6 @@
 import { Picture, type SlotName } from "./images";
-import { Arrow, AssessmentBand, PageShell, PhoneLink, pageMeta } from "./site";
+import { partnerRail } from "./credentials";
+import { Arrow, AssessmentBand, PageShell, PartnerRail, PhoneLink, pageMeta } from "./site";
 import { bookPath, lutronPhone } from "./site-config";
 
 export const metadata = pageMeta({
@@ -68,15 +69,12 @@ export default function Home() {
         </div>
         <div className="proof">
           <div><strong>2019</strong><span>Founded in Sarasota</span></div>
-          <div><strong>RA3</strong><span>Lutron RadioRA 3 dealer</span></div>
-          <div><strong>24/7</strong><span>Lutron help line</span></div>
+          <div><strong>RA3</strong><span>Lutron RA3 Dealer · lighting control</span></div>
+          <div><strong>Epson</strong><span>Epson Certified home theater</span></div>
         </div>
       </section>
 
-      <section className="rail">
-        <span>Designed &amp; installed by All Things Automated</span>
-        <div><strong>Lutron RadioRA 3</strong><strong>Lutron Caséta</strong><strong>Leviton Pro certified</strong><strong>UniFi</strong><strong>Tesla Energy</strong></div>
-      </section>
+      <PartnerRail id="partners-h" heading="Authorized dealer & pro programs" items={partnerRail} />
 
       <section className="intro shell" id="systems">
         <p className="eyebrow">Connected living, professionally designed</p>

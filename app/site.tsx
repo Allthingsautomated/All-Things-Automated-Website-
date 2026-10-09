@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { type Credential, credentialLine, footerCredentials, founded, insured, partnerLogo } from "./credentials";
 import { Picture, type SlotName, hasImage, imageUrl } from "./images";
 import { MobileMenu } from "./mobile-menu";
 import {
@@ -10,10 +11,11 @@ import {
   mainPhone,
   type PhoneLine,
   serviceArea,
-  serviceAreaFull,
   siteName,
   siteUrl,
 } from "./site-config";
+
+const serviceAreaShort = `${serviceArea.slice(0, -1).join(", ")} & ${serviceArea.at(-1)}`;
 
 export function Arrow() {
   return <span aria-hidden="true">↗</span>;
@@ -109,7 +111,10 @@ export function SiteFooter() {
         {hours && <p className="footNote">{hours}</p>}
       </div>
       <div className="footerLegal">
-        <p>Serving {serviceAreaFull}.{licenseNumber && <> Licensed &amp; insured — FL Lic. #{licenseNumber}.</>}</p>
+        <div>
+          <p>{footerCredentials}</p>
+          <p>{licenseNumber ? <>Licensed &amp; insured — FL Lic. #{licenseNumber}</> : insured && "Fully insured"} · Serving {serviceAreaShort} since {founded}</p>
+        </div>
         <nav aria-label="Legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav>
       </div>
       <small>© {new Date().getFullYear()} All Things Automated · Sarasota, Florida</small>
@@ -154,9 +159,32 @@ export function AssessmentBand({ id }: { id?: string }) {
   );
 }
 
+// Dealer and pro-program rail. A brand shows its official badge once the file is in public/img/partners/,
+// and its name as text until then.
+export function PartnerRail({ heading, items, id }: { heading: string; items: Credential[]; id: string }) {
+  return (
+    <section className="partners shell" aria-labelledby={id}>
+      <h2 id={id} className="eyebrow">{heading}</h2>
+      <ul className="partners__rail">
+        {items.map(item => {
+          const logo = partnerLogo(item);
+          return (
+            <li key={item.id}>
+              {logo
+                ? <a href={item.href} aria-label={item.label}><img src={logo} width={140} height={32} alt={item.label} loading="lazy" decoding="async" /></a>
+                : <a href={item.href} className="partners__text" title={item.label}>{item.rail}</a>}
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
+}
+
 // Interior page hero: full-bleed photo when the slot's files exist, dark text panel otherwise.
-export function PageHero({ slot, eyebrow, title, italic, intro, children }: {
+export function PageHero({ slot, eyebrow, title, italic, intro, cred, children }: {
   slot?: SlotName;
+  cred?: string;
   eyebrow: string;
   title: string;
   italic: string;
@@ -171,6 +199,7 @@ export function PageHero({ slot, eyebrow, title, italic, intro, children }: {
       <div className="pageHeroCopy">
         <p className="eyebrow light">{eyebrow}</p>
         <h1>{title}<br /><em>{italic}</em></h1>
+        {cred && <p className="cred">{cred}</p>}
         <p>{intro}</p>
         {children && <div className="heroActions">{children}</div>}
       </div>
@@ -237,7 +266,7 @@ export function ServicePage({ service }: { service: Service }) {
         provider: { "@id": `${siteUrl}/#business` },
         areaServed: serviceArea.map(name => ({ "@type": "City", name })),
       }} />
-      <PageHero slot={service.image} eyebrow={service.eyebrow} title={service.title} italic={service.italic} intro={service.intro}>
+      <PageHero slot={service.image} eyebrow={service.eyebrow} title={service.title} italic={service.italic} intro={service.intro} cred={credentialLine(service.path)}>
         <a className="button" href={bookPath}>Discuss your project <Arrow /></a>
         <PhoneLink className="lightLink under" phone={phone} prefix="Call " />
       </PageHero>

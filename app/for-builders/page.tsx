@@ -1,3 +1,4 @@
+import { credentialLine } from "../credentials";
 import { Arrow, PageHero, PageShell, PhoneLink, pageMeta } from "../site";
 import { LeadForm } from "../lead-form";
 import { email, lutronPhone, turnstileSiteKey } from "../site-config";
@@ -19,7 +20,7 @@ export default function ForBuilders() {
   const subject = encodeURIComponent("Lutron RA3 quote request");
   return (
     <PageShell>
-      <PageHero slot="builders-hero" eyebrow="For builders, remodelers & designers" title="Free Lutron RadioRA 3" italic="quotes for the trade." intro="Send the plans. We return a lighting-control design and quote your client can review before the walls close.">
+      <PageHero slot="builders-hero" eyebrow="For builders, remodelers & designers" title="Free Lutron RadioRA 3" italic="quotes for the trade." intro="Send the plans. We return a lighting-control design and quote your client can review before the walls close." cred={credentialLine("/for-builders")}>
         <a className="button" href="#trade-form">Request a quote <Arrow /></a>
         <PhoneLink className="lightLink under" phone={lutronPhone} prefix="Call " />
       </PageHero>
