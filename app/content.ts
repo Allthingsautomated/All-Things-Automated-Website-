@@ -19,6 +19,7 @@ export const services: Record<string, Service> = {
     italic: "how the home feels.",
     intro: "Refined dimming, architectural keypads, scenes, schedules, and shades—designed as one dependable whole-home system by a Lutron RadioRA 3 dealer.",
     image: "svc-lighting-hero",
+    secondImage: "home-card-lutron-keypad",
     statement: "The best lighting control is felt in every room and barely noticed on the wall.",
     details: [
       { title: "Whole-home scenes", copy: "One touch can prepare the home for morning, entertaining, movie night, or bedtime without adjusting individual lights." },
@@ -46,6 +47,7 @@ export const services: Record<string, Service> = {
     italic: "One experience.",
     intro: "Lighting, shades, climate, entertainment, and security brought together—built on Lutron RadioRA 3, with Savant, Sonos, UniFi and Google Nest integrated, and an interface the whole household can understand.",
     image: "svc-automation-hero",
+    secondImage: "home-card-whole-home",
     statement: "Automation should remove friction from daily life—not introduce another complicated app.",
     details: [
       { title: "Unified control", copy: "Manage the systems that matter from keypads, an app, or voice—with the wall controls still working the way people expect." },
@@ -54,7 +56,6 @@ export const services: Record<string, Service> = {
       { title: "Professional support", copy: "The system is designed, programmed, documented, and supported by one accountable team." },
     ],
     ideal: ["Whole-home renovations", "New construction", "Multiple entertainment spaces", "Owners tired of disconnected apps"],
-    phone: lutronPhone,
   },
   security: {
     path: "/services/security",
@@ -65,6 +66,7 @@ export const services: Record<string, Service> = {
     italic: "what it sees.",
     intro: "Intentional camera coverage, intelligent detection, local recording, and secure remote access without monthly camera licensing fees.",
     image: "svc-security-hero",
+    secondImage: "journal-unifi-vs-ring",
     statement: "A camera system should help you find the moment that matters—not leave you searching through hours of footage.",
     details: [
       { title: "Planned coverage", copy: "Camera locations and lens choices are selected around entrances, approaches, blind spots, and identification goals." },
@@ -115,6 +117,7 @@ export const services: Record<string, Service> = {
     italic: "every other system.",
     intro: "Purpose-built wired and wireless infrastructure for reliable coverage, high device counts, remote work, streaming, cameras, and automation.",
     image: "svc-networking-hero",
+    secondImage: "process-03-install",
     statement: "Smart-home performance begins with a network designed for the property—not a router hidden in one corner.",
     details: [
       { title: "Coverage planning", copy: "Access points are positioned around construction materials, floor plans, outdoor areas, and actual device demand." },
@@ -215,6 +218,7 @@ export const services: Record<string, Service> = {
     metaDescription: "Home EV charger installation in Sarasota and Bradenton: hardwired wall chargers or a 240V plug-in outlet, sized to your electrical panel.",
     eyebrow: "EV charger installation",
     image: "svc-ev-hero",
+    secondImage: "electrical-hero",
     title: "Charge at home,",
     italic: "the right way.",
     intro: "A hardwired wall charger or a 240V plug-in outlet—installed to fit your vehicle, your garage, and your electrical panel.",

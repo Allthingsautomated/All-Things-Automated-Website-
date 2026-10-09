@@ -1,3 +1,4 @@
+import { Picture } from "./images";
 import { type Location, locations } from "./locations";
 import { Arrow, AssessmentBand, JsonLd, PageShell, PhoneLink, pageMeta } from "./site";
 import { mainPhone, siteName, siteUrl } from "./site-config";
@@ -33,6 +34,9 @@ export function LocationPage({ slug }: { slug: string }) {
         <p className="eyebrow">{location.county}</p>
         <h1>Smart homes in<br /><em>{location.city}.</em></h1>
         <p>{location.intro}</p>
+      </section>
+      <section className="inlineImage shell">
+        <Picture slot={location.image} sizes="(max-width: 900px) 100vw, 1200px" />
       </section>
       <article className="legal shell locationBody">
         {location.sections.map(section => (
