@@ -36,7 +36,7 @@ export const licenseNumber = ""; // e.g. "EC13000000" → "Licensed & insured �
 //   url         the profile on Google Maps ("Share" → copy link)
 //   reviewLink  the "Ask for reviews" link from the Business Profile (e.g. https://g.page/r/.../review)
 //   rating, reviewCount  copy from the profile; shown only once reviewCount >= 5
-export const googleReviews = { rating: 5.0, reviewCount: 0, url: "", reviewLink: "" };
+export const googleReviews = { rating: 5.0, reviewCount: 0, url: "https://share.google/m8n6ZNxCkk32aWhhE", reviewLink: "https://g.page/r/CU_FGi9Z-0z7EAI/review" };
 
 // Real Google reviews, copied word for word with the reviewer's name as shown on Google. Never edit or invent one.
 export const googleReviewQuotes: { name: string; text: string }[] = [];
