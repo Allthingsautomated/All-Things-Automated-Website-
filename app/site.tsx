@@ -6,6 +6,8 @@ import { MobileMenu } from "./mobile-menu";
 import {
   bookPath,
   email,
+  googleReviewQuotes,
+  googleReviews,
   hours,
   instagramUrl,
   licenseNumber,
@@ -169,6 +171,32 @@ export function AssessmentBand({ id }: { id?: string }) {
           <PhoneLink className="phone" phone={mainPhone} prefix="Or call " />
         </aside>
       </div>
+    </section>
+  );
+}
+
+// Google reviews: links to read and leave reviews on the Business Profile, plus real quotes once added.
+// Hidden until a profile link is set in site-config.ts.
+export function GoogleReviews() {
+  const { url, reviewLink, rating, reviewCount } = googleReviews;
+  if (!url && !reviewLink) return null;
+  return (
+    <section className="reviews shell" aria-labelledby="reviews-h">
+      <p className="eyebrow">Reviews on Google</p>
+      <div className="reviews__head">
+        <h2 id="reviews-h">{reviewCount >= 5 ? <>★ {rating.toFixed(1)} from {reviewCount} Google reviews</> : <>Worked with us? <em>Tell others how it went.</em></>}</h2>
+        <div className="reviews__links">
+          {url && <a className="under" href={url} rel="noopener" target="_blank">Read our Google reviews <Arrow /></a>}
+          {reviewLink && <a className="button" href={reviewLink} rel="noopener" target="_blank">Leave a Google review <Arrow /></a>}
+        </div>
+      </div>
+      {googleReviewQuotes.length > 0 && (
+        <ul className="reviews__quotes">
+          {googleReviewQuotes.slice(0, 3).map(quote => (
+            <li key={quote.name}><blockquote>“{quote.text}”</blockquote><span>{quote.name} · Google review</span></li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }

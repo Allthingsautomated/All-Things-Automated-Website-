@@ -1,6 +1,6 @@
 import { Picture, type SlotName } from "./images";
 import { partnerRail } from "./credentials";
-import { Arrow, AssessmentBand, PageShell, PartnerRail, pageMeta } from "./site";
+import { Arrow, AssessmentBand, GoogleReviews, PageShell, PartnerRail, pageMeta } from "./site";
 import { bookPath } from "./site-config";
 
 export const metadata = pageMeta({
@@ -105,6 +105,8 @@ export default function Home() {
           {moreServices.map(item => <li key={item.href}><a href={item.href}>{item.label} <Arrow /></a></li>)}
         </ul>
       </section>
+
+      <GoogleReviews />
 
       <section className="statement" id="approach">
         <p className="eyebrow light">The All Things Automated approach</p>

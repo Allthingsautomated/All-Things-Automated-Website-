@@ -1,6 +1,6 @@
 import { Picture } from "../images";
 import { partnerRail } from "../credentials";
-import { AssessmentBand, PageShell, PartnerRail, pageMeta } from "../site";
+import { AssessmentBand, GoogleReviews, PageShell, PartnerRail, pageMeta } from "../site";
 import { localFiles } from "../image-manifest.generated";
 import { googleReviews } from "../site-config";
 
@@ -49,6 +49,7 @@ export default function About() {
           </a>
         )}
       </section>
+      <GoogleReviews />
       <section className="credentials shell">
         <p className="eyebrow">Partners &amp; credentials</p>
         <div>
