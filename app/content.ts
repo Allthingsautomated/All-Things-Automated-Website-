@@ -30,12 +30,16 @@ export const services: Record<string, Service> = {
     ideal: ["New construction and major remodels", "Homes with too many switches", "Clients who value design and simplicity", "Projects needing shades, scenes, or remote access"],
     phone: lutronPhone,
     callout: helpLineCallout,
-    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
+    reading: [
+      { href: "/blog/smart-bulbs-vs-lighting-system", label: "Smart bulbs vs. a lighting system" },
+      { href: "/for-builders", label: "Free RadioRA 3 quotes for the trade" },
+    ],
+    // FAQ answers drafted 2026-10-09 for Jorge's review; an answer set to "" is unpublished.
     faqs: [
-      { q: "Do I need to rewire for RadioRA 3?", a: "" },
-      { q: "Can it control my existing fans and shades?", a: "" },
-      { q: "What's the difference from Caséta?", a: "" },
-      { q: "Can I add rooms later?", a: "" },
+      { q: "Do I need to rewire for RadioRA 3?", a: "In most existing homes, no. RadioRA 3 dimmers, switches and keypads replace the standard devices in your existing boxes and talk to each other over Lutron's own wireless. New wiring comes up only for things like a keypad where no switch exists today, or consolidating a bank of switches into one location." },
+      { q: "Can it control my existing fans and shades?", a: "Usually. Standard ceiling fans can be run from a Lutron fan-speed control that joins the system; fans with their own built-in wireless remote are a case-by-case check. Lutron shades join directly, and we review motorized shades from other brands for compatibility during the assessment." },
+      { q: "What's the difference from Caséta?", a: "Caséta is Lutron's smaller system: wireless dimmers and switches, a few scenes and an app, well suited to a handful of rooms or a smaller home, and it works without a neutral wire at many switch locations. RadioRA 3 is designed for the whole house: engraved keypads, far more devices and scenes, shades, and professional programming. Both are reliable Lutron products; the house and the goals decide." },
+      { q: "Can I add rooms later?", a: "Yes. RadioRA 3 is built to grow. We add devices and reprogram scenes without replacing what is already installed, and if a larger expansion is likely we plan the processor and keypad layout for it from the start." },
     ],
   },
   automation: {
@@ -56,6 +60,10 @@ export const services: Record<string, Service> = {
       { title: "Professional support", copy: "The system is designed, programmed, documented, and supported by one accountable team." },
     ],
     ideal: ["Whole-home renovations", "New construction", "Multiple entertainment spaces", "Owners tired of disconnected apps"],
+    reading: [
+      { href: "/blog/smart-bulbs-vs-lighting-system", label: "Smart bulbs vs. a lighting system" },
+      { href: "/partners/savant", label: "Savant whole-home control" },
+    ],
   },
   security: {
     path: "/services/security",
@@ -75,12 +83,16 @@ export const services: Record<string, Service> = {
       { title: "One ecosystem", copy: "Cameras, door access, networking, and related infrastructure can share one professionally managed platform." },
     ],
     ideal: ["Homes needing real perimeter coverage", "Small businesses and offices", "Multi-site properties", "Clients replacing consumer cameras"],
-    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
+    reading: [
+      { href: "/blog/unifi-vs-ring-cameras", label: "UniFi Protect vs. Ring cameras" },
+      { href: "/services/networking", label: "The network behind the cameras" },
+    ],
+    // FAQ answers drafted 2026-10-09 for Jorge's review; an answer set to "" is unpublished.
     faqs: [
-      { q: "Do UniFi cameras have monthly fees?", a: "" },
-      { q: "How long is footage kept?", a: "" },
-      { q: "Can I see cameras from my phone?", a: "" },
-      { q: "Can you replace my Ring cameras?", a: "" },
+      { q: "Do UniFi cameras have monthly fees?", a: "No per-camera subscription. UniFi Protect records to a console in your home and the app is included. The console and its storage drive are part of the installation." },
+      { q: "How long is footage kept?", a: "It depends on the number of cameras, resolution, recording mode and drive size. We size storage during design; many homes keep several weeks of footage, and more drive capacity extends it." },
+      { q: "Can I see cameras from my phone?", a: "Yes. The UniFi Protect app shows live and recorded video and sends alerts from anywhere with an internet connection." },
+      { q: "Can you replace my Ring cameras?", a: "Yes, and the existing camera spots are a useful starting point because they show where you wanted coverage. We review each one and adjust height, angle or position where a better view of entries and approaches is possible, then replace them with wired cameras that record locally." },
     ],
   },
   audio: {
@@ -100,12 +112,16 @@ export const services: Record<string, Service> = {
       { title: "Simple operation", copy: "A polished system should be easy for family and guests to use without a stack of remotes." },
     ],
     ideal: ["Indoor-outdoor Florida living", "Media rooms and gathering spaces", "Clean wall-mounted television installations", "Clients who value music throughout the home"],
-    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
+    reading: [
+      { href: "/partners/epson", label: "Epson home theater" },
+      { href: "/partners/sonos", label: "Sonos audio, room by room" },
+    ],
+    // FAQ answers drafted 2026-10-09 for Jorge's review; an answer set to "" is unpublished.
     faqs: [
-      { q: "Can speakers be weatherproof on the lanai?", a: "" },
-      { q: "Can each room play something different?", a: "" },
-      { q: "Do you hide the equipment?", a: "" },
-      { q: "Will my guests be able to use it?", a: "" },
+      { q: "Can speakers be weatherproof on the lanai?", a: "Yes. Outdoor-rated speakers and outdoor televisions are built for Florida humidity, heat and rain. We place them under cover where possible and keep the amplifiers and sources inside with the rest of the equipment." },
+      { q: "Can each room play something different?", a: "Yes. Each room or zone can play its own source, or rooms can be grouped so the same music follows you from the kitchen to the pool." },
+      { q: "Do you hide the equipment?", a: "Yes. Amplifiers, streamers and video sources live in an equipment closet or cabinet, with in-ceiling or in-wall speakers and a clean wall-mounted television in the room itself." },
+      { q: "Will my guests be able to use it?", a: "That is the goal. We set up simple control—a keypad, one remote, or an app with the basics up front—and walk the household through it at handoff so anyone can start the music or the movie." },
     ],
   },
   networking: {
@@ -126,12 +142,16 @@ export const services: Record<string, Service> = {
       { title: "Secure segmentation", copy: "Separate trusted, guest, camera, and automation traffic when the project requires stronger control." },
     ],
     ideal: ["Large or multi-story homes", "New construction prewire", "Properties with outdoor coverage needs", "Homes with cameras and many connected devices"],
-    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
+    reading: [
+      { href: "/blog/new-construction-smart-home-prewire", label: "What to prewire for a smart home" },
+      { href: "/services/security", label: "UniFi Protect camera systems" },
+    ],
+    // FAQ answers drafted 2026-10-09 for Jorge's review; an answer set to "" is unpublished.
     faqs: [
-      { q: "Why is my Wi-Fi bad in the lanai?", a: "" },
-      { q: "Do I need wired access points?", a: "" },
-      { q: "Can you separate guest and camera networks?", a: "" },
-      { q: "Do you work with my ISP's modem?", a: "" },
+      { q: "Why is my Wi-Fi bad in the lanai?", a: "Block walls, tile, metal roofs and impact glass all weaken Wi-Fi, and most routers sit in one corner of the house. A ceiling-mounted access point near the lanai, wired back to the network, usually fixes it." },
+      { q: "Do I need wired access points?", a: "For the best result, yes. Access points with their own network cable outperform mesh units that relay wireless signals between each other, especially in Florida construction. Where a cable cannot reach, a mesh unit with a strong link to the rest of the network is the fallback." },
+      { q: "Can you separate guest and camera networks?", a: "Yes. We set up separate networks for family devices, guests, cameras and automation equipment, so camera traffic does not slow the house and guests cannot reach your equipment." },
+      { q: "Do you work with my ISP's modem?", a: "Yes. The provider's modem or fiber terminal stays; our gateway sits behind it and handles routing, Wi-Fi and security. If the provider's unit also acts as a router, we set it to pass through so there is one network in the house instead of two fighting each other." },
     ],
   },
   climate: {
@@ -151,12 +171,16 @@ export const services: Record<string, Service> = {
       { title: "Remote visibility", copy: "Check and adjust supported systems from anywhere while retaining professional serviceability." },
     ],
     ideal: ["Seasonal Florida residences", "Homes with multiple HVAC zones", "Clients focused on comfort and convenience", "Projects already integrating lighting and shades"],
-    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
+    reading: [
+      { href: "/blog/smart-bulbs-vs-lighting-system", label: "Shades and the Florida sun" },
+      { href: "/partners/nest", label: "Google Nest, set up the right way" },
+    ],
+    // FAQ answers drafted 2026-10-09 for Jorge's review; an answer set to "" is unpublished.
     faqs: [
-      { q: "Which thermostats do you integrate?", a: "" },
-      { q: "Can shades and AC work together?", a: "" },
-      { q: "Does it help with humidity when we're away?", a: "" },
-      { q: "Can I control it remotely?", a: "" },
+      { q: "Which thermostats do you integrate?", a: "Google Nest thermostats (we are a Google Nest Pro) and other models that integrate with your lighting and control system. We confirm compatibility with your HVAC equipment during the assessment, since multi-stage and zoned systems narrow the choices." },
+      { q: "Can shades and AC work together?", a: "Yes. Motorized shades can lower on a schedule or when the afternoon sun hits west-facing glass, which cuts the heat the air conditioner has to remove, and scenes like Away can set the shades and the thermostat together." },
+      { q: "Does it help with humidity when we're away?", a: "Yes. A connected thermostat holds an away setpoint, shows you the temperature and humidity from your phone, and with compatible equipment can run the system to keep humidity in check in an empty house. For seasonal homes we also recommend a remote sensor and an alert so you know before a problem starts." },
+      { q: "Can I control it remotely?", a: "Yes. Thermostats, shades and scenes are available from the app anywhere with an internet connection." },
     ],
   },
   landscape: {
@@ -177,12 +201,16 @@ export const services: Record<string, Service> = {
       { title: "Integrated control", copy: "Outdoor lighting can follow sunset schedules and join whole-home scenes instead of running on separate timers." },
     ],
     ideal: ["New landscapes and renovations", "Homes with pools, lanais, or docks", "Properties with architectural facades", "Owners replacing failing low-voltage systems"],
-    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
+    reading: [
+      { href: "/services/lighting", label: "Lutron RadioRA 3 lighting control" },
+      { href: "/blog/unifi-vs-ring-cameras", label: "Why cameras and landscape lighting go together" },
+    ],
+    // FAQ answers drafted 2026-10-09 for Jorge's review; an answer set to "" is unpublished.
     faqs: [
-      { q: "Will it work with my existing transformer?", a: "" },
-      { q: "How long do LED fixtures last in salt air?", a: "" },
-      { q: "Can it follow sunset automatically?", a: "" },
-      { q: "Do you light pools and docks?", a: "" },
+      { q: "Will it work with my existing transformer?", a: "Often. We test the existing transformer and wiring first. If it is sized correctly and in good condition we reuse it; if it is undersized, corroded or running on a mechanical timer, we replace it with a modern transformer the lighting system can control." },
+      { q: "How long do LED fixtures last in salt air?", a: "Solid brass or copper fixtures with sealed LED lamps are made for coastal use and hold up for many years; thin aluminum or plastic fixtures are what fail first near the water. On the islands and near the bay we specify marine-grade fixtures, connectors and hardware." },
+      { q: "Can it follow sunset automatically?", a: "Yes. The system uses your location's sunrise and sunset times, so the lights come on at dusk all year without a timer to adjust, and they can join whole-home scenes like Entertain or Goodnight." },
+      { q: "Do you light pools and docks?", a: "Yes. Pool and spa lighting, lanai lighting and dock lighting are part of the plan, with fixtures and wiring methods chosen for wet locations and salt water." },
     ],
   },
   solar: {
@@ -204,12 +232,16 @@ export const services: Record<string, Service> = {
     ideal: ["Homes planning a roof replacement", "Owners who want backup power for storm season", "Households with an EV or planning one", "Properties with good sun exposure"],
     idealHeading: "Planned around the roof, the panel, and the way you use power.",
     phone: teslaPhone,
-    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
+    reading: [
+      { href: "/services/ev-chargers", label: "EV charger installation" },
+      { href: "/venice", label: "Powerwall for seasonal homes in Venice" },
+    ],
+    // FAQ answers drafted 2026-10-09 for Jorge's review; an answer set to "" is unpublished.
     faqs: [
-      { q: "Does Powerwall run the whole house in an outage?", a: "" },
-      { q: "Solar Roof or panels?", a: "" },
-      { q: "What about hurricane season?", a: "" },
-      { q: "Do you handle permits and FPL interconnection?", a: "" },
+      { q: "Does Powerwall run the whole house in an outage?", a: "It depends on how many Powerwalls are installed and what is running. One Powerwall typically keeps essential circuits going—refrigerator, lights, internet, cameras, some outlets—through an outage; running air conditioning through a long outage takes more storage. We size the system around what you want to keep running." },
+      { q: "Solar Roof or panels?", a: "Solar Roof makes sense when the roof is due for replacement anyway, because it is the roof and the array in one. If the roof is in good condition, panels are the more practical choice. We look at the roof's age, orientation and shading before recommending either." },
+      { q: "What about hurricane season?", a: "The system is engineered and permitted to Florida's wind-load requirements. During an outage, Powerwall keeps your essential circuits running and the solar recharges it in daylight, which is the main reason Gulf Coast owners add storage." },
+      { q: "Do you handle permits and FPL interconnection?", a: "Yes. Permits, inspections and the utility interconnection application are handled as part of the project, and the system is switched on once the utility grants permission to operate." },
     ],
   },
   ev: {
@@ -231,12 +263,16 @@ export const services: Record<string, Service> = {
     ],
     ideal: ["New EV owners", "Two-EV households", "Garages that need a dedicated circuit", "Homes adding solar or Powerwall"],
     idealHeading: "Sized to your car, your garage, and your panel.",
-    // Answers pending Jorge's approval; a question is published only once its answer is filled in.
+    reading: [
+      { href: "/services/solar-tesla", label: "Tesla solar, Powerwall & Solar Roof" },
+      { href: "/blog/new-construction-smart-home-prewire", label: "Prewire a 240V circuit while the walls are open" },
+    ],
+    // FAQ answers drafted 2026-10-09 for Jorge's review; an answer set to "" is unpublished.
     faqs: [
-      { q: "Hardwired charger or 240V outlet?", a: "" },
-      { q: "Will my panel handle it?", a: "" },
-      { q: "How long does an install take?", a: "" },
-      { q: "Do you install Tesla Wall Connectors?", a: "" },
+      { q: "Hardwired charger or 240V outlet?", a: "A hardwired wall charger gives the fastest charging, the cleanest installation and no plug to wear out, and it is required for the highest-power chargers. A 240V outlet is the simpler option if you want to use the mobile charger that came with the car or may move. Either way, the circuit is sized to your panel." },
+      { q: "Will my panel handle it?", a: "We check before recommending anything. Many panels have room for a dedicated charging circuit; if yours is full or the service is small, the options include a load-management charger that shares capacity, a sub-panel, or a service upgrade." },
+      { q: "How long does an install take?", a: "Most installations are finished in a day once the charger location and panel plan are set. A panel or service upgrade adds time, and we tell you that up front." },
+      { q: "Do you install Tesla Wall Connectors?", a: "Yes. The Tesla Wall Connector is the charger we install most, and the Universal version works with other EVs as well. We also install other brands if you already own one." },
     ],
   },
 };

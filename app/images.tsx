@@ -1,5 +1,5 @@
 import { preload } from "react-dom";
-import { localImages } from "./image-manifest.generated";
+import { localImages, ogImages } from "./image-manifest.generated";
 
 // Every photo slot on the site. Files live in public/img as <stem>-640/960/1440/2200.avif|webp
 // plus <stem>.jpg. Replacing a file with a real job photo under the same stem needs no code change.
@@ -27,6 +27,7 @@ export const slots = {
   "electrical-hero": { ...wide, alt: "Open residential electrical panel with neatly dressed breakers and wiring on a garage wall" },
   "svc-ev-hero": { ...wide, alt: "Wall-mounted home EV charger with a tidy conduit run and an electric SUV plugged in" },
   "svc-solar-hero": { ...wide, alt: "Barrel-tile roof with an all-black solar array and a wall-mounted battery at golden hour" },
+  "partner-epson-hero": { ...wide, alt: "Home theater with an Epson projector throwing a bright image onto a wide screen, dimmed sconces and tiered seating" },
   "help-line-hero": { ...wide, alt: "White Lutron keypad beside a side table with a phone showing a lighting app" },
   "builders-hero": { ...wide, alt: "Lighting plans, tape measure and keypad samples on a worktable with labeled low-voltage prewire behind" },
   "process-01-assess": { ...step, alt: "Technician with a tablet assessing a living room and lanai" },
@@ -51,6 +52,11 @@ export function hasImage(slot: SlotName) {
 /** Site-relative path of a slot's JPG, for structured data. */
 export function imageUrl(slot: SlotName) {
   return localImages.has(slot) ? `/img/${slot}.jpg` : undefined;
+}
+
+/** 1200×630 share image for a slot (public/og, built by scripts/og-images.mjs), or undefined to use the site default. */
+export function ogImage(slot?: SlotName) {
+  return slot && ogImages.has(slot) ? { url: `/og/${slot}.jpg`, alt: slots[slot].alt } : undefined;
 }
 
 // loading: "lcp" = the one high-priority preloaded image (home hero); "eager" = above the fold; "lazy" = everything else.

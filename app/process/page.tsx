@@ -5,6 +5,7 @@ export const metadata = pageMeta({
   path: "/process",
   title: "How We Work: Assess, Design, Install, Support | ATA",
   description: "Our five-step process, from the on-site assessment through design, installation, teaching the household and long-term support.",
+  image: "process-01-assess",
 });
 
 const stepImages: Record<string, SlotName> = {

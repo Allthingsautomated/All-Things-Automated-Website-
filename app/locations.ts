@@ -7,7 +7,7 @@ export type Location = {
   metaTitle: string;
   metaDescription: string;
   intro: string;
-  image: SlotName;
+  image?: SlotName; // inline photo below the intro; omitted = text only
   sections: { heading: string; paragraphs: string[] }[];
   links: { href: string; label: string }[];
 };
@@ -161,6 +161,7 @@ export const locations: Record<string, Location> = {
   },
   tampa: {
     slug: "tampa",
+    image: "help-line-hero",
     city: "Tampa",
     county: "Hillsborough County",
     metaTitle: "Lutron RadioRA 3 Lighting Control in Tampa, FL | ATA",

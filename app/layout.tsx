@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Smart Home Automation & Lutron Lighting | Sarasota, FL",
   description:
-    "Lutron RadioRA 3 lighting, UniFi security, networking and whole-home control designed and installed by one team in Sarasota, Bradenton, Venice and Lakewood Ranch.",
+    "Lutron RadioRA 3 lighting, UniFi cameras, networking and whole-home control, designed and installed by one Sarasota team serving the Gulf Coast.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },

@@ -7,6 +7,7 @@ export const metadata = pageMeta({
   path: "/for-builders",
   title: "For Builders & Designers: Free Lutron RA3 Quotes | ATA",
   description: "Free Lutron RadioRA 3 lighting-control design and quotes for builders, remodelers, interior designers, architects and showrooms on the Gulf Coast.",
+  image: "builders-hero",
 });
 
 const audiences = [

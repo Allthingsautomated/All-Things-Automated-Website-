@@ -6,6 +6,7 @@ export const metadata = pageMeta({
   path: "/lutron-help-line",
   title: "Lutron Help Line, 24/7 | Sarasota & Gulf Coast",
   description: `Phone help for any Lutron RadioRA or Caséta system, around the clock, no matter who installed it. Call ${lutronPhone.display}.`,
+  image: "help-line-hero",
 });
 
 const faqs = [

@@ -8,6 +8,7 @@ export function brandMeta(brand: BrandPage) {
     path: `/partners/${brand.id}`,
     title: [brand.name, credentialLabel(brand.id), "All Things Automated"].filter((part, i, parts) => parts.indexOf(part) === i).join(" | "),
     description: brand.metaDescription,
+    image: brand.image,
   });
 }
 
@@ -26,7 +27,7 @@ export function BrandPageView({ brand }: { brand: BrandPage }) {
         provider: { "@id": `${siteUrl}/#business` },
       }} />
       <JsonLd data={breadcrumbData([["Systems", "/services"], [brand.name, `/partners/${brand.id}`]])} />
-      <PageHero eyebrow={credentialLabel(brand.id)} title={brand.title} italic={brand.italic} intro={brand.intro}>
+      <PageHero slot={brand.image} eyebrow={credentialLabel(brand.id)} title={brand.title} italic={brand.italic} intro={brand.intro}>
         <a className="button" href={bookPath}>Discuss your project <Arrow /></a>
         <PhoneLink className="lightLink under" phone={mainPhone} prefix="Call " />
       </PageHero>

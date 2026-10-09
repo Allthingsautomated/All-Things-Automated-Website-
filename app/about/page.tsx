@@ -10,6 +10,7 @@ export const metadata = pageMeta({
   path: "/about",
   title: "About All Things Automated | Sarasota Since 2019",
   description: "Owner-led smart home and lighting control company serving Sarasota, Bradenton, Venice, Lakewood Ranch and Tampa since 2019.",
+  image: "home-hero-daylight",
 });
 
 // Owner portrait (4:5) appears once public/img/about-owner.jpg is added.
