@@ -24,6 +24,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#f2efe7",
+  viewportFit: "cover",
 };
 
 const business = {

@@ -138,12 +138,23 @@ export function SiteFooter() {
   );
 }
 
+// Phones only: call and book stay one tap away at the bottom of every page.
+function CallBar() {
+  return (
+    <nav className="callBar" aria-label="Call or book">
+      <a href={`tel:${mainPhone.tel}`}>Call <span>{mainPhone.display}</span></a>
+      <a className="callBarBook" href={bookPath}>Book assessment <Arrow /></a>
+    </nav>
+  );
+}
+
 export function PageShell({ children, overlayHeader = false }: { children: React.ReactNode; overlayHeader?: boolean }) {
   return (
     <>
       <SiteHeader overlay={overlayHeader} />
       <main id="main">{children}</main>
       <SiteFooter />
+      <CallBar />
     </>
   );
 }
